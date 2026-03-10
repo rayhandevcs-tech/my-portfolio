@@ -1,0 +1,7 @@
+.contact-home {
+  background: var(--bg-soft);
+}
+
+.contact-home__text {
+  margin-bottom: 8px;
+}

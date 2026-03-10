@@ -1,0 +1,7 @@
+.blog-hero {
+  background: var(--bg-soft);
+}
+
+.blog-hero__text {
+  max-width: 760px;
+}

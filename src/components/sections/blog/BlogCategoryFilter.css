@@ -1,0 +1,27 @@
+.blog-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 28px 0 36px;
+}
+
+.blog-filter__btn {
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: white;
+  color: var(--text);
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.blog-filter__btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.blog-filter__btn.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}

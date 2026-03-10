@@ -1,0 +1,18 @@
+.achievement-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  height: 100%;
+}
+
+.achievement-card__body {
+  padding: 24px;
+}
+
+.achievement-card__year {
+  color: var(--primary);
+  font-weight: 700;
+  margin-bottom: 10px;
+  letter-spacing: 0.05em;
+}

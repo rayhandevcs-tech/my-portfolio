@@ -1,0 +1,25 @@
+.book-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  height: 100%;
+}
+
+.book-card__body {
+  padding: 24px;
+}
+
+.book-card__category {
+  color: var(--primary);
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 14px;
+}
+
+.book-card__author {
+  color: var(--text);
+  margin-bottom: 14px;
+}
