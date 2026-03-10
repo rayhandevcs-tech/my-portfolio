@@ -2,9 +2,13 @@ import { Link } from "react-router-dom";
 import "./BlogCard.css";
 
 function BlogCard({ post }) {
+
   return (
+
     <article className="blog-card">
+
       <div className="blog-card__body">
+
         <div className="blog-card__meta">
           <span>{post.category}</span>
           <span>{post.date}</span>
@@ -18,7 +22,9 @@ function BlogCard({ post }) {
           Read More
         </Link>
       </div>
+      
     </article>
+
   );
 }
 

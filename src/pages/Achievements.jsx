@@ -2,9 +2,13 @@ import AchievementCard from "../components/sections/achievements/AchievementCard
 import { achievements } from "../data/achievements";
 
 function Achievements() {
+
   return (
+
     <main className="section">
+
       <div className="container">
+
         <p className="eyebrow">Milestones</p>
         <h1>Achievements</h1>
         <p className="page-intro">
@@ -20,8 +24,11 @@ function Achievements() {
             />
           ))}
         </div>
+        
       </div>
+
     </main>
+
   );
 }
 

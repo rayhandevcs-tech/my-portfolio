@@ -6,6 +6,7 @@ import { blogCategories } from "../data/blogCategories";
 import { blogPosts } from "../data/blogPosts";
 
 function Blog() {
+
   const [activeCategory, setActiveCategory] = useState("All");
 
   const filteredPosts = useMemo(() => {
@@ -20,7 +21,9 @@ function Blog() {
       <BlogHero />
 
       <main className="section">
+
         <div className="container">
+
           <BlogCategoryFilter
             categories={blogCategories}
             activeCategory={activeCategory}
@@ -39,10 +42,13 @@ function Blog() {
               <BlogCard key={post.id} post={post} />
             ))}
           </div>
+          
         </div>
+
       </main>
     </>
   );
+
 }
 
 export default Blog;

@@ -24,9 +24,13 @@ function BlogDetails() {
   }
 
   return (
+
     <main className="section">
+      
       <div className="container blog-details">
+
         <p className="eyebrow">{post.category}</p>
+        
         <h1>{post.title}</h1>
 
         <div className="blog-details__meta">
@@ -43,7 +47,9 @@ function BlogDetails() {
             Back to Blog
           </Link>
         </div>
+
       </div>
+
     </main>
   );
 }

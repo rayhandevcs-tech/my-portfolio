@@ -1,32 +1,3 @@
-// export const blogPosts = [
-//   {
-//     id: "react-learning-journey",
-//     title: "My React Learning Journey",
-//     category: "Tech",
-//     excerpt: "How I started learning React and what helped me improve.",
-//     date: "2026-03-09",
-//     readTime: "5 min read",
-//     featured: true,
-//   },
-//   {
-//     id: "building-discipline",
-//     title: "Building Discipline as a Student",
-//     category: "Self Development",
-//     excerpt: "Small habits that helped me stay consistent with study and learning.",
-//     date: "2026-03-08",
-//     readTime: "4 min read",
-//     featured: false,
-//   },
-//   {
-//     id: "academic-writing-notes",
-//     title: "Notes on Better Academic Writing",
-//     category: "Academic",
-//     excerpt: "A few practical lessons on writing clearly for academic work.",
-//     date: "2026-03-07",
-//     readTime: "6 min read",
-//     featured: false,
-//   },
-// ];
 
 export const blogPosts = [
   {

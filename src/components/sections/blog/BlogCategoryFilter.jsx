@@ -6,8 +6,11 @@ function BlogCategoryFilter({
   onCategoryChange,
 }) {
   return (
+
     <div className="blog-filter">
+      
       {categories.map((category) => (
+
         <button
           key={category}
           type="button"
@@ -19,7 +22,9 @@ function BlogCategoryFilter({
           {category}
         </button>
       ))}
+      
     </div>
+
   );
 }
 
