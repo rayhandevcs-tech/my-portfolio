@@ -1,9 +1,30 @@
 export const siteConfig = {
-  name: "Md Rayhan",
+  name: "Rayhan",
   brand: "RayhanDev",
   title: "Frontend Developer",
-  email: "rayhan.cs.dev@gmail.com",
-  github: "https://github.com/rayhandevcs-tech/my-portfolio",
-  linkedin: "https://www.linkedin.com/in/rayhan-cs-dev/",
-  location: "Bangladesh",
+
+  hero: {
+    eyebrow: "Frontend Developer",
+    description:
+      "I build clean, responsive and user-friendly web applications. This website is my personal space for projects, writing, book reviews, achievements and future research work.",
+  },
+
+  email: "rayhan@example.com",
+  github: "https://github.com/yourusername",
+  linkedin: "https://linkedin.com/in/yourusername",
+
+  navLinks: [
+    { label: "Home", path: "/" },
+    { label: "Blog", path: "/blog" },
+    { label: "Books", path: "/book-reviews" },
+    { label: "Achievements", path: "/achievements" },
+    { label: "Travel", path: "/travel" },
+    { label: "Research", path: "/research" },
+    { label: "Contact", path: "/contact" },
+  ],
+
+  footer: {
+  description:
+    "A personal website for projects, writing, book reviews, achievements and future research-oriented work.",
+},
 };

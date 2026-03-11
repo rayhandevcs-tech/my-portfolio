@@ -1,6 +1,6 @@
+import { blogPosts } from "./blogPosts";
+
 export const blogCategories = [
   "All",
-  "Tech",
-  "Self Development",
-  "Academic",
+  ...new Set(blogPosts.map((post) => post.category)),
 ];

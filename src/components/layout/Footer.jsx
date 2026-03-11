@@ -3,35 +3,41 @@ import { siteConfig } from "../../data/site";
 import "./Footer.css";
 
 function Footer() {
+  const quickLinks = siteConfig.navLinks.filter((link) =>
+    ["/", "/blog", "/book-reviews", "/achievements", "/contact"].includes(link.path)
+  );
+
+  const exploreLinks = siteConfig.navLinks.filter((link) =>
+    ["/travel", "/research"].includes(link.path)
+  );
+
   return (
     <footer className="footer">
       <div className="container footer__grid">
         <div className="footer__brand">
-          <h3 className="footer__logo">
-            {siteConfig.brand || siteConfig.name}
-          </h3>
-          <p>
-            A personal website for projects, writing, book reviews, achievements
-            and future research-oriented work.
-          </p>
+          <h3 className="footer__logo">{siteConfig.brand || siteConfig.name}</h3>
+          <p>{siteConfig.footer?.description}</p>
         </div>
 
         <div className="footer__column">
           <h4>Quick Links</h4>
           <div className="footer__links">
-            <Link to="/">Home</Link>
-            <Link to="/blog">Blog</Link>
-            <Link to="/book-reviews">Book Reviews</Link>
-            <Link to="/achievements">Achievements</Link>
-            <Link to="/contact">Contact</Link>
+            {quickLinks.map((link) => (
+              <Link key={link.path} to={link.path}>
+                {link.label}
+              </Link>
+            ))}
           </div>
         </div>
 
         <div className="footer__column">
           <h4>Explore</h4>
           <div className="footer__links">
-            <Link to="/travel">Travel</Link>
-            <Link to="/research">Research</Link>
+            {exploreLinks.map((link) => (
+              <Link key={link.path} to={link.path}>
+                {link.label}
+              </Link>
+            ))}
           </div>
         </div>
 
@@ -50,7 +56,9 @@ function Footer() {
       </div>
 
       <div className="container footer__bottom">
-        <p>© {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</p>
+        <p>
+          © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
+        </p>
       </div>
     </footer>
   );

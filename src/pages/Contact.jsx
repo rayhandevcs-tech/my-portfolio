@@ -1,68 +1,71 @@
 import { siteConfig } from "../data/site";
+import "./Contact.css";
 
 function Contact() {
   return (
-    <main className="section">
+    <main className="section contact-page">
       <div className="container">
-        <p className="eyebrow">Contact</p>
-        <h1>Get In Touch</h1>
-        <p className="page-intro">
-          Whether you want to discuss a project, collaborate on an idea, or just
-          connect, I’d be happy to hear from you. You can reach me through the
-          platforms below.
-        </p>
+        <div className="contact-page__intro">
+          <p className="eyebrow">Contact</p>
+          <h1>Let’s Connect</h1>
+          <p className="page-intro">
+            I’m open to collaboration, learning opportunities, and meaningful
+            conversations around frontend development, projects, and growth.
+          </p>
+        </div>
 
-        <div className="card-grid">
-          <article className="card">
+        <div className="contact-home__grid">
+          <article className="card contact-card">
+            <div className="contact-card__icon">✉</div>
             <h3>Email</h3>
             <p>
-              Feel free to send me a message for collaboration, project ideas or
-              general communication.
+              The best way to reach me for collaboration, feedback, or
+              meaningful conversation.
             </p>
-            <a href={`mailto:${siteConfig.email}`} className="contact-link">
+            <a href={`mailto:${siteConfig.email}`} className="contact-card__link">
               {siteConfig.email}
             </a>
           </article>
 
-          <article className="card">
+          <article className="card contact-card">
+            <div className="contact-card__icon">⌘</div>
             <h3>GitHub</h3>
             <p>
-              Explore my repositories, code experiments and project work on
-              GitHub.
+              Explore my code, practice projects, and the structure behind what
+              I am building.
             </p>
             <a
               href={siteConfig.github}
               target="_blank"
               rel="noreferrer"
-              className="contact-link"
+              className="contact-card__link"
             >
-              Visit GitHub Profile
+              Visit GitHub
             </a>
           </article>
 
-          <article className="card">
+          <article className="card contact-card">
+            <div className="contact-card__icon">in</div>
             <h3>LinkedIn</h3>
             <p>
-              Connect with me professionally and stay updated with my journey
-              and work.
+              Connect with me professionally and follow my learning and project
+              journey.
             </p>
             <a
               href={siteConfig.linkedin}
               target="_blank"
               rel="noreferrer"
-              className="contact-link"
+              className="contact-card__link"
             >
-              Visit LinkedIn Profile
+              Connect on LinkedIn
             </a>
           </article>
         </div>
 
-        <div className="contact-note-box">
-          <h2>Let’s Build Something Meaningful</h2>
-          <p className="page-intro">
-            I am interested in web development, writing, research-oriented work
-            and thoughtful digital projects. If your idea aligns with any of
-            these areas, feel free to reach out.
+        <div className="contact-home__note">
+          <p>
+            I’m especially interested in frontend development, scalable UI
+            systems, and projects that help me grow through building.
           </p>
         </div>
       </div>

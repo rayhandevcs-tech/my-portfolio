@@ -1,25 +1,114 @@
 .book-card {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  height: 100%;
+  overflow: hidden;
+  padding: 0;
+}
+
+.book-card__image img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  display: block;
+  border-bottom: 1px solid var(--border);
 }
 
 .book-card__body {
   padding: 24px;
 }
 
-.book-card__category {
-  color: var(--primary);
-  font-weight: 700;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-size: 14px;
+.book-card__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.book-card__heading h3 {
+  margin-bottom: 6px;
 }
 
 .book-card__author {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.book-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.book-card__category,
+.book-card__rating {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.book-card__category {
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
   color: var(--text);
+}
+
+.book-card__rating {
+  background: rgba(109, 40, 217, 0.08);
+  color: var(--primary);
+  border: 1px solid rgba(109, 40, 217, 0.18);
+}
+
+.book-card__summary {
   margin-bottom: 14px;
+  line-height: 1.85;
+  color: var(--text);
+}
+
+.book-card__toggle {
+  margin-bottom: 20px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--primary);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.book-card__toggle:hover {
+  text-decoration: underline;
+}
+
+.book-card__takeaway {
+  padding-left: 14px;
+  border-left: 3px solid var(--primary);
+}
+
+.book-card__takeaway strong {
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+.book-card__takeaway p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.75;
+}
+
+.book-reviews-grid {
+  display: grid;
+  gap: 28px;
+}
+
+@media (max-width: 640px) {
+  .book-card__top {
+    flex-direction: column;
+  }
+
+  .book-card__image img {
+    height: 220px;
+  }
 }

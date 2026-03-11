@@ -11,11 +11,15 @@ import Achievements from "./pages/Achievements";
 import Travel from "./pages/Travel";
 import Research from "./pages/Research";
 import Contact from "./pages/Contact";
+import ProjectDetails from "./pages/ProjectDetails";
 import NotFound from "./pages/NotFound";
+import ScrollToTop from "./components/common/ScrollToTop";
 
 function App() {
   return (
     <BrowserRouter>
+    <ScrollToTop />
+
       <Navbar />
 
       <Routes>
@@ -27,6 +31,7 @@ function App() {
         <Route path="/travel" element={<Travel />} />
         <Route path="/research" element={<Research />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/projects/:slug" element={<ProjectDetails />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
 

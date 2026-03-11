@@ -1,16 +1,9 @@
 import "./BlogCategoryFilter.css";
 
-function BlogCategoryFilter({
-  categories,
-  activeCategory,
-  onCategoryChange,
-}) {
+function BlogCategoryFilter({ categories, activeCategory, onCategoryChange }) {
   return (
-
-    <div className="blog-filter">
-      
+    <div className="blog-filter" role="tablist" aria-label="Blog categories">
       {categories.map((category) => (
-
         <button
           key={category}
           type="button"
@@ -22,9 +15,7 @@ function BlogCategoryFilter({
           {category}
         </button>
       ))}
-      
     </div>
-
   );
 }
 

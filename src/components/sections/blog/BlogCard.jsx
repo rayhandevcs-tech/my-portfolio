@@ -1,30 +1,42 @@
 import { Link } from "react-router-dom";
 import "./BlogCard.css";
+import Tag from "../../common/Tag";
 
 function BlogCard({ post }) {
-
   return (
-
-    <article className="blog-card">
-
-      <div className="blog-card__body">
-
-        <div className="blog-card__meta">
-          <span>{post.category}</span>
-          <span>{post.date}</span>
-          <span>{post.readTime}</span>
+    <article className="card blog-card">
+      {post.image && (
+        <div className="blog-card__image">
+          <img src={post.image} alt={post.title} />
         </div>
+      )}
 
-        <h3>{post.title}</h3>
-        <p>{post.excerpt}</p>
-
-        <Link to={`/blog/${post.slug}`} className="blog-card__link">
-          Read More
-        </Link>
+      <div className="blog-card__meta">
+        <span>{post.category}</span>
+        <span>•</span>
+        <span>{post.date}</span>
+        <span>•</span>
+        <span>{post.readTime}</span>
       </div>
-      
-    </article>
 
+      <h3 className="blog-card__title">
+        <Link to={`/blog/${post.slug}`}>{post.title}</Link>
+      </h3>
+
+      <p className="blog-card__excerpt">{post.excerpt}</p>
+
+      {post.tags?.length > 0 && (
+        <div className="tags-wrap">
+          {post.tags.map((tag) => (
+            <Tag key={tag}>{tag}</Tag>
+          ))}
+        </div>
+      )}
+
+      <Link to={`/blog/${post.slug}`} className="blog-card__link">
+        Read More →
+      </Link>
+    </article>
   );
 }
 

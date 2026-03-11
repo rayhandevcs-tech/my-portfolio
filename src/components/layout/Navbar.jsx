@@ -1,5 +1,9 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+
+import { siteConfig } from "../../data/site";
+import ThemeToggle from "../common/ThemeToggle";
+
 import "./Navbar.css";
 
 function Navbar() {
@@ -12,48 +16,35 @@ function Navbar() {
     <header className="navbar">
       <div className="container navbar__inner">
         <Link to="/" className="logo" onClick={closeMenu}>
-          Rayhan<span>Dev</span>
+          {siteConfig.brand}
         </Link>
 
-        <button
-          className={`nav-toggle ${menuOpen ? "active" : ""}`}
-          onClick={toggleMenu}
-          aria-label="Toggle navigation menu"
-          type="button"
+        <div className="navbar__actions">
+          <ThemeToggle />
+
+          <button
+            className={`nav-toggle ${menuOpen ? "active" : ""}`}
+            onClick={toggleMenu}
+            aria-label="Toggle navigation menu"
+            aria-expanded={menuOpen}
+            aria-controls="primary-navigation"
+            type="button"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+
+        <nav
+          id="primary-navigation"
+          className={`nav ${menuOpen ? "nav--open" : ""}`}
         >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-
-        <nav className={`nav ${menuOpen ? "nav--open" : ""}`}>
-          <NavLink to="/" onClick={closeMenu}>
-            Home
-          </NavLink>
-
-          <NavLink to="/blog" onClick={closeMenu}>
-            Blog
-          </NavLink>
-
-          <NavLink to="/book-reviews" onClick={closeMenu}>
-            Books
-          </NavLink>
-
-          <NavLink to="/achievements" onClick={closeMenu}>
-            Achievements
-          </NavLink>
-
-          <NavLink to="/travel" onClick={closeMenu}>
-            Travel
-          </NavLink>
-
-          <NavLink to="/research" onClick={closeMenu}>
-            Research
-          </NavLink>
-
-          <NavLink to="/contact" onClick={closeMenu}>
-            Contact
-          </NavLink>
+          {siteConfig.navLinks.map((link) => (
+            <NavLink key={link.path} to={link.path} onClick={closeMenu}>
+              {link.label}
+            </NavLink>
+          ))}
         </nav>
       </div>
     </header>

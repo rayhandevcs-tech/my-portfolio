@@ -1,20 +1,33 @@
 import { Link } from "react-router-dom";
+import PageHero from "../components/common/PageHero";
 
 function NotFound() {
   return (
-    <main className="section">
-      <div className="container">
-        <p className="eyebrow">404</p>
-        <h1>Page Not Found</h1>
-        <p className="page-intro">
-          Sorry, the page you are looking for does not exist.
-        </p>
+    <>
+      <PageHero
+        eyebrow="404"
+        title="Page Not Found"
+        intro="The page you are looking for does not exist or may have been moved."
+      />
 
-        <Link to="/" className="btn">
-          Back Home
-        </Link>
-      </div>
-    </main>
+      <main className="section">
+        <div className="container">
+          <div className="empty-state card">
+            <h3>Let’s get you back on track</h3>
+            <p>You can return to the homepage or continue exploring other sections of the site.</p>
+
+            <div className="notfound-actions">
+              <Link to="/" className="btn">
+                Go Home
+              </Link>
+              <Link to="/blog" className="btn btn--secondary">
+                Visit Blog
+              </Link>
+            </div>
+          </div>
+        </div>
+      </main>
+    </>
   );
 }
 
