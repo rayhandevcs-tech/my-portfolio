@@ -1,8 +1,17 @@
 export async function submitContactMessage(payload) {
-  console.log("Contact payload:", payload);
+  const response = await fetch("http://localhost:5000/api/contact", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
 
-  return {
-    success: true,
-    message: "Message submitted successfully",
-  };
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Failed to submit message");
+  }
+
+  return data;
 }

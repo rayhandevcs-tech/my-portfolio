@@ -1,24 +1,9 @@
-function ContactInfoCard({
-  icon,
-  title,
-  description,
-  href,
-  label,
-  external = false,
-}) {
+function ContactInfoCard({ title, value, href }) {
   return (
-    <article className="card contact-card">
-      <div className="contact-card__icon">{icon}</div>
+    <article className="contact-info-card">
       <h3>{title}</h3>
-      <p>{description}</p>
-
-      <a
-        href={href}
-        className="contact-card__link"
-        target={external ? "_blank" : undefined}
-        rel={external ? "noreferrer" : undefined}
-      >
-        {label}
+      <a href={href} target="_blank" rel="noreferrer">
+        {value}
       </a>
     </article>
   );
