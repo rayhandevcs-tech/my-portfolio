@@ -1,0 +1,48 @@
+.admin-messages__table-wrap {
+  overflow-x: auto;
+}
+
+.admin-messages__table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-surface, #fff);
+  border: 1px solid var(--color-border, #e5e7eb);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.admin-messages__table th,
+.admin-messages__table td {
+  padding: 1rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--color-border, #e5e7eb);
+}
+
+.admin-messages__table th {
+  font-weight: 700;
+}
+
+.admin-messages__table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.admin-delete-btn {
+  border: none;
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+}
+
+.admin-delete-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.admin-messages__error {
+  color: red;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}

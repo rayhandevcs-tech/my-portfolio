@@ -8,4 +8,8 @@ export const ROUTES = {
   RESEARCH: "/research",
   CONTACT: "/contact",
   PROJECT_DETAILS: "/projects/:slug",
+  ADMIN_MESSAGES: "/admin/messages",
+  ADMIN_POSTS: "/admin/posts",
+  ADMIN_POSTS_NEW: "/admin/posts/new",
+  ADMIN_POSTS_EDIT: "/admin/posts/edit/:id",
 };

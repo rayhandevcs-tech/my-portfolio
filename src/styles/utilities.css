@@ -21,3 +21,12 @@
 .preserve-lines {
   white-space: pre-line;
 }
+
+.admin-post-page {
+  padding: 3rem 0;
+}
+
+.admin-post-container {
+  width: min(1000px, 94%);
+  margin: 0 auto;
+}

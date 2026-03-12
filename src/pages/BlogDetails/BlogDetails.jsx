@@ -1,89 +1,41 @@
-import { Link, useParams } from "react-router-dom";
-
-import ReadingProgress from "../../components/common/ReadingProgress/ReadingProgress";
-import EmptyState from "../../components/common/EmptyState/EmptyState";
-import BlogCard from "../../components/sections/blog/BlogCard/BlogCard";
-import Tag from "../../components/common/Tag/Tag";
-
+import { useParams } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
 import { useBlogPost } from "../../hooks/useBlogPost";
-import { useBlogPosts } from "../../hooks/useBlogPosts";
-import { getRelatedPosts } from "../../utils/getRelatedPosts";
+import PageHero from "../../components/common/PageHero/PageHero";
+import "./BlogDetails.css";
 
 function BlogDetails() {
   const { slug } = useParams();
-  const { post, notFound } = useBlogPost(slug);
-  const { posts } = useBlogPosts();
+  const { post, loading, error, notFound } = useBlogPost(slug);
 
-  if (notFound) {
-    return (
-      <main className="section">
-        <div className="container">
-          <EmptyState
-            title="Post not found"
-            text="The blog post you are looking for does not exist."
-          />
-        </div>
-      </main>
-    );
+  if (loading) {
+    return <main className="section"><p>Loading post...</p></main>;
   }
 
-  const relatedPosts = getRelatedPosts(posts, post, 2);
+  if (error) {
+    return <main className="section"><p>{error}</p></main>;
+  }
+
+  if (notFound || !post) {
+    return <main className="section"><p>Post not found.</p></main>;
+  }
 
   return (
-    <>
-      <ReadingProgress />
+    <main className="blog-details-page">
+      <PageHero title={post.title} subtitle={post.excerpt} />
 
-      <main className="section">
-        <div className="container">
-          <article className="blog-details">
-            <Link to="/blog" className="blog-details__back">
-              ← Back to Blog
-            </Link>
-
-            <p className="eyebrow">{post.category}</p>
-            <h1>{post.title}</h1>
-
-            <div className="blog-details__meta">
-              <span>{post.date}</span>
-              <span>•</span>
-              <span>{post.readTime}</span>
-            </div>
-
-            {post.image && (
-              <div className="blog-details__cover">
-                <img src={post.image} alt={post.title} />
-              </div>
-            )}
-
-            {post.tags?.length > 0 && (
-              <div className="tags-wrap blog-details__tags">
-                {post.tags.map((tag) => (
-                  <Tag key={tag}>{tag}</Tag>
-                ))}
-              </div>
-            )}
-
-            <div className="blog-details__content preserve-lines">
-              <p>{post.content}</p>
-            </div>
-          </article>
-
-          {relatedPosts.length > 0 && (
-            <section className="blog-related section">
-              <div className="section-header">
-                <h2 className="section-title">Related Posts</h2>
-              </div>
-
-              <div className="blog-grid">
-                {relatedPosts.map((item) => (
-                  <BlogCard key={item.id} post={item} />
-                ))}
-              </div>
-            </section>
-          )}
+      <section className="blog-details-content section">
+        <div className="blog-details-meta">
+          <p><strong>Category:</strong> {post.category}</p>
+          <p><strong>Published:</strong> {post.publishedAt}</p>
+          <p><strong>Reading Time:</strong> {post.readingTime}</p>
         </div>
-      </main>
-    </>
+
+        <article className="markdown-content">
+          <ReactMarkdown>{post.content}</ReactMarkdown>
+        </article>
+      </section>
+    </main>
   );
 }
 

@@ -1,0 +1,42 @@
+.blog-details-content {
+  width: min(900px, 92%);
+  margin: 0 auto;
+}
+
+.blog-details-meta {
+  display: grid;
+  gap: 0.35rem;
+  margin-bottom: 2rem;
+}
+
+.markdown-content {
+  line-height: 1.8;
+}
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3 {
+  margin: 1.5rem 0 0.75rem;
+}
+
+.markdown-content p {
+  margin: 0 0 1rem;
+}
+
+.markdown-content ul,
+.markdown-content ol {
+  margin: 0 0 1rem 1.5rem;
+}
+
+.markdown-content code {
+  padding: 0.15rem 0.35rem;
+  border-radius: 0.3rem;
+  background: #f4f4f4;
+}
+
+.markdown-content pre {
+  padding: 1rem;
+  overflow-x: auto;
+  border-radius: 0.75rem;
+  background: #f4f4f4;
+}

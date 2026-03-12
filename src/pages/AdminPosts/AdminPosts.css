@@ -1,0 +1,78 @@
+.admin-posts-page {
+  padding: 3rem 0;
+}
+
+.admin-posts-container {
+  width: min(1200px, 94%);
+  margin: 0 auto;
+}
+
+.admin-posts-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.admin-create-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 1.2rem;
+  border-radius: 0.75rem;
+  text-decoration: none;
+  font-weight: 600;
+  border: 1px solid #ddd;
+}
+
+.admin-posts-table-wrapper {
+  overflow-x: auto;
+  border: 1px solid #ddd;
+  border-radius: 1rem;
+  background: #fff;
+}
+
+.admin-posts-table {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: collapse;
+}
+
+.admin-posts-table th,
+.admin-posts-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  vertical-align: top;
+}
+
+.admin-posts-table th {
+  background: #f7f7f7;
+}
+
+.admin-actions-cell {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.admin-action-btn {
+  padding: 0.55rem 0.85rem;
+  border: 1px solid #ddd;
+  border-radius: 0.6rem;
+  background: transparent;
+  text-decoration: none;
+  cursor: pointer;
+  font: inherit;
+}
+
+.admin-action-btn.danger {
+  color: #c62828;
+  border-color: #e0b4b4;
+}
+
+.admin-posts-error {
+  color: #c62828;
+  font-weight: 600;
+}

@@ -1,12 +1,31 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getAllPosts } from "../services/api/blogApi";
 import { BLOG_DEFAULT_CATEGORY } from "../constants/blog";
 
 export function useBlogPosts() {
+  const [posts, setPosts] = useState([]);
   const [activeCategory, setActiveCategory] = useState(BLOG_DEFAULT_CATEGORY);
   const [searchTerm, setSearchTerm] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  const posts = getAllPosts();
+  useEffect(() => {
+    async function fetchPosts() {
+      try {
+        setLoading(true);
+        setError("");
+
+        const data = await getAllPosts();
+        setPosts(data || []);
+      } catch (err) {
+        setError(err.message || "Failed to fetch posts");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchPosts();
+  }, []);
 
   const featuredPost = useMemo(
     () => posts.find((post) => post.featured),
@@ -41,5 +60,7 @@ export function useBlogPosts() {
     setActiveCategory,
     searchTerm,
     setSearchTerm,
+    loading,
+    error,
   };
 }

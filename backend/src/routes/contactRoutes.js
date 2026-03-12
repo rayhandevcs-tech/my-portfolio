@@ -1,8 +1,14 @@
 import express from "express";
-import { submitContactMessage } from "../controllers/contactController.js";
+import {
+  submitContact,
+  getAllMessages,
+  deleteMessage,
+} from "../controllers/contactController.js";
 
 const router = express.Router();
 
-router.post("/", submitContactMessage);
+router.post("/", submitContact);
+router.get("/", getAllMessages);
+router.delete("/:id", deleteMessage);
 
 export default router;

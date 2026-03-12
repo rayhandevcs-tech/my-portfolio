@@ -18,6 +18,8 @@ function Blog() {
     setActiveCategory,
     searchTerm,
     setSearchTerm,
+    loading,
+    error,
   } = useBlogPosts();
 
   const categories = useMemo(() => {
@@ -29,16 +31,17 @@ function Blog() {
     featuredPost && activeCategory === "All" && !searchTerm.trim();
 
   const visiblePosts = showFeatured
-    ? filteredPosts.filter((post) => post.id !== featuredPost.id)
+    ? filteredPosts.filter((post) => post._id !== featuredPost._id)
     : filteredPosts;
 
   return (
     <>
       <PageHero
         eyebrow="Blog"
-        title="Thoughts, Tutorials & Notes"
-        intro="A collection of ideas, lessons, and write-ups from my learning journey."
+        title="Blog"
+        intro="Thoughts, tutorials, notes, and reflections from my learning journey."
       />
+      
 
       <main className="section">
         <div className="container">
@@ -55,15 +58,23 @@ function Blog() {
             />
           </div>
 
-          {showFeatured && <FeaturedPost post={featuredPost} />}
+          {loading && <p>Loading posts...</p>}
 
-          {visiblePosts.length > 0 ? (
+          {error && <p style={{ color: "red" }}>{error}</p>}
+
+          {!loading && !error && showFeatured && (
+            <FeaturedPost post={featuredPost} />
+          )}
+
+          {!loading && !error && visiblePosts.length > 0 ? (
             <div className="blog-grid">
               {visiblePosts.map((post) => (
-                <BlogCard key={post.id} post={post} />
+                <BlogCard key={post._id || post.slug} post={post} />
               ))}
             </div>
-          ) : (
+          ) : null}
+
+          {!loading && !error && visiblePosts.length === 0 && (
             <EmptyState
               title="No posts found"
               text="Try another category or search term."

@@ -1,0 +1,56 @@
+.post-form {
+  display: grid;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  border: 1px solid #ddd;
+  border-radius: 1rem;
+  background: #fff;
+}
+
+.post-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.post-form-group {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.post-form-group input,
+.post-form-group textarea {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 0.75rem;
+  font: inherit;
+}
+
+.post-form-group textarea {
+  resize: vertical;
+}
+
+.post-form-checkbox {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  font-weight: 600;
+}
+
+.post-form-submit {
+  width: fit-content;
+  padding: 0.85rem 1.2rem;
+  border: 1px solid #ddd;
+  border-radius: 0.75rem;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .post-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
