@@ -1,3 +1,5 @@
+import { getToken } from "../../utils/auth";
+
 const API_URL = "http://localhost:5000/api/posts";
 
 export async function getAllPosts() {
@@ -38,6 +40,7 @@ export async function createPost(payload) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${getToken()}`,
     },
     body: JSON.stringify(payload),
   });
@@ -56,6 +59,7 @@ export async function updatePost(id, payload) {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${getToken()}`,
     },
     body: JSON.stringify(payload),
   });
@@ -72,6 +76,9 @@ export async function updatePost(id, payload) {
 export async function deletePost(id) {
   const response = await fetch(`${API_URL}/${id}`, {
     method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
   });
 
   const data = await response.json();
@@ -86,6 +93,9 @@ export async function deletePost(id) {
 export async function toggleFeaturedPost(id) {
   const response = await fetch(`${API_URL}/${id}/featured`, {
     method: "PATCH",
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
   });
 
   const data = await response.json();

@@ -7,19 +7,17 @@ const contactMessageSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-
     email: {
       type: String,
       required: true,
       trim: true,
+      lowercase: true,
     },
-
     subject: {
       type: String,
       required: true,
       trim: true,
     },
-
     message: {
       type: String,
       required: true,
@@ -31,9 +29,7 @@ const contactMessageSchema = new mongoose.Schema(
   }
 );
 
-const ContactMessage = mongoose.model(
+export const ContactMessage = mongoose.model(
   "ContactMessage",
   contactMessageSchema
 );
-
-export default ContactMessage;
