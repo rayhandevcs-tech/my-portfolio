@@ -1,0 +1,23 @@
+.container {
+  width: min(1100px, calc(100% - 2rem));
+  margin: 0 auto;
+}
+
+.section {
+  padding: 4rem 0;
+}
+
+.card-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.tags-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.preserve-lines {
+  white-space: pre-line;
+}

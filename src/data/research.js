@@ -1,7 +1,7 @@
 import researchImg1 from "../assets/images/placeholder-image.png";
 import researchImg2 from "../assets/images/placeholder-image-1.png";
 
-export const researchEntries = [
+export const research = [
   {
     id: 1,
     title: "How Reusable Components Improve Frontend Scalability",

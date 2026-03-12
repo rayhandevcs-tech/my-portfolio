@@ -1,7 +1,7 @@
 import travelImg1 from "../assets/images/placeholder-image.png";
 import travelImg2 from "../assets/images/placeholder-image-1.png";
 
-export const travelEntries = [
+export const travel = [
   {
     id: 1,
     title: "A Quiet Day by the River",

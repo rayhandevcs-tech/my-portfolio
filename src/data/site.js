@@ -24,7 +24,7 @@ export const siteConfig = {
   ],
 
   footer: {
-  description:
-    "A personal website for projects, writing, book reviews, achievements and future research-oriented work.",
-},
+    description:
+      "A personal website for projects, writing, book reviews, achievements and future research-oriented work.",
+  },
 };
