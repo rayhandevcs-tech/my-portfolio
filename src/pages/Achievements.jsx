@@ -12,13 +12,19 @@ function Achievements() {
       />
 
       <main className="section">
+
         <div className="container">
+
           <div className="card-grid">
+            
             {achievements.map((achievement) => (
               <AchievementCard key={achievement.id} achievement={achievement} />
             ))}
+
           </div>
+
         </div>
+
       </main>
     </>
   );

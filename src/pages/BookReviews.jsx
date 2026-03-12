@@ -3,7 +3,7 @@ import BookReviewCard from "../components/sections/books/BookReviewCard";
 import { bookReviews } from "../data/bookReviews";
 
 function BookReviews() {
-  console.log("bookReviews data:", bookReviews);
+  //console.log("bookReviews data:", bookReviews);
 
   return (
     <>
@@ -14,7 +14,9 @@ function BookReviews() {
       />
 
       <main className="section">
+
         <div className="container">
+
           <p style={{ marginBottom: "20px", fontWeight: "600" }}>
             Total Books: {bookReviews.length}
           </p>
@@ -24,7 +26,9 @@ function BookReviews() {
               <BookReviewCard key={book.id} book={book} />
             ))}
           </div>
+
         </div>
+
       </main>
     </>
   );
