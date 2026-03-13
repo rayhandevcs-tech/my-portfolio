@@ -9,9 +9,7 @@ function AdminMessages() {
   const [actionError, setActionError] = useState("");
 
   async function handleDelete(id) {
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this message?"
-    );
+    const confirmed = window.confirm("Delete this message?");
 
     if (!confirmed) return;
 
@@ -20,7 +18,7 @@ function AdminMessages() {
       setDeletingId(id);
       await removeMessage(id);
     } catch (err) {
-      setActionError(err.message || "Failed to delete message");
+      setActionError(err.message || "Delete failed");
     } finally {
       setDeletingId("");
     }
@@ -29,9 +27,8 @@ function AdminMessages() {
   return (
     <>
       <PageHero
-        eyebrow="Admin"
         title="Admin Messages"
-        intro="All contact form submissions are shown here."
+        subtitle="All contact form submissions are shown here."
       />
 
       <main className="section">
@@ -52,6 +49,7 @@ function AdminMessages() {
                   <tr>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Phone</th>
                     <th>Subject</th>
                     <th>Message</th>
                     <th>Date</th>
@@ -60,25 +58,22 @@ function AdminMessages() {
                 </thead>
 
                 <tbody>
-                  {messages.map((message) => (
-                    <tr key={message._id}>
-                      <td>{message.name}</td>
-                      <td>{message.email}</td>
-                      <td>{message.subject}</td>
-                      <td>{message.message}</td>
-                      <td>
-                        {new Date(message.createdAt).toLocaleString()}
-                      </td>
+                  {messages.map((msg) => (
+                    <tr key={msg._id}>
+                      <td>{msg.name}</td>
+                      <td>{msg.email}</td>
+                      <td>{msg.phone || "-"}</td>
+                      <td>{msg.subject}</td>
+                      <td>{msg.message}</td>
+                      <td>{new Date(msg.createdAt).toLocaleString()}</td>
                       <td>
                         <button
                           type="button"
                           className="admin-delete-btn"
-                          onClick={() => handleDelete(message._id)}
-                          disabled={deletingId === message._id}
+                          onClick={() => handleDelete(msg._id)}
+                          disabled={deletingId === msg._id}
                         >
-                          {deletingId === message._id
-                            ? "Deleting..."
-                            : "Delete"}
+                          {deletingId === msg._id ? "Deleting..." : "Delete"}
                         </button>
                       </td>
                     </tr>

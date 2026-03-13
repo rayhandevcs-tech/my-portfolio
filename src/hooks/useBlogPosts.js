@@ -1,22 +1,23 @@
 import { useEffect, useMemo, useState } from "react";
 import { getAllPosts } from "../services/api/blogApi";
-import { BLOG_DEFAULT_CATEGORY } from "../constants/blog";
+
+const POSTS_PER_PAGE = 6;
 
 export function useBlogPosts() {
   const [posts, setPosts] = useState([]);
-  const [activeCategory, setActiveCategory] = useState(BLOG_DEFAULT_CATEGORY);
-  const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [activeCategory, setActiveCategory] = useState("All");
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    async function fetchPosts() {
+    async function loadPosts() {
       try {
         setLoading(true);
         setError("");
-
         const data = await getAllPosts();
-        setPosts(data || []);
+        setPosts(data);
       } catch (err) {
         setError(err.message || "Failed to fetch posts");
       } finally {
@@ -24,43 +25,79 @@ export function useBlogPosts() {
       }
     }
 
-    fetchPosts();
+    loadPosts();
   }, []);
 
-  const featuredPost = useMemo(
-    () => posts.find((post) => post.featured),
-    [posts]
-  );
+  const categories = useMemo(() => {
+    const uniqueCategories = [
+      ...new Set(posts.map((post) => post.category).filter(Boolean)),
+    ];
+    return ["All", ...uniqueCategories];
+  }, [posts]);
 
   const filteredPosts = useMemo(() => {
-    let result =
-      activeCategory === "All"
-        ? posts
-        : posts.filter((post) => post.category === activeCategory);
+    return posts.filter((post) => {
+      const matchesCategory =
+        activeCategory === "All" || post.category === activeCategory;
 
-    if (searchTerm.trim()) {
-      const query = searchTerm.toLowerCase();
+      const query = searchTerm.trim().toLowerCase();
 
-      result = result.filter(
-        (post) =>
-          post.title.toLowerCase().includes(query) ||
-          post.excerpt.toLowerCase().includes(query) ||
-          post.category.toLowerCase().includes(query)
-      );
-    }
+      const matchesSearch =
+        !query ||
+        post.title?.toLowerCase().includes(query) ||
+        post.excerpt?.toLowerCase().includes(query) ||
+        post.category?.toLowerCase().includes(query) ||
+        post.tags?.some((tag) => tag.toLowerCase().includes(query));
 
-    return result;
+      return matchesCategory && matchesSearch;
+    });
   }, [posts, activeCategory, searchTerm]);
+
+  const featuredPost = useMemo(() => {
+    return filteredPosts.find((post) => post.featured) || null;
+  }, [filteredPosts]);
+
+  const nonFeaturedPosts = useMemo(() => {
+    return featuredPost
+      ? filteredPosts.filter((post) => post._id !== featuredPost._id)
+      : filteredPosts;
+  }, [filteredPosts, featuredPost]);
+
+  const totalPages = Math.max(
+    1,
+    Math.ceil(nonFeaturedPosts.length / POSTS_PER_PAGE)
+  );
+
+  const paginatedPosts = useMemo(() => {
+    const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
+    const endIndex = startIndex + POSTS_PER_PAGE;
+    return nonFeaturedPosts.slice(startIndex, endIndex);
+  }, [nonFeaturedPosts, currentPage]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, activeCategory]);
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [currentPage, totalPages]);
 
   return {
     posts,
-    featuredPost,
     filteredPosts,
-    activeCategory,
-    setActiveCategory,
-    searchTerm,
-    setSearchTerm,
+    featuredPost,
+    categories,
     loading,
     error,
+    searchTerm,
+    setSearchTerm,
+    activeCategory,
+    setActiveCategory,
+    currentPage,
+    setCurrentPage,
+    totalPages,
+    paginatedPosts,
   };
 }

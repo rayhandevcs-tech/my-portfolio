@@ -5,22 +5,34 @@ import "./BlogCard.css";
 function BlogCard({ post }) {
   if (!post) return null;
 
-  const { image, title, category, date, readTime, slug, excerpt, tags } = post;
+  const {
+    coverImage,
+    title,
+    category,
+    publishedAt,
+    readingTime,
+    slug,
+    excerpt,
+    tags,
+    views,
+  } = post;
 
   return (
     <article className="card blog-card">
-      {image && (
+      {coverImage && (
         <div className="blog-card__image">
-          <img src={image} alt={title} />
+          <img src={coverImage} alt={title} />
         </div>
       )}
 
       <div className="blog-card__meta">
         {category && <span>{category}</span>}
-        {category && date && <span>•</span>}
-        {date && <span>{date}</span>}
-        {date && readTime && <span>•</span>}
-        {readTime && <span>{readTime}</span>}
+        {category && publishedAt && <span>•</span>}
+        {publishedAt && <span>{publishedAt}</span>}
+        {publishedAt && readingTime && <span>•</span>}
+        {readingTime && <span>{readingTime}</span>}
+        {readingTime && typeof views === "number" && <span>•</span>}
+        {typeof views === "number" && <span>{views} views</span>}
       </div>
 
       <h3 className="blog-card__title">

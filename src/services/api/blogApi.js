@@ -24,6 +24,20 @@ export async function getPostBySlug(slug) {
   return data.data;
 }
 
+export async function incrementPostViews(slug) {
+  const response = await fetch(`${API_URL}/slug/${slug}/view`, {
+    method: "PATCH",
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Failed to update views");
+  }
+
+  return data.data;
+}
+
 export async function getPostById(id) {
   const response = await fetch(`${API_URL}/${id}`);
   const data = await response.json();

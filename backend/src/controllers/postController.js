@@ -249,3 +249,76 @@ export async function toggleFeaturedPost(req, res) {
     });
   }
 }
+
+export async function getPostStats(req, res) {
+  try {
+    const totalPosts = await Post.countDocuments();
+    const featuredPosts = await Post.countDocuments({ featured: true });
+
+    const viewsAggregation = await Post.aggregate([
+      {
+        $group: {
+          _id: null,
+          totalViews: { $sum: "$views" },
+        },
+      },
+    ]);
+
+    const totalViews = viewsAggregation[0]?.totalViews || 0;
+
+    const mostViewedPost = await Post.findOne().sort({ views: -1 });
+
+    return res.status(200).json({
+      success: true,
+      data: {
+        totalPosts,
+        featuredPosts,
+        totalViews,
+        mostViewedPost: mostViewedPost
+          ? {
+              id: mostViewedPost._id,
+              title: mostViewedPost.title,
+              slug: mostViewedPost.slug,
+              views: mostViewedPost.views || 0,
+            }
+          : null,
+      },
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch post stats",
+      error: error.message,
+    });
+  }
+}
+
+export async function incrementPostViews(req, res) {
+  try {
+    const { slug } = req.params;
+
+    const post = await Post.findOneAndUpdate(
+      { slug },
+      { $inc: { views: 1 } },
+      { new: true }
+    );
+
+    if (!post) {
+      return res.status(404).json({
+        success: false,
+        message: "Post not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      data: post,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Failed to update views",
+      error: error.message,
+    });
+  }
+}

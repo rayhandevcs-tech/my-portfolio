@@ -4,7 +4,16 @@ import "./FeaturedPost.css";
 function FeaturedPost({ post }) {
   if (!post) return null;
 
-  const { title, category, date, readTime, excerpt, slug, image } = post;
+  const {
+    title,
+    category,
+    publishedAt,
+    readingTime,
+    excerpt,
+    slug,
+    coverImage,
+    views,
+  } = post;
 
   return (
     <section className="blog-featured card">
@@ -15,7 +24,9 @@ function FeaturedPost({ post }) {
           <h2>{title}</h2>
 
           <p className="blog-featured__meta">
-            {category} • {date} • {readTime}
+            {category} {publishedAt && "•"} {publishedAt} {readingTime && "•"}{" "}
+            {readingTime} {typeof views === "number" && "•"}{" "}
+            {typeof views === "number" ? `${views} views` : ""}
           </p>
 
           <p className="blog-featured__excerpt">{excerpt}</p>
@@ -25,9 +36,9 @@ function FeaturedPost({ post }) {
           </Link>
         </div>
 
-        {image && (
+        {coverImage && (
           <div className="blog-featured__image">
-            <img src={image} alt={title} />
+            <img src={coverImage} alt={title} />
           </div>
         )}
       </div>

@@ -1,0 +1,25 @@
+.blog-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.blog-pagination button {
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 0.7rem;
+  padding: 0.65rem 1rem;
+  font: inherit;
+  cursor: pointer;
+}
+
+.blog-pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.blog-pagination span {
+  font-weight: 600;
+}

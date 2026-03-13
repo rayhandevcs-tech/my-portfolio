@@ -1,27 +1,22 @@
-.blog-filter {
+.blog-category-filter {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin: 28px 0 36px;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
 }
 
-.blog-filter__btn {
-  padding: 10px 16px;
-  border: 1px solid var(--border);
+.blog-category-filter button {
+  border: 1px solid #ddd;
+  background: #fff;
   border-radius: 999px;
-  background: white;
-  color: var(--text);
+  padding: 0.6rem 1rem;
+  font: inherit;
   cursor: pointer;
-  transition: 0.2s ease;
+  transition: all 0.2s ease;
 }
 
-.blog-filter__btn:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-}
-
-.blog-filter__btn.active {
-  background: var(--primary);
-  border-color: var(--primary);
-  color: white;
+.blog-category-filter button.active {
+  background: #111;
+  color: #fff;
+  border-color: #111;
 }

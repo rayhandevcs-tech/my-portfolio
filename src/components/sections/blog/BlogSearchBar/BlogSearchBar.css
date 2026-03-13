@@ -1,0 +1,11 @@
+.blog-search-bar {
+  margin-bottom: 1rem;
+}
+
+.blog-search-bar input {
+  width: 100%;
+  padding: 0.95rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 0.85rem;
+  font: inherit;
+}

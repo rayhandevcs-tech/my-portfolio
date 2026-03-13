@@ -5,6 +5,8 @@ import {
   getAllPosts,
   getPostById,
   getPostBySlug,
+  getPostStats,
+  incrementPostViews,
   toggleFeaturedPost,
   updatePost,
 } from "../controllers/postController.js";
@@ -14,6 +16,9 @@ const router = express.Router();
 
 router.get("/", getAllPosts);
 router.get("/slug/:slug", getPostBySlug);
+router.patch("/slug/:slug/view", incrementPostViews);
+router.get("/stats/summary", protectAdmin, getPostStats);
+router.get("/stats/summary", protectAdmin, getPostStats);
 router.get("/:id", getPostById);
 
 router.post("/", protectAdmin, createPost);

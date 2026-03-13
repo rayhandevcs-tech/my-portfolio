@@ -1,23 +1,14 @@
 import "./BlogCategoryFilter.css";
 
-function BlogCategoryFilter({
-  categories = [],
-  activeCategory,
-  onCategoryChange,
-}) {
-  if (!categories.length) return null;
-
+function BlogCategoryFilter({ categories, activeCategory, onCategoryChange }) {
   return (
-    <div className="blog-filter" role="tablist" aria-label="Blog categories">
+    <div className="blog-category-filter">
       {categories.map((category) => (
         <button
           key={category}
           type="button"
-          className={`blog-filter__btn ${
-            activeCategory === category ? "active" : ""
-          }`}
+          className={activeCategory === category ? "active" : ""}
           onClick={() => onCategoryChange(category)}
-          aria-pressed={activeCategory === category}
         >
           {category}
         </button>

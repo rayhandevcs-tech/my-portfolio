@@ -1,7 +1,9 @@
 import { getToken } from "../../utils/auth";
 
+const API_BASE = "http://localhost:5000/api/contact";
+
 export async function submitContactMessage(payload) {
-  const response = await fetch("http://localhost:5000/api/contact", {
+  const response = await fetch(API_BASE, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -19,7 +21,7 @@ export async function submitContactMessage(payload) {
 }
 
 export async function getContactMessages() {
-  const response = await fetch("http://localhost:5000/api/contact", {
+  const response = await fetch(API_BASE, {
     headers: {
       Authorization: `Bearer ${getToken()}`,
     },
@@ -35,7 +37,7 @@ export async function getContactMessages() {
 }
 
 export async function deleteContactMessage(id) {
-  const response = await fetch(`http://localhost:5000/api/contact/${id}`, {
+  const response = await fetch(`${API_BASE}/${id}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${getToken()}`,

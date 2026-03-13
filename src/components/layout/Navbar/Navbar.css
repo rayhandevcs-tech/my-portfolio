@@ -124,6 +124,15 @@
   transform: translateY(-7px) rotate(-45deg);
 }
 
+.navbar__logout {
+  border: 1px solid #ddd;
+  background: transparent;
+  border-radius: 0.6rem;
+  padding: 0.45rem 0.8rem;
+  cursor: pointer;
+  font: inherit;
+}
+
 @media (max-width: 992px) {
   .nav-toggle {
     display: inline-flex;

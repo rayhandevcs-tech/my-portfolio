@@ -1,88 +1,90 @@
-import { useMemo } from "react";
-
 import PageHero from "../../components/common/PageHero/PageHero";
 import EmptyState from "../../components/common/EmptyState/EmptyState";
 import BlogCard from "../../components/sections/blog/BlogCard/BlogCard";
 import BlogCategoryFilter from "../../components/sections/blog/BlogCategoryFilter/BlogCategoryFilter";
 import BlogSearchBar from "../../components/sections/blog/BlogSearchBar/BlogSearchBar";
 import FeaturedPost from "../../components/sections/blog/FeaturedPost/FeaturedPost";
-
+import BlogPagination from "../../components/sections/blog/BlogPagination/BlogPagination";
 import { useBlogPosts } from "../../hooks/useBlogPosts";
+import "./Blog.css";
 
 function Blog() {
   const {
-    posts,
     featuredPost,
-    filteredPosts,
-    activeCategory,
-    setActiveCategory,
-    searchTerm,
-    setSearchTerm,
+    categories,
     loading,
     error,
+    searchTerm,
+    setSearchTerm,
+    activeCategory,
+    setActiveCategory,
+    currentPage,
+    setCurrentPage,
+    totalPages,
+    paginatedPosts,
+    filteredPosts,
   } = useBlogPosts();
 
-  const categories = useMemo(() => {
-    const uniqueCategories = [...new Set(posts.map((post) => post.category))];
-    return ["All", ...uniqueCategories];
-  }, [posts]);
+  if (loading) {
+    return (
+      <main className="section">
+        <p>Loading posts...</p>
+      </main>
+    );
+  }
 
-  const showFeatured =
-    featuredPost && activeCategory === "All" && !searchTerm.trim();
-
-  const visiblePosts = showFeatured
-    ? filteredPosts.filter((post) => post._id !== featuredPost._id)
-    : filteredPosts;
+  if (error) {
+    return (
+      <main className="section">
+        <p>{error}</p>
+      </main>
+    );
+  }
 
   return (
-    <>
+    <main className="blog-page">
       <PageHero
-        eyebrow="Blog"
         title="Blog"
-        intro="Thoughts, tutorials, notes, and reflections from my learning journey."
+        subtitle="Thoughts, lessons, experiments, and notes from my full-stack learning journey."
       />
-      
 
-      <main className="section">
-        <div className="container">
-          <div className="blog-toolbar">
-            <BlogCategoryFilter
-              categories={categories}
-              activeCategory={activeCategory}
-              onCategoryChange={setActiveCategory}
-            />
+      <section className="blog-page__content section">
+        <BlogSearchBar value={searchTerm} onChange={setSearchTerm} />
 
-            <BlogSearchBar
-              searchTerm={searchTerm}
-              onSearchChange={setSearchTerm}
-            />
-          </div>
+        <BlogCategoryFilter
+          categories={categories}
+          activeCategory={activeCategory}
+          onCategoryChange={setActiveCategory}
+        />
 
-          {loading && <p>Loading posts...</p>}
-
-          {error && <p style={{ color: "red" }}>{error}</p>}
-
-          {!loading && !error && showFeatured && (
+        {featuredPost && currentPage === 1 && (
+          <div className="blog-page__featured">
             <FeaturedPost post={featuredPost} />
-          )}
+          </div>
+        )}
 
-          {!loading && !error && visiblePosts.length > 0 ? (
+        {filteredPosts.length === 0 ? (
+          <EmptyState
+            title="No posts found"
+            message="Try another keyword or category."
+          />
+        ) : (
+          <>
             <div className="blog-grid">
-              {visiblePosts.map((post) => (
+              {paginatedPosts.map((post) => (
                 <BlogCard key={post._id || post.slug} post={post} />
               ))}
             </div>
-          ) : null}
 
-          {!loading && !error && visiblePosts.length === 0 && (
-            <EmptyState
-              title="No posts found"
-              text="Try another category or search term."
+            <BlogPagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
             />
-          )}
-        </div>
-      </main>
-    </>
+          </>
+        )}
+      </section>
+    </main>
   );
 }
 

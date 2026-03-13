@@ -10,6 +10,7 @@ import "./Contact.css";
 const initialForm = {
   name: "",
   email: "",
+  phone: "",
   subject: "",
   message: "",
 };
@@ -134,6 +135,18 @@ function Contact() {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="your@email.com"
+              />
+            </div>
+
+            <div className="contact-form__group">
+              <label htmlFor="phone">Phone Number (optional)</label>
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                value={formData.phone}
+                onChange={handleChange}
+                placeholder="+8801XXXXXXXXX"
               />
             </div>
 
