@@ -62,7 +62,7 @@ function BlogDetails() {
             : `${post.category || "blog"}, developer blog`
         }
         image={post.coverImage || "/images/og-default.jpg"}
-        url={`http://localhost:5173/blog/${post.slug}`}
+        url={`https://rayhancsdev.vercel.app/blog/${post.slug}`}
         type="article"
       />
 

@@ -5,7 +5,7 @@ function Seo({
   description = "Personal portfolio, blog, projects, research notes, and full-stack development journey.",
   keywords = "portfolio, blog, react, full stack, developer",
   image = "/images/og-default.jpg",
-  url = "http://localhost:5173",
+  url = "https://rayhancsdev.vercel.app",
   type = "website",
 }) {
   return (

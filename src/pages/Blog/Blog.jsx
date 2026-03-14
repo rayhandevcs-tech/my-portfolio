@@ -33,7 +33,7 @@ function Blog() {
           title="Blog | RayhanDev"
           description="Read blog posts about React, full-stack development, architecture, debugging, and project building."
           keywords="blog, react blog, full stack blog, developer notes, javascript, mongodb"
-          url="http://localhost:5173/blog"
+          url = "https://rayhancsdev.vercel.app"
           type="website"
         />
 
@@ -51,7 +51,7 @@ function Blog() {
           title="Blog | RayhanDev"
           description="Read blog posts about React, full-stack development, architecture, debugging, and project building."
           keywords="blog, react blog, full stack blog, developer notes, javascript, mongodb"
-          url="http://localhost:5173/blog"
+          url="https://rayhancsdev.vercel.app/blog"
           type="website"
         />
 
@@ -68,7 +68,7 @@ function Blog() {
         title="Blog | RayhanDev"
         description="Read blog posts about React, full-stack development, architecture, debugging, and project building."
         keywords="blog, react blog, full stack blog, developer notes, javascript, mongodb"
-        url="http://localhost:5173/blog"
+        url="https://rayhancsdev.vercel.app/blog"
         type="website"
       />
 

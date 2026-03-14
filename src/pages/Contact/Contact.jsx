@@ -77,7 +77,7 @@ function Contact() {
         title="Contact | RayhanDev"
         description="Get in touch with Rayhan for collaboration, project discussion, or development opportunities."
         keywords="contact rayhan, developer contact, portfolio contact"
-        url="http://localhost:5173/contact"
+        url="https://rayhancsdev.vercel.app/contact"
         type="website"
       />
 

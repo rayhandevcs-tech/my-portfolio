@@ -12,7 +12,7 @@ function Home() {
         title="RayhanDev | Full-Stack Developer Portfolio"
         description="Explore Rayhan's full-stack developer portfolio, projects, blog posts, research notes, and learning journey."
         keywords="Rayhan, full stack developer, portfolio, react portfolio, mongodb, express"
-        url="http://localhost:5173/"
+        url = "https://rayhancsdev.vercel.app"
         type="website"
       />
 
