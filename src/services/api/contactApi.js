@@ -1,6 +1,6 @@
 import { getToken } from "../../utils/auth";
 
-const API_BASE = "http://localhost:5000/api/contact";
+const API_BASE = `${import.meta.env.VITE_API_BASE_URL}/api/contact`;
 
 export async function submitContactMessage(payload) {
   const response = await fetch(API_BASE, {

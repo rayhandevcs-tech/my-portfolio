@@ -1,9 +1,18 @@
+import { getToken } from "../../utils/auth";
+
+const API_BASE = `${import.meta.env.VITE_API_BASE_URL}/api/upload`;
+
 export async function uploadCoverImage(file) {
   const formData = new FormData();
   formData.append("image", file);
 
-  const response = await fetch("http://localhost:5000/api/upload/image", {
+  const token = getToken();
+
+  const response = await fetch(`${API_BASE}/image`, {
     method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
     body: formData,
   });
 

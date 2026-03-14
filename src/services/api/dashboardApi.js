@@ -1,15 +1,19 @@
 import { getToken } from "../../utils/auth";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 export async function getDashboardStats() {
+  const token = getToken();
+
   const [postsRes, messagesRes] = await Promise.all([
-    fetch("http://localhost:5000/api/posts/stats/summary", {
+    fetch(`${API_BASE_URL}/api/posts/stats/summary`, {
       headers: {
-        Authorization: `Bearer ${getToken()}`,
+        Authorization: `Bearer ${token}`,
       },
     }),
-    fetch("http://localhost:5000/api/contact/stats/summary", {
+    fetch(`${API_BASE_URL}/api/contact/stats/summary`, {
       headers: {
-        Authorization: `Bearer ${getToken()}`,
+        Authorization: `Bearer ${token}`,
       },
     }),
   ]);
