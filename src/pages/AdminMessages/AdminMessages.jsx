@@ -25,14 +25,14 @@ function AdminMessages() {
   }
 
   return (
-    <>
+    <div className="admin-messages-page">
       <PageHero
         title="Admin Messages"
         subtitle="All contact form submissions are shown here."
       />
 
       <main className="section">
-        <div className="container">
+        <div className="container admin-messages-container">
           {loading && <p>Loading messages...</p>}
 
           {error && <p className="admin-messages__error">{error}</p>}
@@ -84,7 +84,7 @@ function AdminMessages() {
           )}
         </div>
       </main>
-    </>
+    </div>
   );
 }
 

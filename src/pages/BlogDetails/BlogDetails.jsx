@@ -1,23 +1,31 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
+import Seo from "../../components/common/Seo/Seo";
 import { useBlogPost } from "../../hooks/useBlogPost";
+import { useBlogPosts } from "../../hooks/useBlogPosts";
 import { incrementPostViews } from "../../services/api/blogApi";
+import { getRelatedPosts } from "../../utils/getRelatedPosts";
 import PageHero from "../../components/common/PageHero/PageHero";
+import RelatedPosts from "../../components/sections/blog/RelatedPosts/RelatedPosts";
 import "./BlogDetails.css";
 
 function BlogDetails() {
   const { slug } = useParams();
   const { post, loading, error, notFound } = useBlogPost(slug);
+  const { posts } = useBlogPosts();
   const hasIncrementedRef = useRef(false);
 
   useEffect(() => {
     if (!slug || hasIncrementedRef.current) return;
 
     hasIncrementedRef.current = true;
-
     incrementPostViews(slug).catch(() => {});
   }, [slug]);
+
+  const relatedPosts = useMemo(() => {
+    return getRelatedPosts(posts, post, 3);
+  }, [posts, post]);
 
   if (loading) {
     return (
@@ -45,6 +53,19 @@ function BlogDetails() {
 
   return (
     <main className="blog-details-page">
+      <Seo
+        title={`${post.title} | RayhanDev`}
+        description={post.excerpt || "Read this blog post on RayhanDev."}
+        keywords={
+          Array.isArray(post.tags) && post.tags.length > 0
+            ? post.tags.join(", ")
+            : `${post.category || "blog"}, developer blog`
+        }
+        image={post.coverImage || "/images/og-default.jpg"}
+        url={`http://localhost:5173/blog/${post.slug}`}
+        type="article"
+      />
+
       <PageHero title={post.title} subtitle={post.excerpt} />
 
       <section className="blog-details-content section">
@@ -76,6 +97,8 @@ function BlogDetails() {
         <article className="markdown-content">
           <ReactMarkdown>{post.content}</ReactMarkdown>
         </article>
+
+        <RelatedPosts posts={relatedPosts} />
       </section>
     </main>
   );

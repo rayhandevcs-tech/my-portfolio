@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import {
   deletePost,
-  getAllPosts,
+  getAdminPosts,
   toggleFeaturedPost,
 } from "../services/api/blogApi";
 
@@ -14,7 +14,7 @@ export function useAdminPosts() {
     try {
       setLoading(true);
       setError("");
-      const data = await getAllPosts();
+      const data = await getAdminPosts();
       setPosts(data);
     } catch (err) {
       setError(err.message || "Failed to load posts");

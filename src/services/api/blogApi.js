@@ -13,6 +13,22 @@ export async function getAllPosts() {
   return data.data;
 }
 
+export async function getAdminPosts() {
+  const response = await fetch(`${API_URL}/admin/all`, {
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Failed to fetch admin posts");
+  }
+
+  return data.data;
+}
+
 export async function getPostBySlug(slug) {
   const response = await fetch(`${API_URL}/slug/${slug}`);
   const data = await response.json();
@@ -39,7 +55,12 @@ export async function incrementPostViews(slug) {
 }
 
 export async function getPostById(id) {
-  const response = await fetch(`${API_URL}/${id}`);
+  const response = await fetch(`${API_URL}/${id}`, {
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  });
+
   const data = await response.json();
 
   if (!response.ok) {

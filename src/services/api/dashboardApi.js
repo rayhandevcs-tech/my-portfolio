@@ -30,6 +30,7 @@ export async function getDashboardStats() {
     featuredPosts: postsData.data.featuredPosts,
     totalViews: postsData.data.totalViews,
     mostViewedPost: postsData.data.mostViewedPost,
+    topViewedPosts: postsData.data.topViewedPosts || [],
     totalMessages: messagesData.data.totalMessages,
   };
 }

@@ -2,7 +2,7 @@ import { Post } from "../models/Post.js";
 
 export async function getAllPosts(req, res) {
   try {
-    const posts = await Post.find().sort({ createdAt: -1 });
+    const posts = await Post.find({ status: "published" }).sort({ createdAt: -1 });
 
     return res.status(200).json({
       success: true,
@@ -17,11 +17,28 @@ export async function getAllPosts(req, res) {
   }
 }
 
+export async function getAdminPosts(req, res) {
+  try {
+    const posts = await Post.find().sort({ createdAt: -1 });
+
+    return res.status(200).json({
+      success: true,
+      data: posts,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch admin posts",
+      error: error.message,
+    });
+  }
+}
+
 export async function getPostBySlug(req, res) {
   try {
     const { slug } = req.params;
 
-    const post = await Post.findOne({ slug });
+    const post = await Post.findOne({ slug, status: "published" });
 
     if (!post) {
       return res.status(404).json({
@@ -83,6 +100,7 @@ export async function createPost(req, res) {
       author,
       publishedAt,
       readingTime,
+      status,
     } = req.body;
 
     if (!title || !slug || !excerpt || !content || !category) {
@@ -113,6 +131,7 @@ export async function createPost(req, res) {
       author: author || "Md Rayhan",
       publishedAt: publishedAt || new Date().toISOString().slice(0, 10),
       readingTime: readingTime || "",
+      status: status === "published" ? "published" : "draft",
     });
 
     return res.status(201).json({
@@ -144,6 +163,7 @@ export async function updatePost(req, res) {
       author,
       publishedAt,
       readingTime,
+      status,
     } = req.body;
 
     const post = await Post.findById(id);
@@ -177,6 +197,7 @@ export async function updatePost(req, res) {
     post.author = author ?? post.author;
     post.publishedAt = publishedAt ?? post.publishedAt;
     post.readingTime = readingTime ?? post.readingTime;
+    post.status = status === "published" ? "published" : status === "draft" ? "draft" : post.status;
 
     await post.save();
 
@@ -250,55 +271,12 @@ export async function toggleFeaturedPost(req, res) {
   }
 }
 
-export async function getPostStats(req, res) {
-  try {
-    const totalPosts = await Post.countDocuments();
-    const featuredPosts = await Post.countDocuments({ featured: true });
-
-    const viewsAggregation = await Post.aggregate([
-      {
-        $group: {
-          _id: null,
-          totalViews: { $sum: "$views" },
-        },
-      },
-    ]);
-
-    const totalViews = viewsAggregation[0]?.totalViews || 0;
-
-    const mostViewedPost = await Post.findOne().sort({ views: -1 });
-
-    return res.status(200).json({
-      success: true,
-      data: {
-        totalPosts,
-        featuredPosts,
-        totalViews,
-        mostViewedPost: mostViewedPost
-          ? {
-              id: mostViewedPost._id,
-              title: mostViewedPost.title,
-              slug: mostViewedPost.slug,
-              views: mostViewedPost.views || 0,
-            }
-          : null,
-      },
-    });
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Failed to fetch post stats",
-      error: error.message,
-    });
-  }
-}
-
 export async function incrementPostViews(req, res) {
   try {
     const { slug } = req.params;
 
     const post = await Post.findOneAndUpdate(
-      { slug },
+      { slug, status: "published" },
       { $inc: { views: 1 } },
       { new: true }
     );
@@ -318,6 +296,60 @@ export async function incrementPostViews(req, res) {
     return res.status(500).json({
       success: false,
       message: "Failed to update views",
+      error: error.message,
+    });
+  }
+}
+
+export async function getPostStats(req, res) {
+  try {
+    const totalPosts = await Post.countDocuments();
+    const featuredPosts = await Post.countDocuments({ featured: true });
+
+    const viewsAggregation = await Post.aggregate([
+      {
+        $group: {
+          _id: null,
+          totalViews: { $sum: "$views" },
+        },
+      },
+    ]);
+
+    const totalViews = viewsAggregation[0]?.totalViews || 0;
+
+    const mostViewedPost = await Post.findOne().sort({ views: -1 });
+
+    const topViewedPosts = await Post.find()
+      .sort({ views: -1 })
+      .limit(5)
+      .select("title slug views");
+
+    return res.status(200).json({
+      success: true,
+      data: {
+        totalPosts,
+        featuredPosts,
+        totalViews,
+        mostViewedPost: mostViewedPost
+          ? {
+              id: mostViewedPost._id,
+              title: mostViewedPost.title,
+              slug: mostViewedPost.slug,
+              views: mostViewedPost.views || 0,
+            }
+          : null,
+        topViewedPosts: topViewedPosts.map((post) => ({
+          id: post._id,
+          title: post.title,
+          slug: post.slug,
+          views: post.views || 0,
+        })),
+      },
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch post stats",
       error: error.message,
     });
   }

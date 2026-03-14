@@ -2,6 +2,7 @@ import express from "express";
 import {
   createPost,
   deletePost,
+  getAdminPosts,
   getAllPosts,
   getPostById,
   getPostBySlug,
@@ -17,9 +18,10 @@ const router = express.Router();
 router.get("/", getAllPosts);
 router.get("/slug/:slug", getPostBySlug);
 router.patch("/slug/:slug/view", incrementPostViews);
+
+router.get("/admin/all", protectAdmin, getAdminPosts);
 router.get("/stats/summary", protectAdmin, getPostStats);
-router.get("/stats/summary", protectAdmin, getPostStats);
-router.get("/:id", getPostById);
+router.get("/:id", protectAdmin, getPostById);
 
 router.post("/", protectAdmin, createPost);
 router.put("/:id", protectAdmin, updatePost);

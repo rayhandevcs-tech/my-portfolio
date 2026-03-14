@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getDashboardStats } from "../../services/api/dashboardApi";
+import AdminViewsChart from "../../components/admin/AdminViewsChart/AdminViewsChart";
 import "./AdminDashboard.css";
 
 function AdminDashboard() {
@@ -92,6 +93,11 @@ function AdminDashboard() {
                 </div>
               </section>
             </div>
+
+            <section className="admin-panel-card admin-chart-panel">
+              <h3>Top Viewed Posts</h3>
+              <AdminViewsChart data={stats.topViewedPosts} />
+            </section>
           </>
         )}
       </div>

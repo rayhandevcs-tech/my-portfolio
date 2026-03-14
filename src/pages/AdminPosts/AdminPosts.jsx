@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import "./AdminPosts.css";
-import { ROUTES } from "../../constants/routes";
 import { useAdminPosts } from "../../hooks/useAdminPosts";
 
 function AdminPosts() {
@@ -8,7 +7,9 @@ function AdminPosts() {
     useAdminPosts();
 
   async function handleDelete(id) {
-    const confirmed = window.confirm("Are you sure you want to delete this post?");
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this post?"
+    );
     if (!confirmed) return;
 
     try {
@@ -35,7 +36,7 @@ function AdminPosts() {
             <p>Manage your blog posts from here.</p>
           </div>
 
-          <Link to={ROUTES.ADMIN_POSTS_NEW} className="admin-create-btn">
+          <Link to="/admin/posts/new" className="admin-create-btn">
             Add New Post
           </Link>
         </div>
@@ -52,6 +53,8 @@ function AdminPosts() {
                 <tr>
                   <th>Title</th>
                   <th>Category</th>
+                  <th>Status</th>
+                  <th>Views</th>
                   <th>Slug</th>
                   <th>Featured</th>
                   <th>Published</th>
@@ -64,9 +67,15 @@ function AdminPosts() {
                   <tr key={post._id}>
                     <td>{post.title}</td>
                     <td>{post.category}</td>
+                    <td>{post.status || "Published"}</td>
+                    <td>{post.views ?? 0}</td>
                     <td>{post.slug}</td>
                     <td>{post.featured ? "Yes" : "No"}</td>
-                    <td>{post.publishedAt || "-"}</td>
+                    <td>
+                      {post.publishedAt
+                        ? new Date(post.publishedAt).toLocaleDateString()
+                        : "-"}
+                    </td>
                     <td className="admin-actions-cell">
                       <Link
                         to={`/admin/posts/edit/${post._id}`}

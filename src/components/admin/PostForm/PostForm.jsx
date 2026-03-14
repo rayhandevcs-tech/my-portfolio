@@ -14,6 +14,7 @@ const initialFormState = {
   publishedAt: "",
   author: "Md Rayhan",
   featured: false,
+  status: "draft",
 };
 
 function PostForm({ initialValues, onSubmit, submitting, submitLabel }) {
@@ -37,6 +38,7 @@ function PostForm({ initialValues, onSubmit, submitting, submitLabel }) {
         publishedAt: initialValues.publishedAt || "",
         author: initialValues.author || "Md Rayhan",
         featured: Boolean(initialValues.featured),
+        status: initialValues.status || "draft",
       });
     }
   }, [initialValues]);
@@ -160,6 +162,19 @@ function PostForm({ initialValues, onSubmit, submitting, submitLabel }) {
             value={formData.author}
             onChange={handleChange}
           />
+        </div>
+
+        <div className="post-form-group">
+          <label htmlFor="status">Status</label>
+          <select
+            id="status"
+            name="status"
+            value={formData.status}
+            onChange={handleChange}
+          >
+            <option value="draft">Draft</option>
+            <option value="published">Published</option>
+          </select>
         </div>
 
         <div className="post-form-group">

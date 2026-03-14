@@ -14,6 +14,7 @@ import ProjectDetails from "../pages/ProjectDetails/ProjectDetails";
 import NotFound from "../pages/NotFound/NotFound";
 
 import ProtectedRoute from "../components/auth/ProtectedRoute/ProtectedRoute";
+import AdminLayout from "../components/admin/AdminLayout/AdminLayout";
 
 const AdminLogin = lazy(() => import("../pages/AdminLogin/AdminLogin"));
 const AdminDashboard = lazy(() =>
@@ -51,78 +52,73 @@ export const router = createBrowserRouter([
       { path: "research", element: <Research /> },
       { path: "contact", element: <Contact /> },
       { path: "projects/:slug", element: <ProjectDetails /> },
+    ],
+  },
 
-      /* ===== Admin Login ===== */
+  {
+    path: "/admin/login",
+    element: (
+      <LazyPage>
+        <AdminLogin />
+      </LazyPage>
+    ),
+    errorElement: <NotFound />,
+  },
+
+  {
+    path: "/admin",
+    element: (
+      <ProtectedRoute>
+        <AdminLayout />
+      </ProtectedRoute>
+    ),
+    errorElement: <NotFound />,
+    children: [
       {
-        path: "admin/login",
+        path: "dashboard",
         element: (
           <LazyPage>
-            <AdminLogin />
+            <AdminDashboard />
           </LazyPage>
         ),
       },
-
-      /* ===== Admin Dashboard ===== */
       {
-        path: "admin/dashboard",
+        path: "messages",
         element: (
-          <ProtectedRoute>
-            <LazyPage>
-              <AdminDashboard />
-            </LazyPage>
-          </ProtectedRoute>
+          <LazyPage>
+            <AdminMessages />
+          </LazyPage>
         ),
       },
-
-      /* ===== Admin Messages ===== */
       {
-        path: "admin/messages",
+        path: "posts",
         element: (
-          <ProtectedRoute>
-            <LazyPage>
-              <AdminMessages />
-            </LazyPage>
-          </ProtectedRoute>
+          <LazyPage>
+            <AdminPosts />
+          </LazyPage>
         ),
       },
-
-      /* ===== Admin Posts ===== */
       {
-        path: "admin/posts",
+        path: "posts/new",
         element: (
-          <ProtectedRoute>
-            <LazyPage>
-              <AdminPosts />
-            </LazyPage>
-          </ProtectedRoute>
+          <LazyPage>
+            <AdminPostNew />
+          </LazyPage>
         ),
       },
-
-      /* ===== Create Post ===== */
       {
-        path: "admin/posts/new",
+        path: "posts/edit/:id",
         element: (
-          <ProtectedRoute>
-            <LazyPage>
-              <AdminPostNew />
-            </LazyPage>
-          </ProtectedRoute>
+          <LazyPage>
+            <AdminPostEdit />
+          </LazyPage>
         ),
       },
-
-      /* ===== Edit Post ===== */
-      {
-        path: "admin/posts/edit/:id",
-        element: (
-          <ProtectedRoute>
-            <LazyPage>
-              <AdminPostEdit />
-            </LazyPage>
-          </ProtectedRoute>
-        ),
-      },
-
-      { path: "*", element: <NotFound /> },
     ],
+  },
+
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);

@@ -67,6 +67,14 @@
   font-weight: 600;
 }
 
+.post-form-group select {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 0.75rem;
+  font: inherit;
+}
+
 @media (max-width: 768px) {
   .post-form-grid {
     grid-template-columns: 1fr;
