@@ -2,6 +2,10 @@ import { getToken } from "../../utils/auth";
 
 const API_URL = `${import.meta.env.VITE_API_BASE_URL}/api/posts`;
 
+console.log("BLOG API URL:", API_URL);
+console.log("BUILD MARKER:", "fresh-build-001");
+
+
 export async function getAllPosts() {
   const response = await fetch(API_URL);
   const data = await response.json();
