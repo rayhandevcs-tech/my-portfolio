@@ -1,16 +1,129 @@
-# React + Vite
+# RayhanDev – Full Stack Developer Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern full-stack developer portfolio built with React, Node.js, Express, and MongoDB.
+It includes a dynamic blog CMS, admin dashboard, markdown blog editor, and contact backend.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Live Website
 
-## React Compiler
+Frontend:
+https://rayhancsdev.vercel.app
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Backend API:
+https://my-portfolio-fzzc.onrender.com
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## ✨ Features
+
+* Dynamic blog system
+* Admin dashboard (create / edit / delete posts)
+* Markdown blog editor
+* Featured post toggle
+* Blog search and category filter
+* Contact form with backend
+* Authentication for admin
+* Image upload support
+* Responsive UI
+* SEO metadata support
+
+---
+
+## 🛠 Tech Stack
+
+Frontend
+
+* React
+* Vite
+* React Router
+* CSS Modules
+
+Backend
+
+* Node.js
+* Express.js
+* MongoDB
+* Mongoose
+* JWT Authentication
+
+Deployment
+
+* Vercel (Frontend)
+* Render (Backend)
+* MongoDB Atlas (Database)
+
+---
+
+## 📂 Project Structure
+
+frontend/
+src/
+components/
+pages/
+services/
+utils/
+
+backend/
+controllers/
+routes/
+models/
+middleware/
+
+---
+
+## 📸 Screenshots
+
+Home Page
+Blog Page
+Admin Dashboard
+Blog Editor
+
+---
+
+## ⚙️ Environment Variables
+
+Frontend (.env)
+
+VITE_API_BASE_URL=http://localhost:5000
+
+Backend (.env)
+
+PORT=5000
+MONGO_URI=your_mongodb_uri
+JWT_SECRET=your_secret
+
+---
+
+## 📦 Installation
+
+Clone the repository
+
+git clone https://github.com/yourusername/my-portfolio
+
+Install frontend dependencies
+
+cd frontend
+npm install
+
+Run frontend
+
+npm run dev
+
+Run backend
+
+cd backend
+npm install
+npm run dev
+
+---
+
+## 👨‍💻 Author
+
+Rayhan
+
+GitHub
+https://github.com/yourusername
+
+LinkedIn
+Add your LinkedIn profile
