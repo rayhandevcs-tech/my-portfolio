@@ -75,6 +75,71 @@
   font: inherit;
 }
 
+.post-form-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 0.9rem;
+}
+
+.post-form-toolbar button {
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 0.65rem;
+  padding: 0.5rem 0.8rem;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.post-form-preview-markdown {
+  margin-top: 1.25rem;
+}
+
+.post-form-preview-markdown h3 {
+  margin-bottom: 0.75rem;
+  font-size: 1.05rem;
+}
+
+.post-form-preview-box {
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+  background: #fff;
+  padding: 1rem;
+  min-height: 180px;
+}
+
+.post-form-preview-box img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+  margin: 1rem 0;
+}
+
+.post-form-preview-box h1,
+.post-form-preview-box h2,
+.post-form-preview-box h3 {
+  margin: 1rem 0 0.6rem;
+}
+
+.post-form-preview-box p {
+  margin-bottom: 0.9rem;
+  line-height: 1.75;
+}
+
+.post-form-preview-box ul,
+.post-form-preview-box ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.post-form-preview-box blockquote {
+  border-left: 4px solid #d1d5db;
+  padding-left: 1rem;
+  color: #555;
+  margin: 1rem 0;
+}
+
 @media (max-width: 768px) {
   .post-form-grid {
     grid-template-columns: 1fr;

@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { uploadCoverImage } from "../../../services/api/uploadApi";
+import ReactMarkdown from "react-markdown";
 import "./PostForm.css";
 
 const initialFormState = {
@@ -21,6 +22,9 @@ function PostForm({ initialValues, onSubmit, submitting, submitLabel }) {
   const [formData, setFormData] = useState(initialFormState);
   const [uploadingImage, setUploadingImage] = useState(false);
   const [uploadError, setUploadError] = useState("");
+
+  const contentTextareaRef = useRef(null);
+  const inlineImageInputRef = useRef(null);
 
   useEffect(() => {
     if (initialValues) {
@@ -70,6 +74,157 @@ function PostForm({ initialValues, onSubmit, submitting, submitLabel }) {
       setUploadError(error.message || "Failed to upload image");
     } finally {
       setUploadingImage(false);
+      event.target.value = "";
+    }
+  }
+
+  function insertAtCursor(snippet) {
+    const textarea = contentTextareaRef.current;
+
+    if (!textarea) {
+      setFormData((prev) => ({
+        ...prev,
+        content: `${prev.content}${snippet}`,
+      }));
+      return;
+    }
+
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const currentContent = formData.content || "";
+
+    const newContent =
+      currentContent.slice(0, start) +
+      snippet +
+      currentContent.slice(end);
+
+    setFormData((prev) => ({
+      ...prev,
+      content: newContent,
+    }));
+
+    requestAnimationFrame(() => {
+      textarea.focus();
+      const cursorPosition = start + snippet.length;
+      textarea.setSelectionRange(cursorPosition, cursorPosition);
+    });
+  }
+
+  function wrapSelectedText(before, after = before, fallback = "text") {
+    const textarea = contentTextareaRef.current;
+
+    if (!textarea) return;
+
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const currentContent = formData.content || "";
+    const selectedText = currentContent.slice(start, end) || fallback;
+
+    const replacement = `${before}${selectedText}${after}`;
+
+    const newContent =
+      currentContent.slice(0, start) +
+      replacement +
+      currentContent.slice(end);
+
+    setFormData((prev) => ({
+      ...prev,
+      content: newContent,
+    }));
+
+    requestAnimationFrame(() => {
+      textarea.focus();
+      const selectionStart = start + before.length;
+      const selectionEnd = selectionStart + selectedText.length;
+      textarea.setSelectionRange(selectionStart, selectionEnd);
+    });
+  }
+
+  function addHeading() {
+    wrapSelectedText("## ", "", "New Section Heading");
+  }
+
+  function addSubheading() {
+    wrapSelectedText("### ", "", "Small Heading");
+  }
+
+  function addBoldText() {
+    wrapSelectedText("**", "**", "bold text");
+  }
+
+  function addItalicText() {
+    wrapSelectedText("*", "*", "italic text");
+  }
+
+  function addQuote() {
+    wrapSelectedText("> ", "", "Write your quote here");
+  }
+
+  function addBulletList() {
+    insertAtCursor("\n- First point\n- Second point\n- Third point\n");
+  }
+
+  function addNumberedList() {
+    insertAtCursor("\n1. First item\n2. Second item\n3. Third item\n");
+  }
+
+  function addImageMarkdown() {
+    insertAtCursor("\n![Image alt text](https://image-url-here)\n");
+  }
+
+  function addDivider() {
+    insertAtCursor("\n---\n");
+  }
+
+  function triggerInlineImageUpload() {
+    inlineImageInputRef.current?.click();
+  }
+
+  async function handleInlineImageUpload(event) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    try {
+      setUploadingImage(true);
+      setUploadError("");
+
+      const result = await uploadCoverImage(file);
+
+      const textarea = contentTextareaRef.current;
+
+      if (!textarea) {
+        setFormData((prev) => ({
+          ...prev,
+          content: `${prev.content}\n\n![Image alt text](${result.url})\n\n`,
+        }));
+        return;
+      }
+
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      const currentContent = formData.content || "";
+      const snippet = `\n![Image alt text](${result.url})\n`;
+
+      const newContent =
+        currentContent.slice(0, start) +
+        snippet +
+        currentContent.slice(end);
+
+      setFormData((prev) => ({
+        ...prev,
+        content: newContent,
+      }));
+
+      requestAnimationFrame(() => {
+        textarea.focus();
+        const cursorPosition = start + snippet.length;
+        textarea.setSelectionRange(cursorPosition, cursorPosition);
+      });
+    } catch (error) {
+      setUploadError(error.message || "Failed to upload inline image");
+    } finally {
+      setUploadingImage(false);
+      event.target.value = "";
     }
   }
 
@@ -222,14 +377,66 @@ function PostForm({ initialValues, onSubmit, submitting, submitLabel }) {
 
       <div className="post-form-group">
         <label htmlFor="content">Content (Markdown supported)</label>
+
+        <div className="post-form-toolbar">
+          <button type="button" onClick={addHeading}>
+            H2
+          </button>
+          <button type="button" onClick={addSubheading}>
+            H3
+          </button>
+          <button type="button" onClick={addBoldText}>
+            Bold
+          </button>
+          <button type="button" onClick={addItalicText}>
+            Italic
+          </button>
+          <button type="button" onClick={addQuote}>
+            Quote
+          </button>
+          <button type="button" onClick={addBulletList}>
+            Bullet List
+          </button>
+          <button type="button" onClick={addNumberedList}>
+            Numbered List
+          </button>
+          <button type="button" onClick={addImageMarkdown}>
+            Image
+          </button>
+          <button type="button" onClick={triggerInlineImageUpload}>
+            Upload Inline Image
+          </button>
+          <button type="button" onClick={addDivider}>
+            Divider
+          </button>
+        </div>
+
+        <input
+          type="file"
+          accept="image/*"
+          ref={inlineImageInputRef}
+          onChange={handleInlineImageUpload}
+          style={{ display: "none" }}
+        />
+
         <textarea
           id="content"
           name="content"
           rows="12"
           value={formData.content}
           onChange={handleChange}
+          ref={contentTextareaRef}
           required
         />
+
+        <div className="post-form-preview-markdown">
+          <h3>Live Preview</h3>
+          <div className="post-form-preview-box markdown-content">
+            <ReactMarkdown>
+              {formData.content || "Nothing to preview yet."}
+            </ReactMarkdown>
+          </div>
+        </div>
       </div>
 
       <label className="post-form-checkbox">
