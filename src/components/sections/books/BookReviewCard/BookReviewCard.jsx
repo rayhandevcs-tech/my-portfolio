@@ -1,73 +1,106 @@
-import { useState } from "react";
+// import "./BookReviewCard.css";
+
+// function BookReviewCard({ book }) {
+//   if (!book) return null;
+
+//   const {
+//     title,
+//     author,
+//     category,
+//     rating,
+//     coverImage,
+//     excerpt,
+//     publishedAt,
+//   } = book;
+
+//   return (
+//     <article className="book-review-card card">
+//       {coverImage && (
+//         <div className="book-review-card__image">
+//           <img src={coverImage} alt={title} />
+//         </div>
+//       )}
+
+//       <div className="book-review-card__content">
+//         <div className="book-review-card__meta">
+//           {category && <span>{category}</span>}
+//           {publishedAt && <span>• {publishedAt}</span>}
+//         </div>
+
+//         <h3 className="book-review-card__title">{title}</h3>
+
+//         {author && (
+//           <p className="book-review-card__author">
+//             <strong>Author:</strong> {author}
+//           </p>
+//         )}
+
+//         {typeof rating === "number" && (
+//           <p className="book-review-card__rating">
+//             <strong>Rating:</strong> {rating}/5
+//           </p>
+//         )}
+
+//         {excerpt && <p className="book-review-card__excerpt">{excerpt}</p>}
+//       </div>
+//     </article>
+//   );
+// }
+
+// export default BookReviewCard;
+
+import { Link } from "react-router-dom";
 import "./BookReviewCard.css";
 
 function BookReviewCard({ book }) {
-  const [expanded, setExpanded] = useState(false);
-
   if (!book) return null;
 
   const {
-    image,
     title,
     author,
     category,
     rating,
-    summary,
-    fullReview,
-    takeaway,
+    coverImage,
+    excerpt,
+    publishedAt,
+    slug,
   } = book;
 
   return (
-    <article className="card book-card">
-      {image && (
-        <div className="book-card__image">
-          <img src={image} alt={title} />
+    <article className="book-review-card card">
+      {coverImage && (
+        <div className="book-review-card__image">
+          <img src={coverImage} alt={title} />
         </div>
       )}
 
-      <div className="book-card__body">
-        <div className="book-card__top">
-          <div className="book-card__heading">
-            <h3>{title}</h3>
-
-            {author && (
-              <p className="book-card__author">
-                by <strong>{author}</strong>
-              </p>
-            )}
-          </div>
-
-          <div className="book-card__meta">
-            {category && (
-              <span className="book-card__category">{category}</span>
-            )}
-
-            {rating && (
-              <span className="book-card__rating">{rating}</span>
-            )}
-          </div>
+      <div className="book-review-card__content">
+        <div className="book-review-card__meta">
+          {category && <span>{category}</span>}
+          {publishedAt && <span>• {publishedAt}</span>}
         </div>
 
-        <p className="book-card__summary">
-          {expanded ? fullReview : summary}
-        </p>
+        <h3 className="book-review-card__title">
+          <Link to={`/book-reviews/${slug}`}>{title}</Link>
+        </h3>
 
-        {fullReview && (
-          <button
-            type="button"
-            className="book-card__toggle"
-            onClick={() => setExpanded((prev) => !prev)}
-          >
-            {expanded ? "Show less" : "Read more"}
-          </button>
+        {author && (
+          <p className="book-review-card__author">
+            <strong>Author:</strong> {author}
+          </p>
         )}
 
-        {takeaway && (
-          <div className="book-card__takeaway">
-            <strong>Key takeaway:</strong>
-            <p>{takeaway}</p>
-          </div>
+        {typeof rating === "number" && (
+          <p className="book-review-card__rating">
+            <strong>Rating:</strong> {rating}/5
+          </p>
         )}
+
+        {excerpt && <p className="book-review-card__excerpt">{excerpt}</p>}
+
+        <Link to={`/book-reviews/${slug}`} className="book-review-card__link">
+          Read Full Review →
+        </Link>
       </div>
     </article>
   );

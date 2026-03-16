@@ -1,3 +1,7 @@
+/* =========================
+   BOOK CARD (STYLE 1)
+========================= */
+
 .book-card {
   overflow: hidden;
   padding: 0;
@@ -101,6 +105,92 @@
 .book-reviews-grid {
   display: grid;
   gap: 28px;
+}
+
+/* =========================
+   BOOK REVIEW CARD (STYLE 2)
+========================= */
+
+.book-review-card {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.book-review-card__image {
+  width: 100%;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.book-review-card__image img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  display: block;
+}
+
+.book-review-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  color: #666;
+  font-size: 0.92rem;
+  margin-bottom: 0.65rem;
+}
+
+.book-review-card__title {
+  margin-bottom: 0.65rem;
+  font-size: 1.35rem;
+}
+
+.book-review-card__title a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.book-review-card__title a:hover {
+  color: var(--primary);
+}
+
+.book-review-card__author,
+.book-review-card__rating {
+  margin-bottom: 0.45rem;
+}
+
+.book-review-card__excerpt {
+  margin-top: 0.8rem;
+  line-height: 1.7;
+  color: #444;
+}
+
+.book-review-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  text-decoration: none;
+  font-weight: 600;
+  margin-top: 0.8rem;
+  color: var(--primary);
+}
+
+.book-review-card__link:hover {
+  text-decoration: underline;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 700px) {
+  .book-review-card {
+    grid-template-columns: 1fr;
+  }
+
+  .book-review-card__image img {
+    height: 280px;
+  }
 }
 
 @media (max-width: 640px) {

@@ -11,6 +11,7 @@ import Travel from "../pages/Travel/Travel";
 import Research from "../pages/Research/Research";
 import Contact from "../pages/Contact/Contact";
 import ProjectDetails from "../pages/ProjectDetails/ProjectDetails";
+import BookReviewDetails from "../pages/BookReviewDetails/BookReviewDetails";
 import NotFound from "../pages/NotFound/NotFound";
 
 import ProtectedRoute from "../components/auth/ProtectedRoute/ProtectedRoute";
@@ -28,6 +29,11 @@ const AdminPostNew = lazy(() => import("../pages/AdminPostNew/AdminPostNew"));
 const AdminPostEdit = lazy(() =>
   import("../pages/AdminPostEdit/AdminPostEdit")
 );
+
+/* BOOK ADMIN PAGES */
+const AdminBooks = lazy(() => import("../pages/AdminBooks/AdminBooks"));
+const AdminBookNew = lazy(() => import("../pages/AdminBookNew/AdminBookNew"));
+const AdminBookEdit = lazy(() => import("../pages/AdminBookEdit/AdminBookEdit"));
 
 function LazyPage({ children }) {
   return (
@@ -47,6 +53,7 @@ export const router = createBrowserRouter([
       { path: "blog", element: <Blog /> },
       { path: "blog/:slug", element: <BlogDetails /> },
       { path: "book-reviews", element: <BookReviews /> },
+      { path: "book-reviews/:slug", element: <BookReviewDetails /> },
       { path: "achievements", element: <Achievements /> },
       { path: "travel", element: <Travel /> },
       { path: "research", element: <Research /> },
@@ -114,8 +121,46 @@ export const router = createBrowserRouter([
           </LazyPage>
         ),
       },
+
+      /* BOOK ADMIN ROUTES */
+
+      {
+        path: "books",
+        element: (
+          <LazyPage>
+            <AdminBooks />
+          </LazyPage>
+        ),
+      },
+      {
+        path: "books/new",
+        element: (
+          <LazyPage>
+            <AdminBookNew />
+          </LazyPage>
+        ),
+      },
+      {
+        path: "books/edit/:id",
+        element: (
+          <LazyPage>
+            <AdminBookEdit />
+          </LazyPage>
+        ),
+      },
     ],
   },
+
+  {path: "book-reviews",
+     element: 
+     <BookReviews />
+    },
+
+  {path: "book-reviews/:slug",
+     element:
+      <BookReviewDetails />
+    },
+
 
   {
     path: "*",

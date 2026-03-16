@@ -22,6 +22,7 @@ function AdminLayout() {
         <nav className="admin-sidebar__nav">
           <NavLink to="/admin/dashboard">Dashboard</NavLink>
           <NavLink to="/admin/posts">Posts</NavLink>
+          <NavLink to="/admin/books">Books</NavLink>
           <NavLink to="/admin/posts/new">Create Post</NavLink>
           <NavLink to="/admin/messages">Messages</NavLink>
           <NavLink to="/">Back to Site</NavLink>

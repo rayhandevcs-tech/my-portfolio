@@ -1,0 +1,108 @@
+.admin-books-page {
+  width: 100%;
+}
+
+.admin-books-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.admin-books-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.admin-books-header h1 {
+  margin-bottom: 0.35rem;
+  font-size: 2.1rem;
+}
+
+.admin-books-header p {
+  color: #555;
+}
+
+.admin-books-create-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border: 1px solid #dcdcdc;
+  background: #fff;
+  border-radius: 0.8rem;
+  padding: 0.85rem 1rem;
+  font-weight: 600;
+  color: #111827;
+  white-space: nowrap;
+}
+
+.admin-books-error {
+  color: #c62828;
+  font-weight: 600;
+}
+
+.admin-books-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+  background: #fff;
+}
+
+.admin-books-table {
+  width: 100%;
+  min-width: 1000px;
+  border-collapse: collapse;
+}
+
+.admin-books-table th,
+.admin-books-table td {
+  text-align: left;
+  padding: 1rem;
+  border-bottom: 1px solid #eef0f3;
+  vertical-align: top;
+}
+
+.admin-books-table th {
+  background: #fafafa;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.admin-books-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 150px;
+}
+
+.admin-books-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  border: 1px solid #dcdcdc;
+  background: #fff;
+  border-radius: 0.7rem;
+  padding: 0.55rem 0.9rem;
+  text-decoration: none;
+  font: inherit;
+  font-weight: 600;
+  color: #111827;
+  cursor: pointer;
+}
+
+.admin-books-action-btn.danger {
+  border-color: #f1b5b5;
+  color: #c62828;
+}
+
+@media (max-width: 768px) {
+  .admin-books-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

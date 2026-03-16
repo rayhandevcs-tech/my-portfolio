@@ -5,6 +5,7 @@ import AboutSection from "../../components/sections/home/AboutSection/AboutSecti
 import ProjectsSection from "../../components/sections/home/ProjectsSection/ProjectsSection";
 import ContactSection from "../../components/sections/home/ContactSection/ContactSection";
 
+
 function Home() {
   return (
     <>

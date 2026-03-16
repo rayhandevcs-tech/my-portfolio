@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import Seo from "../../components/common/Seo/Seo";
 import { useBlogPost } from "../../hooks/useBlogPost";
@@ -12,6 +12,7 @@ import "./BlogDetails.css";
 
 function BlogDetails() {
   const { slug } = useParams();
+  const navigate = useNavigate();
   const { post, loading, error, notFound } = useBlogPost(slug);
   const { posts } = useBlogPosts();
   const hasIncrementedRef = useRef(false);
@@ -69,6 +70,16 @@ function BlogDetails() {
       <PageHero title={post.title} subtitle={post.excerpt} />
 
       <section className="blog-details-content section">
+        <div className="details-back-wrap">
+          <button
+            type="button"
+            className="details-back-btn"
+            onClick={() => navigate(-1)}
+          >
+            ← Back
+          </button>
+        </div>
+
         {post.coverImage && (
           <div className="blog-details-cover">
             <img
