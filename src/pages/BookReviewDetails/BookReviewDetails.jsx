@@ -3,11 +3,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import Seo from "../../components/common/Seo/Seo";
 import PageHero from "../../components/common/PageHero/PageHero";
+import ReadingProgress from "../../components/common/ReadingProgress/ReadingProgress";
+import TableOfContents from "../../components/sections/blog/TableOfContents/TableOfContents";
 import RelatedBooks from "../../components/sections/books/RelatedBooks/RelatedBooks";
 import { useBookReview } from "../../hooks/useBookReview";
 import { useBookReviews } from "../../hooks/useBookReviews";
 import { getRelatedBooks } from "../../utils/getRelatedBooks";
-import ReadingProgress from "../../components/common/ReadingProgress/ReadingProgress";
+import { extractHeadings } from "../../utils/extractHeadings";
 import "./BookReviewDetails.css";
 
 function BookReviewDetails() {
@@ -19,6 +21,10 @@ function BookReviewDetails() {
   const relatedBooks = useMemo(() => {
     return getRelatedBooks(books, book, 2);
   }, [books, book]);
+
+  const headings = useMemo(() => {
+    return extractHeadings(book?.review || "");
+  }, [book]);
 
   if (loading) {
     return (
@@ -47,6 +53,7 @@ function BookReviewDetails() {
   return (
     <>
       <ReadingProgress />
+
       <Seo
         title={`${book.title} | Book Review | RayhanDev`}
         description={book.excerpt || "Read this book review on RayhanDev."}
@@ -69,6 +76,8 @@ function BookReviewDetails() {
               ← Back
             </button>
           </div>
+
+          <TableOfContents headings={headings} />
 
           {book.coverImage && (
             <div className="book-review-details-cover">
@@ -96,7 +105,24 @@ function BookReviewDetails() {
           </div>
 
           <article className="markdown-content">
-            <ReactMarkdown>{book.review}</ReactMarkdown>
+            <ReactMarkdown
+              components={{
+                h2: ({ children }) => {
+                  const text = String(children);
+                  const matched = headings.find((heading) => heading.text === text);
+                  const id = matched?.id || text.toLowerCase().replace(/\s+/g, "-");
+                  return <h2 id={id}>{children}</h2>;
+                },
+                h3: ({ children }) => {
+                  const text = String(children);
+                  const matched = headings.find((heading) => heading.text === text);
+                  const id = matched?.id || text.toLowerCase().replace(/\s+/g, "-");
+                  return <h3 id={id}>{children}</h3>;
+                },
+              }}
+            >
+              {book.review}
+            </ReactMarkdown>
           </article>
 
           <RelatedBooks books={relatedBooks} />

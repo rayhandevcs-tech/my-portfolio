@@ -93,6 +93,9 @@
   background: #f4f4f4;
   color: #1f2937;
 }
+.table-of-contents {
+  margin-bottom: 1.5rem;
+}
 
 @media (max-width: 680px) {
   .book-review-details-content {
