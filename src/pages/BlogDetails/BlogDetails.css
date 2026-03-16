@@ -7,6 +7,10 @@
   margin: 0 auto;
 }
 
+/* =========================
+   COVER IMAGE
+========================= */
+
 .blog-details-cover {
   margin-bottom: 2rem;
   border-radius: 1rem;
@@ -20,6 +24,10 @@
   display: block;
 }
 
+/* =========================
+   META INFO
+========================= */
+
 .blog-details-meta {
   display: grid;
   gap: 0.45rem;
@@ -28,6 +36,10 @@
   border: 1px solid #eaeaea;
   border-radius: 1rem;
 }
+
+/* =========================
+   MARKDOWN CONTENT
+========================= */
 
 .markdown-content {
   line-height: 1.85;
@@ -76,24 +88,10 @@
   background: #faf8ff;
 }
 
-/* .details-back-wrap {
-  margin-bottom: 20px;
-}
+/* =========================
+   BACK BUTTON
+========================= */
 
-.details-back-btn {
-  border: none;
-  background: #111827;
-  color: #fff;
-  padding: 10px 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: 0.3s ease;
-}
-
-.details-back-btn:hover {
-  background: #1f2937;
-} */
 .details-back-wrap {
   margin-bottom: 1rem;
 }
@@ -106,8 +104,11 @@
   font: inherit;
   font-weight: 600;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
+
 .details-back-btn:hover {
-  background: #1f2937;
+  background: #111827;
   color: #fff;
+  border-color: #111827;
 }

@@ -1,0 +1,26 @@
+.table-of-contents {
+  margin: 0 0 2rem;
+  padding: 1rem 1.2rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+  background: #fff;
+}
+
+.table-of-contents__title {
+  margin-bottom: 0.85rem;
+  font-size: 1.05rem;
+}
+
+.table-of-contents__list {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.table-of-contents__item a {
+  text-decoration: none;
+  color: #374151;
+}
+
+.table-of-contents__item.level-3 {
+  padding-left: 1rem;
+}

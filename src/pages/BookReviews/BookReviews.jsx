@@ -1,11 +1,31 @@
+import { useMemo, useState } from "react";
 import Seo from "../../components/common/Seo/Seo";
 import PageHero from "../../components/common/PageHero/PageHero";
 import EmptyState from "../../components/common/EmptyState/EmptyState";
 import BookReviewCard from "../../components/sections/books/BookReviewCard/BookReviewCard";
+import FeaturedBook from "../../components/sections/books/FeaturedBook/FeaturedBook";
+import BookPagination from "../../components/sections/books/BookPagination/BookPagination";
 import { useBookReviews } from "../../hooks/useBookReviews";
 
+const BOOKS_PER_PAGE = 4;
+
 function BookReviews() {
-  const { books, loading, error } = useBookReviews();
+  const { regularBooks, featuredBook, loading, error } = useBookReviews();
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const totalPages = Math.ceil(regularBooks.length / BOOKS_PER_PAGE);
+
+  const paginatedBooks = useMemo(() => {
+    const startIndex = (currentPage - 1) * BOOKS_PER_PAGE;
+    const endIndex = startIndex + BOOKS_PER_PAGE;
+    return regularBooks.slice(startIndex, endIndex);
+  }, [regularBooks, currentPage]);
+
+  function handlePageChange(page) {
+    if (page < 1 || page > totalPages) return;
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 
   if (loading) {
     return (
@@ -41,17 +61,31 @@ function BookReviews() {
 
         <section className="section">
           <div className="container">
-            {books.length === 0 ? (
+            {featuredBook && (
+              <div style={{ marginBottom: "2rem" }}>
+                <FeaturedBook book={featuredBook} />
+              </div>
+            )}
+
+            {!featuredBook && regularBooks.length === 0 ? (
               <EmptyState
                 title="No book reviews yet"
                 message="Book reviews will appear here once they are published."
               />
             ) : (
-              <div style={{ display: "grid", gap: "1.5rem" }}>
-                {books.map((book) => (
-                  <BookReviewCard key={book._id || book.slug} book={book} />
-                ))}
-              </div>
+              <>
+                <div style={{ display: "grid", gap: "1.5rem" }}>
+                  {paginatedBooks.map((book) => (
+                    <BookReviewCard key={book._id || book.slug} book={book} />
+                  ))}
+                </div>
+
+                <BookPagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={handlePageChange}
+                />
+              </>
             )}
           </div>
         </section>

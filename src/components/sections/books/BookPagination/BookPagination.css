@@ -1,0 +1,36 @@
+.book-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.book-pagination__pages {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.book-pagination__btn,
+.book-pagination__page {
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 0.75rem;
+  padding: 0.65rem 0.9rem;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.book-pagination__page.active {
+  background: #111827;
+  color: #fff;
+  border-color: #111827;
+}
+
+.book-pagination__btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
