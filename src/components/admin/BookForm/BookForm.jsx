@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { uploadCoverImage } from "../../../services/api/uploadApi";
 import "./BookForm.css";
@@ -21,6 +21,7 @@ function BookForm({ initialValues, onSubmit, submitting, submitLabel }) {
   const [formData, setFormData] = useState(initialFormState);
   const [uploadingImage, setUploadingImage] = useState(false);
   const [uploadError, setUploadError] = useState("");
+  const reviewTextareaRef = useRef(null);
 
   useEffect(() => {
     if (initialValues) {
@@ -49,6 +50,104 @@ function BookForm({ initialValues, onSubmit, submitting, submitLabel }) {
     }));
   }
 
+  function insertAtCursor(snippet) {
+    const textarea = reviewTextareaRef.current;
+
+    if (!textarea) {
+      setFormData((prev) => ({
+        ...prev,
+        review: `${prev.review}${snippet}`,
+      }));
+      return;
+    }
+
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const currentValue = formData.review || "";
+
+    const newValue =
+      currentValue.slice(0, start) +
+      snippet +
+      currentValue.slice(end);
+
+    setFormData((prev) => ({
+      ...prev,
+      review: newValue,
+    }));
+
+    requestAnimationFrame(() => {
+      textarea.focus();
+      const cursorPosition = start + snippet.length;
+      textarea.setSelectionRange(cursorPosition, cursorPosition);
+    });
+  }
+
+  function wrapSelectedText(before, after = before, fallback = "text") {
+    const textarea = reviewTextareaRef.current;
+
+    if (!textarea) return;
+
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const currentValue = formData.review || "";
+    const selectedText = currentValue.slice(start, end) || fallback;
+
+    const replacement = `${before}${selectedText}${after}`;
+
+    const newValue =
+      currentValue.slice(0, start) +
+      replacement +
+      currentValue.slice(end);
+
+    setFormData((prev) => ({
+      ...prev,
+      review: newValue,
+    }));
+
+    requestAnimationFrame(() => {
+      textarea.focus();
+      const selectionStart = start + before.length;
+      const selectionEnd = selectionStart + selectedText.length;
+      textarea.setSelectionRange(selectionStart, selectionEnd);
+    });
+  }
+
+  function addHeading() {
+    wrapSelectedText("## ", "", "New Section Heading");
+  }
+
+  function addSubheading() {
+    wrapSelectedText("### ", "", "Small Heading");
+  }
+
+  function addBoldText() {
+    wrapSelectedText("**", "**", "bold text");
+  }
+
+  function addItalicText() {
+    wrapSelectedText("*", "*", "italic text");
+  }
+
+  function addQuote() {
+    wrapSelectedText("> ", "", "Write your quote here");
+  }
+
+  function addBulletList() {
+    insertAtCursor("\n- First point\n- Second point\n- Third point\n");
+  }
+
+  function addNumberedList() {
+    insertAtCursor("\n1. First item\n2. Second item\n3. Third item\n");
+  }
+
+  function addImageMarkdown() {
+    insertAtCursor("\n![Image alt text](https://image-url-here)\n");
+  }
+
+  function addDivider() {
+    insertAtCursor("\n---\n");
+  }
+
   async function handleImageUpload(event) {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -67,6 +166,54 @@ function BookForm({ initialValues, onSubmit, submitting, submitLabel }) {
       setUploadError(error.message || "Failed to upload image");
     } finally {
       setUploadingImage(false);
+    }
+  }
+
+  async function handleInlineImageUpload(event) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    try {
+      setUploadingImage(true);
+      setUploadError("");
+
+      const result = await uploadCoverImage(file);
+      const snippet = `\n![Image alt text](${result.url})\n`;
+
+      const textarea = reviewTextareaRef.current;
+
+      if (!textarea) {
+        setFormData((prev) => ({
+          ...prev,
+          review: `${prev.review}${snippet}`,
+        }));
+        return;
+      }
+
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      const currentValue = formData.review || "";
+
+      const newValue =
+        currentValue.slice(0, start) +
+        snippet +
+        currentValue.slice(end);
+
+      setFormData((prev) => ({
+        ...prev,
+        review: newValue,
+      }));
+
+      requestAnimationFrame(() => {
+        textarea.focus();
+        const cursorPosition = start + snippet.length;
+        textarea.setSelectionRange(cursorPosition, cursorPosition);
+      });
+    } catch (error) {
+      setUploadError(error.message || "Failed to upload inline image");
+    } finally {
+      setUploadingImage(false);
+      event.target.value = "";
     }
   }
 
@@ -208,12 +355,41 @@ function BookForm({ initialValues, onSubmit, submitting, submitLabel }) {
 
       <div className="book-form-group">
         <label htmlFor="review">Review (Markdown supported)</label>
+
+        <div className="book-form-toolbar">
+          <button type="button" onClick={addHeading}>H2</button>
+          <button type="button" onClick={addSubheading}>H3</button>
+          <button type="button" onClick={addBoldText}>Bold</button>
+          <button type="button" onClick={addItalicText}>Italic</button>
+          <button type="button" onClick={addQuote}>Quote</button>
+          <button type="button" onClick={addBulletList}>Bullet List</button>
+          <button type="button" onClick={addNumberedList}>Numbered List</button>
+          <button type="button" onClick={addImageMarkdown}>Image</button>
+          <button type="button" onClick={addDivider}>Divider</button>
+        </div>
+
+        <div className="book-form-inline-upload">
+          <label
+            htmlFor="bookInlineImageUpload"
+            className="book-form-inline-upload__label"
+          >
+            Upload Inline Image
+          </label>
+          <input
+            id="bookInlineImageUpload"
+            type="file"
+            accept="image/*"
+            onChange={handleInlineImageUpload}
+          />
+        </div>
+
         <textarea
           id="review"
           name="review"
           rows="12"
           value={formData.review}
           onChange={handleChange}
+          ref={reviewTextareaRef}
           required
         />
       </div>

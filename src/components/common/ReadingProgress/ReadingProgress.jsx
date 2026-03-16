@@ -4,52 +4,40 @@ function ReadingProgress() {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const updateProgress = () => {
-      const article = document.querySelector(".blog-details");
+    function updateReadingProgress() {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
 
-      if (!article) {
+      if (docHeight <= 0) {
         setProgress(0);
         return;
       }
 
-      const articleTop = article.offsetTop;
-      const articleHeight = article.offsetHeight;
-      const scrollTop = window.scrollY;
-      const windowHeight = window.innerHeight;
+      const scrolled = (scrollTop / docHeight) * 100;
+      setProgress(Math.min(100, Math.max(0, scrolled)));
+    }
 
-      const totalScrollable = articleHeight - windowHeight;
-      const current = scrollTop - articleTop;
-
-      if (totalScrollable <= 0) {
-        setProgress(100);
-        return;
-      }
-
-      const value = Math.min(
-        100,
-        Math.max(0, (current / totalScrollable) * 100)
-      );
-
-      setProgress(value);
-    };
-
-    updateProgress();
-    window.addEventListener("scroll", updateProgress);
-    window.addEventListener("resize", updateProgress);
+    updateReadingProgress();
+    window.addEventListener("scroll", updateReadingProgress);
 
     return () => {
-      window.removeEventListener("scroll", updateProgress);
-      window.removeEventListener("resize", updateProgress);
+      window.removeEventListener("scroll", updateReadingProgress);
     };
   }, []);
 
   return (
-    <div className="reading-progress" aria-hidden="true">
-      <div
-        className="reading-progress__bar"
-        style={{ width: `${progress}%` }}
-      />
-    </div>
+    <div
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: `${progress}%`,
+        height: "4px",
+        background: "#6c4ef6",
+        zIndex: 9999,
+        transition: "width 0.1s linear",
+      }}
+    />
   );
 }
 

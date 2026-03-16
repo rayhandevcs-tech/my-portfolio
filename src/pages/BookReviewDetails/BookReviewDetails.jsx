@@ -7,6 +7,7 @@ import RelatedBooks from "../../components/sections/books/RelatedBooks/RelatedBo
 import { useBookReview } from "../../hooks/useBookReview";
 import { useBookReviews } from "../../hooks/useBookReviews";
 import { getRelatedBooks } from "../../utils/getRelatedBooks";
+import ReadingProgress from "../../components/common/ReadingProgress/ReadingProgress";
 import "./BookReviewDetails.css";
 
 function BookReviewDetails() {
@@ -45,6 +46,7 @@ function BookReviewDetails() {
 
   return (
     <>
+      <ReadingProgress />
       <Seo
         title={`${book.title} | Book Review | RayhanDev`}
         description={book.excerpt || "Read this book review on RayhanDev."}

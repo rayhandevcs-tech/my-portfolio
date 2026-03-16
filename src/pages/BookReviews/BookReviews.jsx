@@ -10,7 +10,13 @@ import { useBookReviews } from "../../hooks/useBookReviews";
 const BOOKS_PER_PAGE = 4;
 
 function BookReviews() {
-  const { regularBooks, featuredBook, loading, error } = useBookReviews();
+  const {
+    regularBooks = [],
+    featuredBook = null,
+    loading,
+    error,
+  } = useBookReviews();
+
   const [currentPage, setCurrentPage] = useState(1);
 
   const totalPages = Math.ceil(regularBooks.length / BOOKS_PER_PAGE);

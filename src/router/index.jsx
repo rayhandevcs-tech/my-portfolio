@@ -6,12 +6,12 @@ import Home from "../pages/Home/Home";
 import Blog from "../pages/Blog/Blog";
 import BlogDetails from "../pages/BlogDetails/BlogDetails";
 import BookReviews from "../pages/BookReviews/BookReviews";
+import BookReviewDetails from "../pages/BookReviewDetails/BookReviewDetails";
 import Achievements from "../pages/Achievements/Achievements";
 import Travel from "../pages/Travel/Travel";
 import Research from "../pages/Research/Research";
 import Contact from "../pages/Contact/Contact";
 import ProjectDetails from "../pages/ProjectDetails/ProjectDetails";
-import BookReviewDetails from "../pages/BookReviewDetails/BookReviewDetails";
 import NotFound from "../pages/NotFound/NotFound";
 
 import ProtectedRoute from "../components/auth/ProtectedRoute/ProtectedRoute";
@@ -30,7 +30,6 @@ const AdminPostEdit = lazy(() =>
   import("../pages/AdminPostEdit/AdminPostEdit")
 );
 
-/* BOOK ADMIN PAGES */
 const AdminBooks = lazy(() => import("../pages/AdminBooks/AdminBooks"));
 const AdminBookNew = lazy(() => import("../pages/AdminBookNew/AdminBookNew"));
 const AdminBookEdit = lazy(() => import("../pages/AdminBookEdit/AdminBookEdit"));
@@ -61,7 +60,6 @@ export const router = createBrowserRouter([
       { path: "projects/:slug", element: <ProjectDetails /> },
     ],
   },
-
   {
     path: "/admin/login",
     element: (
@@ -71,7 +69,6 @@ export const router = createBrowserRouter([
     ),
     errorElement: <NotFound />,
   },
-
   {
     path: "/admin",
     element: (
@@ -121,9 +118,6 @@ export const router = createBrowserRouter([
           </LazyPage>
         ),
       },
-
-      /* BOOK ADMIN ROUTES */
-
       {
         path: "books",
         element: (
@@ -150,18 +144,6 @@ export const router = createBrowserRouter([
       },
     ],
   },
-
-  {path: "book-reviews",
-     element: 
-     <BookReviews />
-    },
-
-  {path: "book-reviews/:slug",
-     element:
-      <BookReviewDetails />
-    },
-
-
   {
     path: "*",
     element: <NotFound />,

@@ -73,6 +73,43 @@
   font-weight: 600;
 }
 
+.book-form-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 0.9rem;
+}
+
+.book-form-toolbar button {
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 0.65rem;
+  padding: 0.5rem 0.8rem;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.book-form-inline-upload {
+  margin-bottom: 1rem;
+}
+
+.book-form-inline-upload__label {
+  display: inline-block;
+  margin-bottom: 0.45rem;
+  font-weight: 600;
+}
+
+.book-form-inline-upload input[type="file"] {
+  display: block;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 0.75rem;
+  padding: 0.7rem 0.9rem;
+  background: #fff;
+}
+
+
 @media (max-width: 768px) {
   .book-form-grid {
     grid-template-columns: 1fr;

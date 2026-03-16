@@ -10,6 +10,7 @@ import Seo from "../../components/common/Seo/Seo";
 import PageHero from "../../components/common/PageHero/PageHero";
 import RelatedPosts from "../../components/sections/blog/RelatedPosts/RelatedPosts";
 import TableOfContents from "../../components/sections/blog/TableOfContents/TableOfContents";
+import ReadingProgress from "../../components/common/ReadingProgress/ReadingProgress";
 import "./BlogDetails.css";
 
 function BlogDetails() {
@@ -59,7 +60,9 @@ function BlogDetails() {
 
   return (
     <>
+      <ReadingProgress />
       <Seo
+
         title={`${post.title} | RayhanDev`}
         description={post.excerpt || "Read this blog post on RayhanDev."}
         keywords={
