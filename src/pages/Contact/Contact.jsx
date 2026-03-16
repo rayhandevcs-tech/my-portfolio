@@ -21,13 +21,6 @@ function Contact() {
 
           <ContactInfoGrid />
 
-          <div className="contact-home__note">
-            <p>
-              I’m especially interested in frontend development, scalable UI
-              systems, and projects that help me grow through building.
-            </p>
-          </div>
-
           <ContactForm />
         </div>
       </main>

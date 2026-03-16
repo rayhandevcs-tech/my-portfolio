@@ -30,11 +30,7 @@ function HeroSection() {
             </Link>
           </div>
 
-          <div className="hero__mini-points">
-            <span>React-based UI</span>
-            <span>Scalable structure</span>
-            <span>Continuous learning</span>
-          </div>
+          
         </div>
 
         <div className="hero__image-wrap">

@@ -18,8 +18,8 @@ export const siteConfig = {
     { label: "Blog", path: "/blog" },
     { label: "Books", path: "/book-reviews" },
     { label: "Achievements", path: "/achievements" },
-    { label: "Travel", path: "/travel" },
-    { label: "Research", path: "/research" },
+    // { label: "Travel", path: "/travel" },
+    // { label: "Research", path: "/research" },
     { label: "Contact", path: "/contact" },
   ],
 

@@ -4,34 +4,44 @@ import aboutImage from "../../../../assets/images/hero_pic.png";
 function AboutSection() {
   return (
     <section className="section about" id="about">
-      <div className="container about__grid">
-        <div className="about__image-wrap">
-          <div className="about__image">
-            <img src={aboutImage} alt="About me" className="about__img" />
+      <div className="container">
+        <div className="about__card">
+          <div className="about__media">
+            <div className="about__image-wrap">
+              <img src={aboutImage} alt="Rayhan" className="about__img" />
+            </div>
+
+            <p className="about__role">Frontend Developer</p>
           </div>
-        </div>
 
-        <div className="about__content">
-          <p className="eyebrow">About Me</p>
+          <div className="about__content">
+            <p className="about__eyebrow">About</p>
 
-          <h2>Building with curiosity and consistency</h2>
+            <h2 className="about__title">
+              Building simple
+  <br /> interfaces.
+            </h2>
 
-          <p>
-            I am passionate about frontend development and enjoy turning ideas
-            into clean, responsive, and user-friendly web interfaces. I like
-            learning by building and improving projects step by step.
-          </p>
+            <p className="about__text">
+              I design and build modern frontend experiences that value clarity,
+              responsiveness, and real usability.
+            </p>
 
-          <p>
-            Over time, I want to grow this website into more than a portfolio —
-            a place for writing, reflection, research interests, reading notes,
-            and meaningful work.
-          </p>
+            <div className="about__meta">
+              <span>React</span>
+              <span>JavaScript</span>
+              <span>Responsive UI</span>
+            </div>
 
-          <div className="about__highlights">
-            <span>Frontend Development</span>
-            <span>Reusable Components</span>
-            <span>Scalable Structure</span>
+            <div className="about__actions">
+              <a href="#contact" className="about__btn">
+                Let’s Talk
+              </a>
+
+              <p className="about__note">
+                Learning, building, and refining with consistency.
+              </p>
+            </div>
           </div>
         </div>
       </div>

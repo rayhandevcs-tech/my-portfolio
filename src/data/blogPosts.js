@@ -1,6 +1,4 @@
-// import heroImg from "../assets/images/hero_img.png";
-// import penImg from "../assets/images/feather-pen-1.png";
-// import chainImg from "../assets/images/product-chain-1.png";
+
 import placeholderImg from "../assets/images/placeholder-image.png";
 import placeholderImg1 from "../assets/images/placeholder-image-1.png";
 import placeholderImg2 from "../assets/images/placeholder-image-2.png";
