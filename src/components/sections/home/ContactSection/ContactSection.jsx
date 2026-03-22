@@ -10,14 +10,20 @@ function ContactSection() {
         <ContactIntro
           eyebrow="Contact"
           title="Let’s Connect"
-          description="I’m open to collaboration, learning opportunities, and meaningful conversations around frontend development, projects, and growth."
+          description="I’m open to collaboration, learning opportunities, and thoughtful conversations around frontend development, projects, and growth."
         />
 
         <ContactInfoGrid />
 
-        <Link to="/contact" className="btn contact-home__cta">
-          Send a Message
-        </Link>
+        <div className="contact-home__actions">
+          <Link to="/contact" className="btn contact-home__cta">
+            Send a Message
+          </Link>
+
+          <p className="contact-home__subtext">
+            Open to meaningful conversations, collaboration, and frontend-focused opportunities.
+          </p>
+        </div>
       </div>
     </section>
   );

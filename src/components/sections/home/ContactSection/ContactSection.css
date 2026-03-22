@@ -1,33 +1,158 @@
 .contact-home {
-  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
+  background:
+    radial-gradient(circle at top left, rgba(109, 40, 217, 0.06), transparent 30%),
+    linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+}
+
+.contact-intro {
+  max-width: 720px;
+}
+
+.contact-intro__eyebrow {
+  margin: 0 0 14px;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+.contact-intro__title {
+  margin: 0 0 16px;
+  font-size: clamp(2rem, 3vw, 3rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  color: #1f2937;
+}
+
+.contact-intro__description {
+  max-width: 62ch;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.9;
+  color: #5b6474;
 }
 
 .contact-home__grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
-  margin-top: 48px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 44px;
+}
+
+.contact-info-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  min-height: 100%;
+  padding: 24px;
+  border-radius: 20px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.04),
+    0 10px 24px rgba(15, 23, 42, 0.04);
+  backdrop-filter: blur(8px);
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease,
+    border-color 0.28s ease;
+}
+
+.contact-info-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(109, 40, 217, 0.16);
+  box-shadow:
+    0 8px 18px rgba(15, 23, 42, 0.05),
+    0 16px 34px rgba(109, 40, 217, 0.06);
+}
+
+.contact-info-card__icon {
+  width: 46px;
+  height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1),
+    rgba(109, 40, 217, 0.1)
+  );
+  color: var(--primary);
+  border: 1px solid rgba(109, 40, 217, 0.14);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    0 6px 16px rgba(109, 40, 217, 0.08);
+  flex-shrink: 0;
+}
+
+.contact-info-card__content {
+  min-width: 0;
+}
+
+.contact-info-card__content h3 {
+  margin: 0 0 10px;
+  font-size: 1.08rem;
+  line-height: 1.3;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #1f2937;
+}
+
+.contact-info-card__content p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: #5b6474;
+}
+
+.contact-info-card__link {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  color: var(--primary);
+  font-weight: 700;
+  text-decoration: none;
+  position: relative;
+}
+
+.contact-info-card__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.35;
+  transition: opacity 0.2s ease;
+}
+
+.contact-info-card__link:hover::after {
+  opacity: 0.7;
+}
+
+.contact-home__actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-top: 28px;
 }
 
 .contact-home__cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-top: 28px;
 }
 
-.contact-home__note {
-  margin-top: 36px;
-  padding: 24px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--bg);
-}
-
-.contact-home__note p {
+.contact-home__subtext {
   margin: 0;
-  color: var(--text-muted);
+  font-size: 0.95rem;
   line-height: 1.7;
+  color: #6b7280;
 }
 
 @media (max-width: 992px) {
@@ -39,15 +164,28 @@
 @media (max-width: 640px) {
   .contact-home__grid {
     margin-top: 36px;
-    gap: 20px;
+    gap: 18px;
   }
 
-  .contact-home__cta {
-    margin-top: 24px;
-  }
-
-  .contact-home__note {
-    margin-top: 24px;
+  .contact-info-card {
     padding: 20px;
+    border-radius: 18px;
+  }
+
+  .contact-info-card__icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+  }
+
+  .contact-home__actions {
+    margin-top: 24px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .contact-home__subtext {
+    font-size: 0.92rem;
   }
 }

@@ -10,9 +10,10 @@ function ContactInfoCard({
     <article className="contact-info-card">
       {icon && <span className="contact-info-card__icon">{icon}</span>}
 
-      <h3>{title}</h3>
-
-      {description && <p>{description}</p>}
+      <div className="contact-info-card__content">
+        <h3>{title}</h3>
+        {description && <p>{description}</p>}
+      </div>
 
       <a
         className="contact-info-card__link"
