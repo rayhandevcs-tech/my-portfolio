@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { siteConfig } from "../../../data/site";
+import { Github, Linkedin, Mail } from "lucide-react";
 import "./Footer.css";
 
 function Footer() {
@@ -9,10 +10,6 @@ function Footer() {
     )
   );
 
-  const exploreLinks = siteConfig.navLinks.filter((link) =>
-    ["/travel", "/research"].includes(link.path)
-  );
-
   return (
     <footer className="footer">
       <div className="container footer__grid">
@@ -20,11 +17,15 @@ function Footer() {
           <h3 className="footer__logo">
             {siteConfig.brand || siteConfig.name}
           </h3>
-          <p>{siteConfig.footer?.description}</p>
+
+          <p className="footer__description">
+            A personal website for projects, writing, book reviews,
+            achievements, and future research-oriented work.
+          </p>
         </div>
 
         <div className="footer__column">
-          <h4>Quick Links</h4>
+          <h4>Navigation</h4>
           <div className="footer__links">
             {quickLinks.map((link) => (
               <Link key={link.path} to={link.path}>
@@ -35,25 +36,21 @@ function Footer() {
         </div>
 
         <div className="footer__column">
-          <h4>Explore</h4>
-          <div className="footer__links">
-            {exploreLinks.map((link) => (
-              <Link key={link.path} to={link.path}>
-                {link.label}
-              </Link>
-            ))}
-          </div>
-        </div>
-
-        <div className="footer__column">
           <h4>Connect</h4>
-          <div className="footer__links">
-            <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
-            <a href={siteConfig.github} target="_blank" rel="noreferrer">
-              GitHub
+          <div className="footer__links footer__links--icons">
+            <a href={`mailto:${siteConfig.email}`}>
+              <Mail size={16} strokeWidth={2.1} />
+              <span>Email</span>
             </a>
+
+            <a href={siteConfig.github} target="_blank" rel="noreferrer">
+              <Github size={16} strokeWidth={2.1} />
+              <span>GitHub</span>
+            </a>
+
             <a href={siteConfig.linkedin} target="_blank" rel="noreferrer">
-              LinkedIn
+              <Linkedin size={16} strokeWidth={2.1} />
+              <span>LinkedIn</span>
             </a>
           </div>
         </div>
@@ -63,6 +60,7 @@ function Footer() {
         <p>
           © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
         </p>
+        <p className="footer__bottom-note">Built with React & modern CSS.</p>
       </div>
     </footer>
   );

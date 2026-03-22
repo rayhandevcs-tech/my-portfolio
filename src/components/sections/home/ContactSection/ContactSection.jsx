@@ -20,9 +20,7 @@ function ContactSection() {
             Send a Message
           </Link>
 
-          <p className="contact-home__subtext">
-            Open to meaningful conversations, collaboration, and frontend-focused opportunities.
-          </p>
+          
         </div>
       </div>
     </section>

@@ -11,12 +11,12 @@ export const skills = [
     description:
       "Creating reusable components and scalable UI sections with clear logic and maintainable code.",
   },
-  {
-    id: 3,
-    title: "Responsive Design",
-    description:
-      "Designing layouts that adapt smoothly across desktop, tablet, and mobile screen sizes.",
-  },
+  // {
+  //   id: 3,
+  //   title: "Responsive Design",
+  //   description:
+  //     "Designing layouts that adapt smoothly across desktop, tablet, and mobile screen sizes.",
+  // },
   {
     id: 4,
     title: "JavaScript Fundamentals",
@@ -29,10 +29,10 @@ export const skills = [
     description:
       "Managing project versions, tracking progress, and maintaining a better development workflow.",
   },
-  {
-    id: 6,
-    title: "UI Implementation",
-    description:
-      "Turning design ideas into polished interfaces with careful spacing, typography, and visual hierarchy.",
-  },
+  // {
+  //   id: 6,
+  //   title: "UI Implementation",
+  //   description:
+  //     "Turning design ideas into polished interfaces with careful spacing, typography, and visual hierarchy.",
+  // },
 ];
