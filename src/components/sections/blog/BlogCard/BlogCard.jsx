@@ -21,7 +21,7 @@ function BlogCard({ post }) {
     <article className="card blog-card">
       {coverImage && (
         <div className="blog-card__image">
-          <img src={coverImage} alt={title} />
+          <img src={coverImage} alt={title} loading="lazy" />
         </div>
       )}
 

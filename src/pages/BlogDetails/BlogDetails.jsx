@@ -1,10 +1,8 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, lazy, Suspense } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import ReactMarkdown from "react-markdown";
 import { useBlogPost } from "../../hooks/useBlogPost";
-import { useBlogPosts } from "../../hooks/useBlogPosts";
+import { useRelatedPosts } from "../../hooks/useRelatedPosts";
 import { incrementPostViews } from "../../services/api/blogApi";
-import { getRelatedPosts } from "../../utils/getRelatedPosts";
 import { extractHeadings } from "../../utils/extractHeadings";
 import Seo from "../../components/common/Seo/Seo";
 import PageHero from "../../components/common/PageHero/PageHero";
@@ -13,22 +11,32 @@ import TableOfContents from "../../components/sections/blog/TableOfContents/Tabl
 import ReadingProgress from "../../components/common/ReadingProgress/ReadingProgress";
 import "./BlogDetails.css";
 
+const ReactMarkdown = lazy(() => import("react-markdown"));
+
 function BlogDetails() {
   const { slug } = useParams();
   const navigate = useNavigate();
+
   const { post, loading, error, notFound } = useBlogPost(slug);
-  const { posts } = useBlogPosts();
+  const {
+    relatedPosts,
+    loading: relatedLoading,
+  } = useRelatedPosts(slug, 3);
+
   const hasIncrementedRef = useRef(false);
 
   useEffect(() => {
+    if (!slug) return;
+
+    hasIncrementedRef.current = false;
+  }, [slug]);
+
+  useEffect(() => {
     if (!slug || hasIncrementedRef.current) return;
+
     hasIncrementedRef.current = true;
     incrementPostViews(slug).catch(() => {});
   }, [slug]);
-
-  const relatedPosts = useMemo(() => {
-    return getRelatedPosts(posts, post, 3);
-  }, [posts, post]);
 
   const headings = useMemo(() => {
     return extractHeadings(post?.content || "");
@@ -61,8 +69,8 @@ function BlogDetails() {
   return (
     <>
       <ReadingProgress />
-      <Seo
 
+      <Seo
         title={`${post.title} | RayhanDev`}
         description={post.excerpt || "Read this blog post on RayhanDev."}
         keywords={
@@ -97,6 +105,7 @@ function BlogDetails() {
                 src={post.coverImage}
                 alt={post.title}
                 className="blog-details-cover__image"
+                loading="lazy"
               />
             </div>
           )}
@@ -117,27 +126,41 @@ function BlogDetails() {
           </div>
 
           <article className="markdown-content">
-            <ReactMarkdown
-              components={{
-                h2: ({ children }) => {
-                  const text = String(children);
-                  const matched = headings.find((heading) => heading.text === text);
-                  const id = matched?.id || text.toLowerCase().replace(/\s+/g, "-");
-                  return <h2 id={id}>{children}</h2>;
-                },
-                h3: ({ children }) => {
-                  const text = String(children);
-                  const matched = headings.find((heading) => heading.text === text);
-                  const id = matched?.id || text.toLowerCase().replace(/\s+/g, "-");
-                  return <h3 id={id}>{children}</h3>;
-                },
-              }}
-            >
-              {post.content}
-            </ReactMarkdown>
+            <Suspense fallback={<p>Loading content...</p>}>
+              <ReactMarkdown
+                components={{
+                  h2: ({ children }) => {
+                    const text = String(children);
+                    const matched = headings.find(
+                      (heading) => heading.text === text
+                    );
+                    const id =
+                      matched?.id ||
+                      text.toLowerCase().replace(/\s+/g, "-");
+                    return <h2 id={id}>{children}</h2>;
+                  },
+                  h3: ({ children }) => {
+                    const text = String(children);
+                    const matched = headings.find(
+                      (heading) => heading.text === text
+                    );
+                    const id =
+                      matched?.id ||
+                      text.toLowerCase().replace(/\s+/g, "-");
+                    return <h3 id={id}>{children}</h3>;
+                  },
+                }}
+              >
+                {post.content}
+              </ReactMarkdown>
+            </Suspense>
           </article>
 
-          <RelatedPosts posts={relatedPosts} />
+          {relatedLoading ? (
+            <p>Loading related posts...</p>
+          ) : (
+            <RelatedPosts posts={relatedPosts} />
+          )}
         </section>
       </main>
     </>

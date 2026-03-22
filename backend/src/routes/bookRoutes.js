@@ -6,6 +6,7 @@ import {
   getAllBooks,
   getBookById,
   getBookBySlug,
+  getRelatedBooksBySlug,
   toggleFeaturedBook,
   updateBook,
 } from "../controllers/bookController.js";
@@ -15,6 +16,7 @@ const router = express.Router();
 
 router.get("/", getAllBooks);
 router.get("/slug/:slug", getBookBySlug);
+router.get("/slug/:slug/related", getRelatedBooksBySlug);
 
 router.get("/admin/all", protectAdmin, getAdminBooks);
 router.get("/:id", protectAdmin, getBookById);

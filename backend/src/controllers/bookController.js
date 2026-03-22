@@ -1,10 +1,14 @@
 import { Book } from "../models/Book.js";
 
+const BOOK_CARD_FIELDS =
+  "_id title slug author category rating coverImage excerpt featured status publishedAt createdAt updatedAt";
+
 export async function getAllBooks(req, res) {
   try {
-    const books = await Book.find({ status: "published" }).sort({
-      createdAt: -1,
-    });
+    const books = await Book.find({ status: "published" })
+      .select(BOOK_CARD_FIELDS)
+      .sort({ featured: -1, publishedAt: -1, createdAt: -1 })
+      .lean();
 
     return res.status(200).json({
       success: true,
@@ -21,7 +25,7 @@ export async function getAllBooks(req, res) {
 
 export async function getAdminBooks(req, res) {
   try {
-    const books = await Book.find().sort({ createdAt: -1 });
+    const books = await Book.find().sort({ createdAt: -1 }).lean();
 
     return res.status(200).json({
       success: true,
@@ -40,7 +44,7 @@ export async function getBookBySlug(req, res) {
   try {
     const { slug } = req.params;
 
-    const book = await Book.findOne({ slug, status: "published" });
+    const book = await Book.findOne({ slug, status: "published" }).lean();
 
     if (!book) {
       return res.status(404).json({
@@ -62,11 +66,84 @@ export async function getBookBySlug(req, res) {
   }
 }
 
+export async function getRelatedBooksBySlug(req, res) {
+  try {
+    const { slug } = req.params;
+    const limit = Math.max(1, Number(req.query.limit) || 2);
+
+    const currentBook = await Book.findOne({
+      slug,
+      status: "published",
+    })
+      .select("_id slug author category")
+      .lean();
+
+    if (!currentBook) {
+      return res.status(404).json({
+        success: false,
+        message: "Book review not found",
+      });
+    }
+
+    let relatedBooks = await Book.find({
+      _id: { $ne: currentBook._id },
+      status: "published",
+      category: currentBook.category,
+    })
+      .select(BOOK_CARD_FIELDS)
+      .sort({ publishedAt: -1, createdAt: -1 })
+      .limit(limit)
+      .lean();
+
+    if (relatedBooks.length < limit && currentBook.author) {
+      const existingIds = relatedBooks.map((book) => book._id);
+
+      const authorMatches = await Book.find({
+        _id: { $nin: [currentBook._id, ...existingIds] },
+        status: "published",
+        author: currentBook.author,
+      })
+        .select(BOOK_CARD_FIELDS)
+        .sort({ publishedAt: -1, createdAt: -1 })
+        .limit(limit - relatedBooks.length)
+        .lean();
+
+      relatedBooks = [...relatedBooks, ...authorMatches];
+    }
+
+    if (relatedBooks.length < limit) {
+      const existingIds = relatedBooks.map((book) => book._id);
+
+      const fallbackBooks = await Book.find({
+        _id: { $nin: [currentBook._id, ...existingIds] },
+        status: "published",
+      })
+        .select(BOOK_CARD_FIELDS)
+        .sort({ featured: -1, publishedAt: -1, createdAt: -1 })
+        .limit(limit - relatedBooks.length)
+        .lean();
+
+      relatedBooks = [...relatedBooks, ...fallbackBooks];
+    }
+
+    return res.status(200).json({
+      success: true,
+      data: relatedBooks,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch related books",
+      error: error.message,
+    });
+  }
+}
+
 export async function getBookById(req, res) {
   try {
     const { id } = req.params;
 
-    const book = await Book.findById(id);
+    const book = await Book.findById(id).lean();
 
     if (!book) {
       return res.status(404).json({
@@ -111,7 +188,9 @@ export async function createBook(req, res) {
       });
     }
 
-    const existingBook = await Book.findOne({ slug });
+    const normalizedSlug = String(slug).trim().toLowerCase();
+
+    const existingBook = await Book.findOne({ slug: normalizedSlug });
 
     if (existingBook) {
       return res.status(400).json({
@@ -121,13 +200,13 @@ export async function createBook(req, res) {
     }
 
     const newBook = await Book.create({
-      title,
-      slug,
-      author,
-      category,
+      title: title.trim(),
+      slug: normalizedSlug,
+      author: author.trim(),
+      category: category.trim(),
       rating: Number(rating) || 5,
       coverImage: coverImage || "",
-      excerpt,
+      excerpt: excerpt.trim(),
       review,
       featured: Boolean(featured),
       status: status === "published" ? "published" : "draft",
@@ -174,8 +253,11 @@ export async function updateBook(req, res) {
       });
     }
 
-    if (slug && slug !== book.slug) {
-      const existingBook = await Book.findOne({ slug });
+    const normalizedSlug =
+      typeof slug === "string" ? slug.trim().toLowerCase() : book.slug;
+
+    if (normalizedSlug && normalizedSlug !== book.slug) {
+      const existingBook = await Book.findOne({ slug: normalizedSlug });
 
       if (existingBook) {
         return res.status(400).json({
@@ -186,7 +268,7 @@ export async function updateBook(req, res) {
     }
 
     book.title = title ?? book.title;
-    book.slug = slug ?? book.slug;
+    book.slug = normalizedSlug ?? book.slug;
     book.author = author ?? book.author;
     book.category = category ?? book.category;
     book.rating = rating ? Number(rating) : book.rating;

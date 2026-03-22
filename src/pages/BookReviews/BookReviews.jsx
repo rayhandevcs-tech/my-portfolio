@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Seo from "../../components/common/Seo/Seo";
 import PageHero from "../../components/common/PageHero/PageHero";
 import EmptyState from "../../components/common/EmptyState/EmptyState";
@@ -19,7 +19,16 @@ function BookReviews() {
 
   const [currentPage, setCurrentPage] = useState(1);
 
-  const totalPages = Math.ceil(regularBooks.length / BOOKS_PER_PAGE);
+  const totalPages = Math.max(
+    1,
+    Math.ceil(regularBooks.length / BOOKS_PER_PAGE)
+  );
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(1);
+    }
+  }, [currentPage, totalPages]);
 
   const paginatedBooks = useMemo(() => {
     const startIndex = (currentPage - 1) * BOOKS_PER_PAGE;
@@ -86,11 +95,13 @@ function BookReviews() {
                   ))}
                 </div>
 
-                <BookPagination
-                  currentPage={currentPage}
-                  totalPages={totalPages}
-                  onPageChange={handlePageChange}
-                />
+                {totalPages > 1 && (
+                  <BookPagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={handlePageChange}
+                  />
+                )}
               </>
             )}
           </div>

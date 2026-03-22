@@ -12,6 +12,7 @@ const postSchema = new mongoose.Schema(
       required: true,
       unique: true,
       trim: true,
+      lowercase: true,
     },
     excerpt: {
       type: String,
@@ -65,5 +66,15 @@ const postSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+postSchema.index({ slug: 1 });
+postSchema.index({ status: 1 });
+postSchema.index({ category: 1 });
+postSchema.index({ tags: 1 });
+postSchema.index({ featured: 1 });
+postSchema.index({ views: -1 });
+postSchema.index({ publishedAt: -1 });
+postSchema.index({ status: 1, slug: 1 });
+postSchema.index({ status: 1, category: 1, publishedAt: -1 });
 
 export const Post = mongoose.model("Post", postSchema);

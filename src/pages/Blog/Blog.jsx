@@ -33,10 +33,9 @@ function Blog() {
           title="Blog | RayhanDev"
           description="Read blog posts about React, full-stack development, architecture, debugging, and project building."
           keywords="blog, react blog, full stack blog, developer notes, javascript, mongodb"
-          url = "https://rayhancsdev.vercel.app"
+          url="https://rayhancsdev.vercel.app/blog"
           type="website"
         />
-
         <main className="section">
           <p>Loading posts...</p>
         </main>
@@ -54,7 +53,6 @@ function Blog() {
           url="https://rayhancsdev.vercel.app/blog"
           type="website"
         />
-
         <main className="section">
           <p>{error}</p>
         </main>

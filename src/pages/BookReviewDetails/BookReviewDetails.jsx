@@ -1,32 +1,32 @@
-import { useMemo } from "react";
+import { useMemo, lazy, Suspense } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import ReactMarkdown from "react-markdown";
 import Seo from "../../components/common/Seo/Seo";
 import PageHero from "../../components/common/PageHero/PageHero";
 import ReadingProgress from "../../components/common/ReadingProgress/ReadingProgress";
-import TableOfContents from "../../components/sections/blog/TableOfContents/TableOfContents";
-import RelatedBooks from "../../components/sections/books/RelatedBooks/RelatedBooks";
 import { useBookReview } from "../../hooks/useBookReview";
-import { useBookReviews } from "../../hooks/useBookReviews";
-import { getRelatedBooks } from "../../utils/getRelatedBooks";
-import { extractHeadings } from "../../utils/extractHeadings";
-import "./BookReviewDetails.css";
+import { useRelatedBooks } from "../../hooks/useRelatedBooks";
+
+const ReactMarkdown = lazy(() => import("react-markdown"));
 
 function BookReviewDetails() {
   const { slug } = useParams();
   const navigate = useNavigate();
-  const { book, loading, error, notFound } = useBookReview(slug);
-  const { books } = useBookReviews();
 
-  const relatedBooks = useMemo(() => {
-    return getRelatedBooks(books, book, 2);
-  }, [books, book]);
+  const {
+    book,
+    loading: bookLoading,
+    error,
+    notFound,
+  } = useBookReview(slug);
 
-  const headings = useMemo(() => {
-    return extractHeadings(book?.review || "");
-  }, [book]);
+  const {
+    relatedBooks,
+    loading: relatedLoading,
+  } = useRelatedBooks(slug, 2);
 
-  if (loading) {
+  const relatedList = useMemo(() => relatedBooks || [], [relatedBooks]);
+
+  if (bookLoading) {
     return (
       <main className="section">
         <p>Loading book review...</p>
@@ -63,70 +63,66 @@ function BookReviewDetails() {
         type="article"
       />
 
-      <main className="book-review-details-page">
+      <main className="section">
         <PageHero title={book.title} subtitle={book.excerpt} />
 
-        <section className="book-review-details-content section">
-          <div className="details-back-wrap">
-            <button
-              type="button"
-              className="details-back-btn"
-              onClick={() => navigate(-1)}
-            >
+        <div className="container">
+          <div style={{ marginBottom: "1rem" }}>
+            <button type="button" onClick={() => navigate(-1)}>
               ← Back
             </button>
           </div>
 
-          <TableOfContents headings={headings} />
-
           {book.coverImage && (
-            <div className="book-review-details-cover">
+            <div style={{ marginBottom: "1.5rem" }}>
               <img
                 src={book.coverImage}
                 alt={book.title}
-                className="book-review-details-cover__image"
+                loading="lazy"
+                style={{ maxWidth: "320px", width: "100%", borderRadius: "12px" }}
               />
             </div>
           )}
 
-          <div className="book-review-details-meta">
-            <p>
-              <strong>Author:</strong> {book.author}
-            </p>
-            <p>
-              <strong>Category:</strong> {book.category}
-            </p>
-            <p>
-              <strong>Rating:</strong> {book.rating}/5
-            </p>
-            <p>
-              <strong>Published:</strong> {book.publishedAt}
-            </p>
+          <div style={{ marginBottom: "1.5rem" }}>
+            <p><strong>Author:</strong> {book.author}</p>
+            <p><strong>Category:</strong> {book.category}</p>
+            <p><strong>Rating:</strong> {book.rating}/5</p>
+            <p><strong>Published:</strong> {book.publishedAt}</p>
           </div>
 
-          <article className="markdown-content">
-            <ReactMarkdown
-              components={{
-                h2: ({ children }) => {
-                  const text = String(children);
-                  const matched = headings.find((heading) => heading.text === text);
-                  const id = matched?.id || text.toLowerCase().replace(/\s+/g, "-");
-                  return <h2 id={id}>{children}</h2>;
-                },
-                h3: ({ children }) => {
-                  const text = String(children);
-                  const matched = headings.find((heading) => heading.text === text);
-                  const id = matched?.id || text.toLowerCase().replace(/\s+/g, "-");
-                  return <h3 id={id}>{children}</h3>;
-                },
-              }}
-            >
-              {book.review}
-            </ReactMarkdown>
+          <article className="markdown-content" style={{ marginBottom: "2rem" }}>
+            <Suspense fallback={<p>Loading review content...</p>}>
+              <ReactMarkdown>{book.review}</ReactMarkdown>
+            </Suspense>
           </article>
 
-          <RelatedBooks books={relatedBooks} />
-        </section>
+          <section>
+            <h2>Related Books</h2>
+
+            {relatedLoading ? (
+              <p>Loading related books...</p>
+            ) : relatedList.length === 0 ? (
+              <p>No related books found.</p>
+            ) : (
+              <div style={{ display: "grid", gap: "1rem" }}>
+                {relatedList.map((item) => (
+                  <div
+                    key={item._id || item.slug}
+                    style={{
+                      padding: "1rem",
+                      border: "1px solid var(--border-color, #ddd)",
+                      borderRadius: "12px",
+                    }}
+                  >
+                    <h3>{item.title}</h3>
+                    <p>{item.excerpt}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
+        </div>
       </main>
     </>
   );

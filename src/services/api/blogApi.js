@@ -2,16 +2,19 @@ import { getToken } from "../../utils/auth";
 
 const API_URL = `${import.meta.env.VITE_API_BASE_URL}/api/posts`;
 
-
-
-export async function getAllPosts() {
-  const response = await fetch(API_URL);
+async function parseResponse(response, fallbackMessage) {
   const data = await response.json();
 
   if (!response.ok) {
-    throw new Error(data.message || "Failed to fetch posts");
+    throw new Error(data.message || fallbackMessage);
   }
 
+  return data;
+}
+
+export async function getAllPosts() {
+  const response = await fetch(API_URL);
+  const data = await parseResponse(response, "Failed to fetch posts");
   return data.data;
 }
 
@@ -22,23 +25,19 @@ export async function getAdminPosts() {
     },
   });
 
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error(data.message || "Failed to fetch admin posts");
-  }
-
+  const data = await parseResponse(response, "Failed to fetch admin posts");
   return data.data;
 }
 
 export async function getPostBySlug(slug) {
   const response = await fetch(`${API_URL}/slug/${slug}`);
-  const data = await response.json();
+  const data = await parseResponse(response, "Failed to fetch post");
+  return data.data;
+}
 
-  if (!response.ok) {
-    throw new Error(data.message || "Failed to fetch post");
-  }
-
+export async function getRelatedPostsBySlug(slug, limit = 3) {
+  const response = await fetch(`${API_URL}/slug/${slug}/related?limit=${limit}`);
+  const data = await parseResponse(response, "Failed to fetch related posts");
   return data.data;
 }
 
@@ -47,12 +46,7 @@ export async function incrementPostViews(slug) {
     method: "PATCH",
   });
 
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error(data.message || "Failed to update views");
-  }
-
+  const data = await parseResponse(response, "Failed to update views");
   return data.data;
 }
 
@@ -63,12 +57,7 @@ export async function getPostById(id) {
     },
   });
 
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error(data.message || "Failed to fetch post");
-  }
-
+  const data = await parseResponse(response, "Failed to fetch post");
   return data.data;
 }
 
@@ -82,12 +71,7 @@ export async function createPost(payload) {
     body: JSON.stringify(payload),
   });
 
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error(data.message || "Failed to create post");
-  }
-
+  const data = await parseResponse(response, "Failed to create post");
   return data.data;
 }
 
@@ -101,12 +85,7 @@ export async function updatePost(id, payload) {
     body: JSON.stringify(payload),
   });
 
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error(data.message || "Failed to update post");
-  }
-
+  const data = await parseResponse(response, "Failed to update post");
   return data.data;
 }
 
@@ -118,13 +97,7 @@ export async function deletePost(id) {
     },
   });
 
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error(data.message || "Failed to delete post");
-  }
-
-  return data;
+  return parseResponse(response, "Failed to delete post");
 }
 
 export async function toggleFeaturedPost(id) {
@@ -135,11 +108,6 @@ export async function toggleFeaturedPost(id) {
     },
   });
 
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error(data.message || "Failed to toggle featured");
-  }
-
+  const data = await parseResponse(response, "Failed to toggle featured");
   return data.data;
 }

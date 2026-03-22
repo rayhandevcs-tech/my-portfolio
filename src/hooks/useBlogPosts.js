@@ -1,31 +1,62 @@
 import { useEffect, useMemo, useState } from "react";
 import { getAllPosts } from "../services/api/blogApi";
+import { normalizeSearch } from "../utils/normalizeSearch";
 
 const POSTS_PER_PAGE = 6;
+const allPostsCacheKey = "all-posts-cache";
+const allPostsCache = new Map();
+
+export function clearBlogPostsCache() {
+  allPostsCache.clear();
+}
 
 export function useBlogPosts() {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const cachedPosts = allPostsCache.get(allPostsCacheKey) || [];
+
+  const [posts, setPosts] = useState(cachedPosts);
+  const [loading, setLoading] = useState(!allPostsCache.has(allPostsCacheKey));
   const [error, setError] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
+    if (allPostsCache.has(allPostsCacheKey)) {
+      setPosts(allPostsCache.get(allPostsCacheKey) || []);
+      setLoading(false);
+      setError("");
+      return;
+    }
+
+    let isMounted = true;
+
     async function loadPosts() {
       try {
         setLoading(true);
         setError("");
+
         const data = await getAllPosts();
-        setPosts(data);
+        const safeData = data || [];
+
+        if (!isMounted) return;
+
+        allPostsCache.set(allPostsCacheKey, safeData);
+        setPosts(safeData);
       } catch (err) {
+        if (!isMounted) return;
         setError(err.message || "Failed to fetch posts");
       } finally {
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     }
 
     loadPosts();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const categories = useMemo(() => {
@@ -36,20 +67,25 @@ export function useBlogPosts() {
   }, [posts]);
 
   const filteredPosts = useMemo(() => {
+    const query = normalizeSearch(searchTerm);
+
     return posts.filter((post) => {
       const matchesCategory =
         activeCategory === "All" || post.category === activeCategory;
 
-      const query = searchTerm.trim().toLowerCase();
+      if (!query) return matchesCategory;
 
-      const matchesSearch =
-        !query ||
-        post.title?.toLowerCase().includes(query) ||
-        post.excerpt?.toLowerCase().includes(query) ||
-        post.category?.toLowerCase().includes(query) ||
-        post.tags?.some((tag) => tag.toLowerCase().includes(query));
+      const searchableText = [
+        post.title,
+        post.excerpt,
+        post.category,
+        ...(Array.isArray(post.tags) ? post.tags : []),
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
 
-      return matchesCategory && matchesSearch;
+      return matchesCategory && searchableText.includes(query);
     });
   }, [posts, activeCategory, searchTerm]);
 

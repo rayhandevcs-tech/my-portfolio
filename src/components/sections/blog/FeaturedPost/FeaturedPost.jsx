@@ -38,7 +38,7 @@ function FeaturedPost({ post }) {
 
         {coverImage && (
           <div className="blog-featured__image">
-            <img src={coverImage} alt={title} />
+            <img src={coverImage} alt={title} loading="lazy" />
           </div>
         )}
       </div>

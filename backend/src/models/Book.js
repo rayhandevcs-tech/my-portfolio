@@ -12,6 +12,7 @@ const bookSchema = new mongoose.Schema(
       required: true,
       unique: true,
       trim: true,
+      lowercase: true,
     },
     author: {
       type: String,
@@ -25,8 +26,6 @@ const bookSchema = new mongoose.Schema(
     },
     rating: {
       type: Number,
-      min: 1,
-      max: 5,
       default: 5,
     },
     coverImage: {
@@ -49,16 +48,25 @@ const bookSchema = new mongoose.Schema(
     status: {
       type: String,
       enum: ["draft", "published"],
-      default: "draft",
+      default: "published",
     },
     publishedAt: {
       type: String,
-      default: "",
+      default: () => new Date().toISOString().slice(0, 10),
     },
   },
   {
     timestamps: true,
   }
 );
+
+bookSchema.index({ slug: 1 });
+bookSchema.index({ status: 1 });
+bookSchema.index({ category: 1 });
+bookSchema.index({ author: 1 });
+bookSchema.index({ featured: 1 });
+bookSchema.index({ publishedAt: -1 });
+bookSchema.index({ status: 1, slug: 1 });
+bookSchema.index({ status: 1, category: 1, publishedAt: -1 });
 
 export const Book = mongoose.model("Book", bookSchema);

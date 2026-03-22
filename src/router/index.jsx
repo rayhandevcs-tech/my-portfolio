@@ -2,20 +2,22 @@ import React, { Suspense, lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 
-import Home from "../pages/Home/Home";
-import Blog from "../pages/Blog/Blog";
-import BlogDetails from "../pages/BlogDetails/BlogDetails";
-import BookReviews from "../pages/BookReviews/BookReviews";
-import BookReviewDetails from "../pages/BookReviewDetails/BookReviewDetails";
-import Achievements from "../pages/Achievements/Achievements";
-import Travel from "../pages/Travel/Travel";
-import Research from "../pages/Research/Research";
-import Contact from "../pages/Contact/Contact";
-import ProjectDetails from "../pages/ProjectDetails/ProjectDetails";
-import NotFound from "../pages/NotFound/NotFound";
-
 import ProtectedRoute from "../components/auth/ProtectedRoute/ProtectedRoute";
 import AdminLayout from "../components/admin/AdminLayout/AdminLayout";
+
+const Home = lazy(() => import("../pages/Home/Home"));
+const Blog = lazy(() => import("../pages/Blog/Blog"));
+const BlogDetails = lazy(() => import("../pages/BlogDetails/BlogDetails"));
+const BookReviews = lazy(() => import("../pages/BookReviews/BookReviews"));
+const BookReviewDetails = lazy(() =>
+  import("../pages/BookReviewDetails/BookReviewDetails")
+);
+const Achievements = lazy(() => import("../pages/Achievements/Achievements"));
+const Contact = lazy(() => import("../pages/Contact/Contact"));
+const ProjectDetails = lazy(() =>
+  import("../pages/ProjectDetails/ProjectDetails")
+);
+const NotFound = lazy(() => import("../pages/NotFound/NotFound"));
 
 const AdminLogin = lazy(() => import("../pages/AdminLogin/AdminLogin"));
 const AdminDashboard = lazy(() =>
@@ -29,35 +31,94 @@ const AdminPostNew = lazy(() => import("../pages/AdminPostNew/AdminPostNew"));
 const AdminPostEdit = lazy(() =>
   import("../pages/AdminPostEdit/AdminPostEdit")
 );
-
 const AdminBooks = lazy(() => import("../pages/AdminBooks/AdminBooks"));
 const AdminBookNew = lazy(() => import("../pages/AdminBookNew/AdminBookNew"));
-const AdminBookEdit = lazy(() => import("../pages/AdminBookEdit/AdminBookEdit"));
+const AdminBookEdit = lazy(() =>
+  import("../pages/AdminBookEdit/AdminBookEdit")
+);
+
+function PageLoader() {
+  return <div style={{ padding: "40px" }}>Loading...</div>;
+}
 
 function LazyPage({ children }) {
-  return (
-    <Suspense fallback={<div style={{ padding: "40px" }}>Loading...</div>}>
-      {children}
-    </Suspense>
-  );
+  return <Suspense fallback={<PageLoader />}>{children}</Suspense>;
 }
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <NotFound />,
+    errorElement: (
+      <LazyPage>
+        <NotFound />
+      </LazyPage>
+    ),
     children: [
-      { index: true, element: <Home /> },
-      { path: "blog", element: <Blog /> },
-      { path: "blog/:slug", element: <BlogDetails /> },
-      { path: "book-reviews", element: <BookReviews /> },
-      { path: "book-reviews/:slug", element: <BookReviewDetails /> },
-      { path: "achievements", element: <Achievements /> },
-      //{ path: "travel", element: <Travel /> },
-      //{ path: "research", element: <Research /> },
-      { path: "contact", element: <Contact /> },
-      { path: "projects/:slug", element: <ProjectDetails /> },
+      {
+        index: true,
+        element: (
+          <LazyPage>
+            <Home />
+          </LazyPage>
+        ),
+      },
+      {
+        path: "blog",
+        element: (
+          <LazyPage>
+            <Blog />
+          </LazyPage>
+        ),
+      },
+      {
+        path: "blog/:slug",
+        element: (
+          <LazyPage>
+            <BlogDetails />
+          </LazyPage>
+        ),
+      },
+      {
+        path: "book-reviews",
+        element: (
+          <LazyPage>
+            <BookReviews />
+          </LazyPage>
+        ),
+      },
+      {
+        path: "book-reviews/:slug",
+        element: (
+          <LazyPage>
+            <BookReviewDetails />
+          </LazyPage>
+        ),
+      },
+      {
+        path: "achievements",
+        element: (
+          <LazyPage>
+            <Achievements />
+          </LazyPage>
+        ),
+      },
+      {
+        path: "contact",
+        element: (
+          <LazyPage>
+            <Contact />
+          </LazyPage>
+        ),
+      },
+      {
+        path: "projects/:slug",
+        element: (
+          <LazyPage>
+            <ProjectDetails />
+          </LazyPage>
+        ),
+      },
     ],
   },
   {
@@ -67,7 +128,11 @@ export const router = createBrowserRouter([
         <AdminLogin />
       </LazyPage>
     ),
-    errorElement: <NotFound />,
+    errorElement: (
+      <LazyPage>
+        <NotFound />
+      </LazyPage>
+    ),
   },
   {
     path: "/admin",
@@ -76,7 +141,11 @@ export const router = createBrowserRouter([
         <AdminLayout />
       </ProtectedRoute>
     ),
-    errorElement: <NotFound />,
+    errorElement: (
+      <LazyPage>
+        <NotFound />
+      </LazyPage>
+    ),
     children: [
       {
         path: "dashboard",
@@ -146,6 +215,10 @@ export const router = createBrowserRouter([
   },
   {
     path: "*",
-    element: <NotFound />,
+    element: (
+      <LazyPage>
+        <NotFound />
+      </LazyPage>
+    ),
   },
 ]);

@@ -1,8 +1,14 @@
 import { Post } from "../models/Post.js";
 
+const POST_CARD_FIELDS =
+  "_id title slug excerpt coverImage category tags featured author publishedAt readingTime views status createdAt updatedAt";
+
 export async function getAllPosts(req, res) {
   try {
-    const posts = await Post.find({ status: "published" }).sort({ createdAt: -1 });
+    const posts = await Post.find({ status: "published" })
+      .select(POST_CARD_FIELDS)
+      .sort({ featured: -1, publishedAt: -1, createdAt: -1 })
+      .lean();
 
     return res.status(200).json({
       success: true,
@@ -19,7 +25,7 @@ export async function getAllPosts(req, res) {
 
 export async function getAdminPosts(req, res) {
   try {
-    const posts = await Post.find().sort({ createdAt: -1 });
+    const posts = await Post.find().sort({ createdAt: -1 }).lean();
 
     return res.status(200).json({
       success: true,
@@ -38,7 +44,7 @@ export async function getPostBySlug(req, res) {
   try {
     const { slug } = req.params;
 
-    const post = await Post.findOne({ slug, status: "published" });
+    const post = await Post.findOne({ slug, status: "published" }).lean();
 
     if (!post) {
       return res.status(404).json({
@@ -60,11 +66,86 @@ export async function getPostBySlug(req, res) {
   }
 }
 
+export async function getRelatedPostsBySlug(req, res) {
+  try {
+    const { slug } = req.params;
+    const limit = Math.max(1, Number(req.query.limit) || 3);
+
+    const currentPost = await Post.findOne({
+      slug,
+      status: "published",
+    })
+      .select("_id slug category tags")
+      .lean();
+
+    if (!currentPost) {
+      return res.status(404).json({
+        success: false,
+        message: "Post not found",
+      });
+    }
+
+    const currentTags = Array.isArray(currentPost.tags) ? currentPost.tags : [];
+
+    let relatedPosts = await Post.find({
+      _id: { $ne: currentPost._id },
+      status: "published",
+      category: currentPost.category,
+    })
+      .select(POST_CARD_FIELDS)
+      .sort({ publishedAt: -1, createdAt: -1 })
+      .limit(limit)
+      .lean();
+
+    if (relatedPosts.length < limit && currentTags.length > 0) {
+      const existingIds = relatedPosts.map((post) => post._id);
+
+      const tagMatches = await Post.find({
+        _id: { $nin: [currentPost._id, ...existingIds] },
+        status: "published",
+        tags: { $in: currentTags },
+      })
+        .select(POST_CARD_FIELDS)
+        .sort({ publishedAt: -1, createdAt: -1 })
+        .limit(limit - relatedPosts.length)
+        .lean();
+
+      relatedPosts = [...relatedPosts, ...tagMatches];
+    }
+
+    if (relatedPosts.length < limit) {
+      const existingIds = relatedPosts.map((post) => post._id);
+
+      const fallbackPosts = await Post.find({
+        _id: { $nin: [currentPost._id, ...existingIds] },
+        status: "published",
+      })
+        .select(POST_CARD_FIELDS)
+        .sort({ featured: -1, publishedAt: -1, createdAt: -1 })
+        .limit(limit - relatedPosts.length)
+        .lean();
+
+      relatedPosts = [...relatedPosts, ...fallbackPosts];
+    }
+
+    return res.status(200).json({
+      success: true,
+      data: relatedPosts,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch related posts",
+      error: error.message,
+    });
+  }
+}
+
 export async function getPostById(req, res) {
   try {
     const { id } = req.params;
 
-    const post = await Post.findById(id);
+    const post = await Post.findById(id).lean();
 
     if (!post) {
       return res.status(404).json({
@@ -110,7 +191,9 @@ export async function createPost(req, res) {
       });
     }
 
-    const existingPost = await Post.findOne({ slug });
+    const normalizedSlug = String(slug).trim().toLowerCase();
+
+    const existingPost = await Post.findOne({ slug: normalizedSlug });
 
     if (existingPost) {
       return res.status(400).json({
@@ -120,12 +203,12 @@ export async function createPost(req, res) {
     }
 
     const newPost = await Post.create({
-      title,
-      slug,
-      excerpt,
+      title: title.trim(),
+      slug: normalizedSlug,
+      excerpt: excerpt.trim(),
       content,
       coverImage: coverImage || "",
-      category,
+      category: category.trim(),
       tags: Array.isArray(tags) ? tags : [],
       featured: Boolean(featured),
       author: author || "Md Rayhan",
@@ -175,8 +258,11 @@ export async function updatePost(req, res) {
       });
     }
 
-    if (slug && slug !== post.slug) {
-      const existingPost = await Post.findOne({ slug });
+    const normalizedSlug =
+      typeof slug === "string" ? slug.trim().toLowerCase() : post.slug;
+
+    if (normalizedSlug && normalizedSlug !== post.slug) {
+      const existingPost = await Post.findOne({ slug: normalizedSlug });
 
       if (existingPost) {
         return res.status(400).json({
@@ -187,7 +273,7 @@ export async function updatePost(req, res) {
     }
 
     post.title = title ?? post.title;
-    post.slug = slug ?? post.slug;
+    post.slug = normalizedSlug ?? post.slug;
     post.excerpt = excerpt ?? post.excerpt;
     post.content = content ?? post.content;
     post.coverImage = coverImage ?? post.coverImage;
@@ -197,7 +283,12 @@ export async function updatePost(req, res) {
     post.author = author ?? post.author;
     post.publishedAt = publishedAt ?? post.publishedAt;
     post.readingTime = readingTime ?? post.readingTime;
-    post.status = status === "published" ? "published" : status === "draft" ? "draft" : post.status;
+    post.status =
+      status === "published"
+        ? "published"
+        : status === "draft"
+        ? "draft"
+        : post.status;
 
     await post.save();
 
@@ -279,7 +370,7 @@ export async function incrementPostViews(req, res) {
       { slug, status: "published" },
       { $inc: { views: 1 } },
       { new: true }
-    );
+    ).lean();
 
     if (!post) {
       return res.status(404).json({
@@ -317,12 +408,16 @@ export async function getPostStats(req, res) {
 
     const totalViews = viewsAggregation[0]?.totalViews || 0;
 
-    const mostViewedPost = await Post.findOne().sort({ views: -1 });
+    const mostViewedPost = await Post.findOne()
+      .sort({ views: -1 })
+      .select("title slug views")
+      .lean();
 
     const topViewedPosts = await Post.find()
       .sort({ views: -1 })
       .limit(5)
-      .select("title slug views");
+      .select("title slug views")
+      .lean();
 
     return res.status(200).json({
       success: true,

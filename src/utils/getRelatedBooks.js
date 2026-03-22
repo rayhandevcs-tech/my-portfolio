@@ -10,7 +10,11 @@ export function getRelatedBooks(allBooks, currentBook, limit = 3) {
         score += 3;
       }
 
-      if (book.author && currentBook.author && book.author === currentBook.author) {
+      if (
+        book.author &&
+        currentBook.author &&
+        book.author === currentBook.author
+      ) {
         score += 2;
       }
 
