@@ -19,7 +19,7 @@ function Contact() {
             description="Feel free to reach out for collaboration, project discussion, or meaningful conversation."
           />
 
-          <ContactInfoGrid />
+          {/* <ContactInfoGrid /> */}
 
           <ContactForm />
         </div>

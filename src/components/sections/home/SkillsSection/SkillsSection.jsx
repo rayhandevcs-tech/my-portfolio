@@ -1,10 +1,27 @@
 import "./SkillsSection.css";
 import SectionHeader from "../../../common/SectionHeader/SectionHeader";
 import { skills } from "../../../../data/skills";
+import {
+  Code2,
+  LayoutTemplate,
+  MonitorSmartphone,
+  Braces,
+  GitBranch,
+  Palette,
+} from "lucide-react";
+
+const skillIcons = {
+  1: Code2,
+  2: LayoutTemplate,
+  3: MonitorSmartphone,
+  4: Braces,
+  5: GitBranch,
+  6: Palette,
+};
 
 function SkillsSection() {
   return (
-    <section className="section" id="skills">
+    <section className="section skills-section" id="skills">
       <div className="container">
         <SectionHeader
           eyebrow="Skills"
@@ -13,16 +30,26 @@ function SkillsSection() {
         />
 
         <div className="card-grid skills-grid">
-          {skills.map((skill) => (
-            <article className="card skill-card" key={skill.id}>
-              <div className="skill-card__icon">✦</div>
+          {skills.map((skill) => {
+            const Icon = skillIcons[skill.id] || Code2;
 
-              <div className="skill-card__content">
-                <h3>{skill.title}</h3>
-                <p>{skill.description}</p>
-              </div>
-            </article>
-          ))}
+            return (
+              <article className="card skill-card" key={skill.id}>
+                <span className="skill-card__accent" />
+
+                <div className="skill-card__icon-wrap">
+                  <div className="skill-card__icon">
+                    <Icon size={20} strokeWidth={2.3} />
+                  </div>
+                </div>
+
+                <div className="skill-card__content">
+                  <h3>{skill.title}</h3>
+                  <p>{skill.description}</p>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>

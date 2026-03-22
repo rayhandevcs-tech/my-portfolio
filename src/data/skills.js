@@ -3,24 +3,36 @@ export const skills = [
     id: 1,
     title: "Frontend Development",
     description:
-      "Building responsive and interactive user interfaces using HTML, CSS, JavaScript and React.",
+      "Building clean, responsive interfaces with strong attention to structure, usability, and consistency.",
   },
   {
     id: 2,
-    title: "JavaScript & React",
+    title: "React & Components",
     description:
-      "Creating modern web applications with reusable components and clean logic.",
+      "Creating reusable components and scalable UI sections with clear logic and maintainable code.",
   },
   {
     id: 3,
     title: "Responsive Design",
     description:
-      "Designing layouts that work across desktop, tablet and mobile devices.",
+      "Designing layouts that adapt smoothly across desktop, tablet, and mobile screen sizes.",
   },
   {
     id: 4,
+    title: "JavaScript Fundamentals",
+    description:
+      "Writing interactive frontend behavior using modern JavaScript with readable and practical solutions.",
+  },
+  {
+    id: 5,
     title: "Git & GitHub",
     description:
-      "Using version control to manage projects, track progress and collaborate efficiently.",
+      "Managing project versions, tracking progress, and maintaining a better development workflow.",
+  },
+  {
+    id: 6,
+    title: "UI Implementation",
+    description:
+      "Turning design ideas into polished interfaces with careful spacing, typography, and visual hierarchy.",
   },
 ];

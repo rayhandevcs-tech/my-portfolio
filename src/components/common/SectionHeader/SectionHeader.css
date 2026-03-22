@@ -1,0 +1,49 @@
+.section-header {
+  max-width: 720px;
+  margin-bottom: 8px;
+}
+
+.section-header--centered {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.section-header .eyebrow {
+  margin-bottom: 14px;
+  letter-spacing: 0.12em;
+}
+
+.section-header .section-title {
+  margin-bottom: 16px;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: #111827;
+}
+
+.section-header .page-intro {
+  max-width: 640px;
+  color: #5b6474;
+}
+
+.section-header--centered .page-intro {
+  margin-inline: auto;
+}
+
+@media (max-width: 640px) {
+  .section-header {
+    margin-bottom: 4px;
+  }
+
+  .section-header .eyebrow {
+    margin-bottom: 12px;
+  }
+
+  .section-header .section-title {
+    margin-bottom: 14px;
+    line-height: 1.2;
+  }
+
+  .section-header .page-intro {
+    font-size: 0.98rem;
+  }
+}

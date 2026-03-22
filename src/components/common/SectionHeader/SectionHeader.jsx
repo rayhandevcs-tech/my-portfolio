@@ -1,3 +1,5 @@
+import "./SectionHeader.css";
+
 function SectionHeader({ eyebrow, title, intro, centered = false }) {
   return (
     <div
