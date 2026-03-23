@@ -5,7 +5,9 @@ import { MonitorSmartphone, LayoutTemplate, Sparkles } from "lucide-react";
 function AboutSection() {
   return (
     <section className="section about" id="about">
+
       <div className="container">
+
         <div className="about__wrap">
           <div className="about__media">
             <div className="about__image-wrap">
@@ -56,8 +58,11 @@ function AboutSection() {
               </article>
             </div>
           </div>
+
         </div>
+        
       </div>
+
     </section>
   );
 }
