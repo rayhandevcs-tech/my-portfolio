@@ -14,17 +14,14 @@ function AboutSection() {
           </div>
 
           <div className="about__content">
-            <p className="about__eyebrow">About</p>
+            <p className="about__eyebrow">About Me</p>
 
             <h2 className="about__title">
-              Building frontend interfaces with clarity and care.
+              Frontend developer and CS student.
             </h2>
 
             <p className="about__text">
-              I focus on creating responsive and user-friendly web interfaces
-              that feel clean, structured, and easy to use. My approach is
-              centered on thoughtful layout, consistent styling, and practical
-              frontend implementation with React and modern CSS.
+              I'm Rayhan, Computer Science student focused on building clean, responsive, and user-friendly web interfaces.
             </p>
 
             <div className="about__highlights">
@@ -34,10 +31,7 @@ function AboutSection() {
                 </div>
                 <div>
                   <h3>Structured UI</h3>
-                  <p>
-                    Clear layouts, balanced spacing, and consistent visual
-                    hierarchy.
-                  </p>
+                  <p>Clear, balanced, easy to scan.</p>
                 </div>
               </article>
 
@@ -47,10 +41,7 @@ function AboutSection() {
                 </div>
                 <div>
                   <h3>Responsive Build</h3>
-                  <p>
-                    Interfaces that adapt smoothly across desktop, tablet, and
-                    mobile.
-                  </p>
+                  <p>Smooth across desktop and mobile.</p>
                 </div>
               </article>
 
@@ -60,17 +51,9 @@ function AboutSection() {
                 </div>
                 <div>
                   <h3>Polished Details</h3>
-                  <p>
-                    Focused on usability, refinement, and clean implementation.
-                  </p>
+                  <p>Clean code and refined interface.</p>
                 </div>
               </article>
-            </div>
-
-            <div className="about__actions">
-              <a href="#contact" className="about__link">
-                Let’s Talk
-              </a>
             </div>
           </div>
         </div>

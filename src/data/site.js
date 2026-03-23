@@ -4,9 +4,25 @@ export const siteConfig = {
   title: "Frontend Developer",
 
   hero: {
-    eyebrow: "Frontend Developer",
+    eyebrow: "Welcome to my portfolio",
+
+    heading: "Hi, I'm",
+    name: "Rayhan",
+
+    title: "Building clean and modern",
+    highlight: "web interfaces.",
+
     description:
-      "I build clean, responsive and user-friendly web applications. This website is my personal space for projects, writing, book reviews, achievements and future research work.",
+      "I create responsive, user-friendly websites with React and modern CSS.",
+
+    primaryCta: {
+      label: "View Projects",
+      href: "#projects",
+    },
+    secondaryCta: {
+      label: "Read Blog",
+      to: "/blog",
+    },
   },
 
   email: "rayhan@example.com",
@@ -18,8 +34,6 @@ export const siteConfig = {
     { label: "Blog", path: "/blog" },
     { label: "Books", path: "/book-reviews" },
     { label: "Achievements", path: "/achievements" },
-    // { label: "Travel", path: "/travel" },
-    // { label: "Research", path: "/research" },
     { label: "Contact", path: "/contact" },
   ],
 
