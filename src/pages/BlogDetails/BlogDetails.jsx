@@ -18,16 +18,12 @@ function BlogDetails() {
   const navigate = useNavigate();
 
   const { post, loading, error, notFound } = useBlogPost(slug);
-  const {
-    relatedPosts,
-    loading: relatedLoading,
-  } = useRelatedPosts(slug, 3);
+  const { relatedPosts, loading: relatedLoading } = useRelatedPosts(slug, 3);
 
   const hasIncrementedRef = useRef(false);
 
   useEffect(() => {
     if (!slug) return;
-
     hasIncrementedRef.current = false;
   }, [slug]);
 
@@ -40,28 +36,71 @@ function BlogDetails() {
 
   const headings = useMemo(() => {
     return extractHeadings(post?.content || "");
-  }, [post]);
+  }, [post?.content]);
+
+  const publishedAt = post?.publishedAt;
+
+  const formattedPublishedDate = (() => {
+    if (!publishedAt) return "Not available";
+
+    const date = new Date(publishedAt);
+
+    if (Number.isNaN(date.getTime())) {
+      return publishedAt;
+    }
+
+    return new Intl.DateTimeFormat("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    }).format(date);
+  })();
+
+  const buildHeadingId = (text = "") => {
+    return text
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, "")
+      .replace(/\s+/g, "-");
+  };
 
   if (loading) {
     return (
-      <main className="section">
-        <p>Loading post...</p>
+      <main className="blog-details-state">
+        <h2>Loading post...</h2>
+        <p>Please wait while the article is being loaded.</p>
       </main>
     );
   }
 
   if (error) {
     return (
-      <main className="section">
+      <main className="blog-details-state">
+        <h2>Something went wrong</h2>
         <p>{error}</p>
+        <button
+          type="button"
+          className="details-back-btn"
+          onClick={() => navigate("/blog")}
+        >
+          ← Back to Blog
+        </button>
       </main>
     );
   }
 
   if (notFound || !post) {
     return (
-      <main className="section">
-        <p>Post not found.</p>
+      <main className="blog-details-state">
+        <h2>Post not found</h2>
+        <p>The article you are looking for does not exist or may have moved.</p>
+        <button
+          type="button"
+          className="details-back-btn"
+          onClick={() => navigate("/blog")}
+        >
+          ← Back to Blog
+        </button>
       </main>
     );
   }
@@ -84,7 +123,7 @@ function BlogDetails() {
       />
 
       <main className="blog-details-page">
-        <PageHero title={post.title} subtitle={post.excerpt} />
+        <PageHero title={post.title} subtitle={post.excerpt} compact />
 
         <section className="blog-details-content section">
           <div className="details-back-wrap">
@@ -92,12 +131,17 @@ function BlogDetails() {
               type="button"
               className="details-back-btn"
               onClick={() => navigate(-1)}
+              aria-label="Go back"
             >
               ← Back
             </button>
           </div>
 
-          <TableOfContents headings={headings} />
+          {headings.length > 0 && (
+            <div className="blog-details-toc">
+              <TableOfContents headings={headings} />
+            </div>
+          )}
 
           {post.coverImage && (
             <div className="blog-details-cover">
@@ -112,13 +156,14 @@ function BlogDetails() {
 
           <div className="blog-details-meta">
             <p>
-              <strong>Category:</strong> {post.category}
+              <strong>Category:</strong> {post.category || "General"}
             </p>
             <p>
-              <strong>Published:</strong> {post.publishedAt}
+              <strong>Published:</strong> {formattedPublishedDate}
             </p>
             <p>
-              <strong>Reading Time:</strong> {post.readingTime}
+              <strong>Reading Time:</strong>{" "}
+              {post.readingTime || "Not available"}
             </p>
             <p>
               <strong>Views:</strong> {post.views ?? 0}
@@ -130,23 +175,27 @@ function BlogDetails() {
               <ReactMarkdown
                 components={{
                   h2: ({ children }) => {
-                    const text = String(children);
+                    const text = Array.isArray(children)
+                      ? children.join("")
+                      : String(children);
+
                     const matched = headings.find(
                       (heading) => heading.text === text
                     );
-                    const id =
-                      matched?.id ||
-                      text.toLowerCase().replace(/\s+/g, "-");
+
+                    const id = matched?.id || buildHeadingId(text);
                     return <h2 id={id}>{children}</h2>;
                   },
                   h3: ({ children }) => {
-                    const text = String(children);
+                    const text = Array.isArray(children)
+                      ? children.join("")
+                      : String(children);
+
                     const matched = headings.find(
                       (heading) => heading.text === text
                     );
-                    const id =
-                      matched?.id ||
-                      text.toLowerCase().replace(/\s+/g, "-");
+
+                    const id = matched?.id || buildHeadingId(text);
                     return <h3 id={id}>{children}</h3>;
                   },
                 }}
@@ -156,11 +205,13 @@ function BlogDetails() {
             </Suspense>
           </article>
 
-          {relatedLoading ? (
-            <p>Loading related posts...</p>
-          ) : (
-            <RelatedPosts posts={relatedPosts} />
-          )}
+          <div className="blog-details-related">
+            {relatedLoading ? (
+              <p>Loading related posts...</p>
+            ) : (
+              <RelatedPosts posts={relatedPosts} />
+            )}
+          </div>
         </section>
       </main>
     </>
