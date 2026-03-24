@@ -69,13 +69,16 @@ function BookReviews() {
       />
 
       <main>
+
         <PageHero
           title="Book Reviews"
           subtitle="Books that shaped my thinking, learning, and personal growth."
         />
 
         <section className="section">
+
           <div className="container">
+            
             {featuredBook && (
               <div style={{ marginBottom: "2rem" }}>
                 <FeaturedBook book={featuredBook} />
@@ -105,8 +108,11 @@ function BookReviews() {
               </>
             )}
           </div>
+
         </section>
+
       </main>
+
     </>
   );
 }

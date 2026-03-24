@@ -1,10 +1,11 @@
 import { useMemo, lazy, Suspense } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import Seo from "../../components/common/Seo/Seo";
 import PageHero from "../../components/common/PageHero/PageHero";
 import ReadingProgress from "../../components/common/ReadingProgress/ReadingProgress";
 import { useBookReview } from "../../hooks/useBookReview";
 import { useRelatedBooks } from "../../hooks/useRelatedBooks";
+import "./BookReviewDetails.css";
 
 const ReactMarkdown = lazy(() => import("react-markdown"));
 
@@ -26,26 +27,68 @@ function BookReviewDetails() {
 
   const relatedList = useMemo(() => relatedBooks || [], [relatedBooks]);
 
+  const publishedAt = book?.publishedAt;
+
+  const formattedPublishedDate = (() => {
+    if (!publishedAt) return "Not available";
+
+    const date = new Date(publishedAt);
+
+    if (Number.isNaN(date.getTime())) {
+      return publishedAt;
+    }
+
+    return new Intl.DateTimeFormat("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    }).format(date);
+  })();
+
+  const renderRatingStars = (rating) => {
+    const safeRating = Math.max(0, Math.min(5, Number(rating) || 0));
+    const fullStars = "★".repeat(safeRating);
+    const emptyStars = "☆".repeat(5 - safeRating);
+    return `${fullStars}${emptyStars}`;
+  };
+
   if (bookLoading) {
     return (
-      <main className="section">
-        <p>Loading book review...</p>
+      <main className="book-review-details-state">
+        <h2>Loading book review...</h2>
+        <p>Please wait while the review is being loaded.</p>
       </main>
     );
   }
 
   if (error) {
     return (
-      <main className="section">
+      <main className="book-review-details-state">
+        <h2>Something went wrong</h2>
         <p>{error}</p>
+        <button
+          type="button"
+          className="details-back-btn"
+          onClick={() => navigate("/books")}
+        >
+          ← Back to Books
+        </button>
       </main>
     );
   }
 
   if (notFound || !book) {
     return (
-      <main className="section">
-        <p>Book review not found.</p>
+      <main className="book-review-details-state">
+        <h2>Book review not found</h2>
+        <p>The review you are looking for does not exist or may have moved.</p>
+        <button
+          type="button"
+          className="details-back-btn"
+          onClick={() => navigate("/books")}
+        >
+          ← Back to Books
+        </button>
       </main>
     );
   }
@@ -63,66 +106,115 @@ function BookReviewDetails() {
         type="article"
       />
 
-      <main className="section">
-        <PageHero title={book.title} subtitle={book.excerpt} />
+      <main className="book-review-details-page">
+        <PageHero title={book.title} subtitle={book.excerpt} compact />
 
-        <div className="container">
-          <div style={{ marginBottom: "1rem" }}>
-            <button type="button" onClick={() => navigate(-1)}>
+        <section className="book-review-details-content section">
+          <div className="details-back-wrap">
+            <button
+              type="button"
+              className="details-back-btn"
+              onClick={() => navigate(-1)}
+              aria-label="Go back"
+            >
               ← Back
             </button>
           </div>
 
           {book.coverImage && (
-            <div style={{ marginBottom: "1.5rem" }}>
+            <div className="book-review-details-cover">
               <img
                 src={book.coverImage}
                 alt={book.title}
                 loading="lazy"
-                style={{ maxWidth: "320px", width: "100%", borderRadius: "12px" }}
+                className="book-review-details-cover__image"
               />
             </div>
           )}
 
-          <div style={{ marginBottom: "1.5rem" }}>
-            <p><strong>Author:</strong> {book.author}</p>
-            <p><strong>Category:</strong> {book.category}</p>
-            <p><strong>Rating:</strong> {book.rating}/5</p>
-            <p><strong>Published:</strong> {book.publishedAt}</p>
+          <div className="book-review-details-meta">
+            <p>
+              <strong>Author:</strong> {book.author || "Unknown"}
+            </p>
+            <p>
+              <strong>Category:</strong> {book.category || "Book Review"}
+            </p>
+            <p>
+              <strong>Rating:</strong>{" "}
+              <span className="book-review-rating">
+                {renderRatingStars(book.rating)}{" "}
+                <span className="book-review-rating__value">
+                  ({book.rating || 0}/5)
+                </span>
+              </span>
+            </p>
+            <p>
+              <strong>Published:</strong> {formattedPublishedDate}
+            </p>
           </div>
 
-          <article className="markdown-content" style={{ marginBottom: "2rem" }}>
+          <article className="markdown-content book-review-details-article">
             <Suspense fallback={<p>Loading review content...</p>}>
               <ReactMarkdown>{book.review}</ReactMarkdown>
             </Suspense>
           </article>
 
-          <section>
-            <h2>Related Books</h2>
+          <section className="related-books-section">
+            <div className="related-books-section__header">
+              <h2>Related Books</h2>
+              <p>You may also enjoy these reviews.</p>
+            </div>
 
             {relatedLoading ? (
               <p>Loading related books...</p>
             ) : relatedList.length === 0 ? (
               <p>No related books found.</p>
             ) : (
-              <div style={{ display: "grid", gap: "1rem" }}>
+              <div className="related-books-grid">
                 {relatedList.map((item) => (
-                  <div
+                  <article
                     key={item._id || item.slug}
-                    style={{
-                      padding: "1rem",
-                      border: "1px solid var(--border-color, #ddd)",
-                      borderRadius: "12px",
-                    }}
+                    className="related-book-card"
                   >
-                    <h3>{item.title}</h3>
-                    <p>{item.excerpt}</p>
-                  </div>
+                    {item.coverImage && (
+                      <Link
+                        to={`/book-reviews/${item.slug}`}
+                        className="related-book-card__image-link"
+                      >
+                        <img
+                          src={item.coverImage}
+                          alt={item.title}
+                          className="related-book-card__image"
+                          loading="lazy"
+                        />
+                      </Link>
+                    )}
+
+                    <div className="related-book-card__content">
+                      <h3 className="related-book-card__title">
+                        <Link to={`/book-reviews/${item.slug}`}>
+                          {item.title}
+                        </Link>
+                      </h3>
+
+                      <p className="related-book-card__excerpt">
+                        {item.excerpt ||
+                          "Read this review to learn more about the book."}
+                      </p>
+
+                      <Link
+                        to={`/book-reviews/${item.slug}`}
+                        className="related-book-card__link"
+                      >
+                        Read Review →
+                      </Link>
+                    </div>
+                  </article>
                 ))}
               </div>
             )}
           </section>
-        </div>
+        </section>
       </main>
     </>
   );
