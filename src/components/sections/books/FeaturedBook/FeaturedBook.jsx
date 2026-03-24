@@ -30,18 +30,20 @@ function FeaturedBook({ book }) {
             {typeof rating === "number" ? ` • ${rating}/5` : ""}
           </p>
 
-          <p className="featured-book__excerpt">{excerpt}</p>
-
-          <Link to={`/book-reviews/${slug}`} className="btn">
-            Read Full Review
-          </Link>
+          {excerpt && <p className="featured-book__excerpt">{excerpt}</p>}
         </div>
 
         {coverImage && (
           <div className="featured-book__image">
-            <img src={coverImage} alt={title} />
+            <img src={coverImage} alt={title} loading="lazy" />
           </div>
         )}
+
+        <div className="featured-book__actions">
+          <Link to={`/book-reviews/${slug}`} className="featured-book__btn">
+            Read Full Review
+          </Link>
+        </div>
       </div>
     </section>
   );
