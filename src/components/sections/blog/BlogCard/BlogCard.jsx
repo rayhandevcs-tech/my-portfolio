@@ -20,38 +20,53 @@ function BlogCard({ post }) {
   return (
     <article className="card blog-card">
       {coverImage && (
-        <div className="blog-card__image">
+        <Link
+          to={`/blog/${slug}`}
+          className="blog-card__image"
+          aria-label={`Read ${title}`}
+        >
           <img src={coverImage} alt={title} loading="lazy" />
-        </div>
+        </Link>
       )}
 
-      <div className="blog-card__meta">
-        {category && <span>{category}</span>}
-        {category && publishedAt && <span>•</span>}
-        {publishedAt && <span>{publishedAt}</span>}
-        {publishedAt && readingTime && <span>•</span>}
-        {readingTime && <span>{readingTime}</span>}
-        {readingTime && typeof views === "number" && <span>•</span>}
-        {typeof views === "number" && <span>{views} views</span>}
+      <div className="blog-card__body">
+        <div className="blog-card__meta">
+          {category && <span className="blog-card__meta-item">{category}</span>}
+          {publishedAt && (
+            <span className="blog-card__meta-item blog-card__meta-item--muted">
+              {publishedAt}
+            </span>
+          )}
+          {readingTime && (
+            <span className="blog-card__meta-item blog-card__meta-item--muted">
+              {readingTime}
+            </span>
+          )}
+          {typeof views === "number" && (
+            <span className="blog-card__meta-item blog-card__meta-item--muted">
+              {views} views
+            </span>
+          )}
+        </div>
+
+        <h3 className="blog-card__title">
+          <Link to={`/blog/${slug}`}>{title}</Link>
+        </h3>
+
+        {excerpt && <p className="blog-card__excerpt">{excerpt}</p>}
+
+        {tags?.length > 0 && (
+          <div className="tags-wrap">
+            {tags.map((tag) => (
+              <Tag key={tag}>{tag}</Tag>
+            ))}
+          </div>
+        )}
+
+        <Link to={`/blog/${slug}`} className="blog-card__link">
+          Read More <span aria-hidden="true">→</span>
+        </Link>
       </div>
-
-      <h3 className="blog-card__title">
-        <Link to={`/blog/${slug}`}>{title}</Link>
-      </h3>
-
-      {excerpt && <p className="blog-card__excerpt">{excerpt}</p>}
-
-      {tags?.length > 0 && (
-        <div className="tags-wrap">
-          {tags.map((tag) => (
-            <Tag key={tag}>{tag}</Tag>
-          ))}
-        </div>
-      )}
-
-      <Link to={`/blog/${slug}`} className="blog-card__link">
-        Read More →
-      </Link>
     </article>
   );
 }

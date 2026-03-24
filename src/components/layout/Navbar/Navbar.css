@@ -17,14 +17,39 @@
 }
 
 .logo {
-  font-size: 1.25rem;
-  font-weight: 800;
-  color: var(--heading);
-  letter-spacing: -0.02em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.02rem;
+  text-decoration: none;
+  padding: 0.35rem 0.45rem;
+  border-radius: 0.75rem;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .logo:hover {
+  background: rgba(108, 78, 246, 0.045);
+  transform: translateY(-1px);
+}
+
+.logo:focus-visible {
+  outline: 3px solid rgba(108, 78, 246, 0.22);
+  outline-offset: 3px;
+}
+
+.logo__text,
+.logo__accent {
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.logo__text {
   color: var(--heading);
+}
+
+.logo__accent {
+  color: #6c4ef6;
 }
 
 .nav {
@@ -181,7 +206,12 @@
   }
 
   .logo {
-    font-size: 1.15rem;
+    padding: 0.28rem 0.32rem;
+  }
+
+  .logo__text,
+  .logo__accent {
+    font-size: 1.3rem;
   }
 
   .navbar__actions {

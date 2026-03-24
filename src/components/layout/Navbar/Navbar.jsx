@@ -23,8 +23,10 @@ function Navbar() {
   return (
     <header className="navbar">
       <div className="container navbar__inner">
-        <Link to="/" className="logo" onClick={closeMenu}>
-          {siteConfig.brand}
+        
+        <Link to="/" className="logo" onClick={closeMenu} aria-label="Go to homepage">
+          <span className="logo__text">Rayhan</span>
+          <span className="logo__accent">Dev</span>
         </Link>
 
         <div className="navbar__actions">
