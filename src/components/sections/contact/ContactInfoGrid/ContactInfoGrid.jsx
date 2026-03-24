@@ -4,7 +4,7 @@ import { Mail, Github, Linkedin } from "lucide-react";
 
 function ContactInfoGrid() {
   return (
-    <div className="contact-home__grid">
+    <div className="contact-info-grid">
       <ContactInfoCard
         icon={<Mail size={18} strokeWidth={2.2} />}
         title="Email"
@@ -16,7 +16,7 @@ function ContactInfoGrid() {
       <ContactInfoCard
         icon={<Github size={18} strokeWidth={2.2} />}
         title="GitHub"
-        description="Explore my code, practice projects, and the structure behind what I’m building."
+        description="Explore my code, personal builds, and practice projects."
         href={siteConfig.github}
         label="Visit GitHub"
         external
@@ -25,7 +25,7 @@ function ContactInfoGrid() {
       <ContactInfoCard
         icon={<Linkedin size={18} strokeWidth={2.2} />}
         title="LinkedIn"
-        description="Connect with me professionally and follow my learning, work, and project journey."
+        description="Connect professionally and follow my work, learning, and project journey."
         href={siteConfig.linkedin}
         label="Connect on LinkedIn"
         external

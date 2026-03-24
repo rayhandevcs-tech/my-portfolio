@@ -12,16 +12,25 @@ function Contact() {
         description="Get in touch with Rayhan for collaboration, project discussion, or development opportunities."
       />
 
-      <main className="section contact-page">
+      <main className="contact-page">
         <div className="container">
-          <ContactIntro
-            title="Let’s Connect"
-            description="Feel free to reach out for collaboration, project discussion, or meaningful conversation."
-          />
+          <div className="contact-layout">
+            <div className="contact-left">
+              <ContactIntro
+                eyebrow="Contact"
+                title="Let’s make something great together"
+                description="Feel free to reach out for collaboration, project discussion, freelance opportunities, or a meaningful conversation. I’d love to hear from you."
+              />
 
-          {/* <ContactInfoGrid /> */}
+              <ContactInfoGrid />
+            </div>
 
-          <ContactForm />
+            <div className="contact-right">
+              <div className="contact-form-wrapper">
+                <ContactForm />
+              </div>
+            </div>
+          </div>
         </div>
       </main>
     </>

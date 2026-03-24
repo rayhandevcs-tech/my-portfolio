@@ -65,24 +65,34 @@ function ContactForm() {
   }
 
   return (
-    <section className="card contact-form-card">
-      <h2 className="contact-form-card__title">Send a Message</h2>
+    <section className="contact-form-card">
+      <div className="contact-form-card__header">
+        <p className="contact-form-card__eyebrow">Send Message</p>
+        <h2 className="contact-form-card__title">Let’s talk about your idea</h2>
+        <p className="contact-form-card__subtitle">
+          Fill out the form below and I’ll get back to you as soon as possible.
+        </p>
+      </div>
 
       <form onSubmit={handleSubmit} className="contact-form">
         <div className="contact-form__group">
-          <label htmlFor="name">Name</label>
+          <label htmlFor="name">
+            Name <span>*</span>
+          </label>
           <input
             id="name"
             name="name"
             type="text"
             value={formData.name}
             onChange={handleChange}
-            placeholder="Your name"
+            placeholder="Your full name"
           />
         </div>
 
         <div className="contact-form__group">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">
+            Email <span>*</span>
+          </label>
           <input
             id="email"
             name="email"
@@ -106,7 +116,9 @@ function ContactForm() {
         </div>
 
         <div className="contact-form__group">
-          <label htmlFor="subject">Subject</label>
+          <label htmlFor="subject">
+            Subject <span>*</span>
+          </label>
           <input
             id="subject"
             name="subject"
@@ -118,7 +130,9 @@ function ContactForm() {
         </div>
 
         <div className="contact-form__group">
-          <label htmlFor="message">Message</label>
+          <label htmlFor="message">
+            Message <span>*</span>
+          </label>
           <textarea
             id="message"
             name="message"
@@ -131,7 +145,7 @@ function ContactForm() {
 
         <button
           type="submit"
-          className="btn contact-submit-btn"
+          className="contact-submit-btn"
           disabled={loading}
         >
           {loading ? "Sending..." : "Send Message"}

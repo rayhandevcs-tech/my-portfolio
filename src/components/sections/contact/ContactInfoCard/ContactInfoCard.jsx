@@ -8,11 +8,13 @@ function ContactInfoCard({
 }) {
   return (
     <article className="contact-info-card">
-      {icon && <span className="contact-info-card__icon">{icon}</span>}
+      <div className="contact-info-card__top">
+        {icon && <span className="contact-info-card__icon">{icon}</span>}
 
-      <div className="contact-info-card__content">
-        <h3>{title}</h3>
-        {description && <p>{description}</p>}
+        <div className="contact-info-card__content">
+          <h3>{title}</h3>
+          {description && <p>{description}</p>}
+        </div>
       </div>
 
       <a
