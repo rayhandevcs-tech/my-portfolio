@@ -4,11 +4,12 @@
     linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
 }
 
-.contact-intro {
+/* Intro */
+.contact-home .contact-intro {
   max-width: 720px;
 }
 
-.contact-intro__eyebrow {
+.contact-home .contact-intro__eyebrow {
   margin: 0 0 14px;
   font-size: 14px;
   font-weight: 800;
@@ -17,15 +18,16 @@
   color: var(--primary);
 }
 
-.contact-intro__title {
+.contact-home .contact-intro__title {
   margin: 0 0 16px;
+  max-width: none;
   font-size: clamp(2rem, 3vw, 3rem);
   line-height: 1.08;
   letter-spacing: -0.04em;
   color: #1f2937;
 }
 
-.contact-intro__description {
+.contact-home .contact-intro__description {
   max-width: 62ch;
   margin: 0;
   font-size: 1rem;
@@ -33,47 +35,59 @@
   color: #5b6474;
 }
 
+/* Grid */
 .contact-home__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
+  gap: 28px;
   margin-top: 44px;
+  align-items: stretch;
 }
 
-.contact-info-card {
+/* Cards */
+.contact-home .contact-info-card {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 16px;
+  gap: 18px;
   min-height: 100%;
-  padding: 24px;
+  padding: 26px;
   border-radius: 20px;
   border: 1px solid rgba(15, 23, 42, 0.08);
   background: rgba(255, 255, 255, 0.72);
   box-shadow:
-    0 1px 2px rgba(15, 23, 42, 0.04),
-    0 10px 24px rgba(15, 23, 42, 0.04);
+    0 4px 10px rgba(15, 23, 42, 0.04),
+    0 12px 28px rgba(15, 23, 42, 0.06);
   backdrop-filter: blur(8px);
   transition:
     transform 0.28s ease,
     box-shadow 0.28s ease,
-    border-color 0.28s ease;
+    border-color 0.28s ease,
+    background 0.28s ease;
 }
 
-.contact-info-card:hover {
-  transform: translateY(-4px);
+.contact-home .contact-info-card:hover {
+  transform: translateY(-6px);
   border-color: rgba(109, 40, 217, 0.16);
+  background: rgba(255, 255, 255, 0.82);
   box-shadow:
-    0 8px 18px rgba(15, 23, 42, 0.05),
-    0 16px 34px rgba(109, 40, 217, 0.06);
+    0 10px 22px rgba(15, 23, 42, 0.06),
+    0 20px 40px rgba(109, 40, 217, 0.1);
 }
 
-.contact-info-card__icon {
+.contact-home .contact-info-card__top {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.contact-home .contact-info-card__icon {
   width: 46px;
   height: 46px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   border-radius: 14px;
   background: linear-gradient(
     180deg,
@@ -85,14 +99,13 @@
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.92),
     0 6px 16px rgba(109, 40, 217, 0.08);
-  flex-shrink: 0;
 }
 
-.contact-info-card__content {
+.contact-home .contact-info-card__content {
   min-width: 0;
 }
 
-.contact-info-card__content h3 {
+.contact-home .contact-info-card__content h3 {
   margin: 0 0 10px;
   font-size: 1.08rem;
   line-height: 1.3;
@@ -101,14 +114,14 @@
   color: #1f2937;
 }
 
-.contact-info-card__content p {
+.contact-home .contact-info-card__content p {
   margin: 0;
   font-size: 0.95rem;
   line-height: 1.8;
   color: #5b6474;
 }
 
-.contact-info-card__link {
+.contact-home .contact-info-card__link {
   margin-top: auto;
   display: inline-flex;
   align-items: center;
@@ -118,7 +131,7 @@
   position: relative;
 }
 
-.contact-info-card__link::after {
+.contact-home .contact-info-card__link::after {
   content: "";
   position: absolute;
   left: 0;
@@ -130,10 +143,11 @@
   transition: opacity 0.2s ease;
 }
 
-.contact-info-card__link:hover::after {
+.contact-home .contact-info-card__link:hover::after {
   opacity: 0.7;
 }
 
+/* Actions */
 .contact-home__actions {
   display: flex;
   align-items: center;
@@ -155,24 +169,30 @@
   color: #6b7280;
 }
 
+/* Responsive */
 @media (max-width: 992px) {
   .contact-home__grid {
     grid-template-columns: 1fr;
+    gap: 20px;
   }
 }
 
 @media (max-width: 640px) {
+  .contact-home .contact-intro__title {
+    font-size: 2rem;
+  }
+
   .contact-home__grid {
     margin-top: 36px;
     gap: 18px;
   }
 
-  .contact-info-card {
+  .contact-home .contact-info-card {
     padding: 20px;
     border-radius: 18px;
   }
 
-  .contact-info-card__icon {
+  .contact-home .contact-info-card__icon {
     width: 42px;
     height: 42px;
     border-radius: 12px;

@@ -2,9 +2,9 @@ import ContactInfoCard from "../ContactInfoCard/ContactInfoCard";
 import { siteConfig } from "../../../../data/site";
 import { Mail, Github, Linkedin } from "lucide-react";
 
-function ContactInfoGrid() {
+function ContactInfoGrid({ className = "contact-info-grid" }) {
   return (
-    <div className="contact-info-grid">
+    <div className={className}>
       <ContactInfoCard
         icon={<Mail size={18} strokeWidth={2.2} />}
         title="Email"

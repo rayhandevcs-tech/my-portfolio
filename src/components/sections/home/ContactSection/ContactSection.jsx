@@ -13,14 +13,12 @@ function ContactSection() {
           description="I’m open to collaboration, learning opportunities, and thoughtful conversations around frontend development, projects, and growth."
         />
 
-        <ContactInfoGrid />
+        <ContactInfoGrid className="contact-home__grid" />
 
         <div className="contact-home__actions">
           <Link to="/contact" className="btn contact-home__cta">
             Send a Message
           </Link>
-
-          
         </div>
       </div>
     </section>

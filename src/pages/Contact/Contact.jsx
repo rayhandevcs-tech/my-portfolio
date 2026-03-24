@@ -22,7 +22,7 @@ function Contact() {
                 description="Feel free to reach out for collaboration, project discussion, freelance opportunities, or a meaningful conversation. I’d love to hear from you."
               />
 
-              <ContactInfoGrid />
+              <ContactInfoGrid className="contact-info-grid" />
             </div>
 
             <div className="contact-right">
