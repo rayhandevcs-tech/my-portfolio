@@ -32,7 +32,9 @@ export const siteConfig = {
   navLinks: [
     { label: "Home", path: "/" },
     { label: "Blog", path: "/blog" },
-    { label: "Books", path: "/book-reviews" },
+    { label: "BookReview", path: "/book-reviews" },
+    // { label: "Academia", path: "/academia" },
+    { label: "Academics", path: "/coursework",},
     { label: "Achievements", path: "/achievements" },
     { label: "Contact", path: "/contact" },
   ],

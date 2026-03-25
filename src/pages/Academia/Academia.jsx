@@ -1,9 +1,9 @@
 import PageHero from "../../components/common/PageHero/PageHero";
 import InsightCard from "../../components/sections/insights/InsightCard/InsightCard";
-import { useResearchEntries } from "../../hooks/useResearchEntries";
+import { useAcademiaEntries } from "../../hooks/useAcademiaEntries";
 
-function Research() {
-  const { entries } = useResearchEntries();
+function Academia() {
+  const { entries } = useAcademiaEntries();
 
   return (
     <>
@@ -34,4 +34,4 @@ function Research() {
   );
 }
 
-export default Research;
+export default Academia;
