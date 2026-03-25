@@ -3,7 +3,7 @@ import "./AchievementCard.css";
 function AchievementCard({ achievement }) {
   if (!achievement) return null;
 
-  const { image, title, description, year, type, highlight } = achievement;
+  const { image, title, organization, summary, year, type, highlight } = achievement;
 
   return (
     <article className="card achievement-card">
@@ -14,24 +14,21 @@ function AchievementCard({ achievement }) {
       )}
 
       <div className="achievement-card__body">
-        <div className="achievement-card__top">
-          {year && (
-            <span className="achievement-card__year">{year}</span>
-          )}
-
-          {type && (
-            <span className="achievement-card__type">{type}</span>
-          )}
+        <div className="achievement-card__meta">
+          {year && <span className="achievement-card__year">{year}</span>}
+          {type && <span className="achievement-card__type">{type}</span>}
         </div>
 
         <h3>{title}</h3>
 
-        {description && <p>{description}</p>}
+        {organization && (
+          <p className="achievement-card__organization">{organization}</p>
+        )}
+
+        {summary && <p>{summary}</p>}
 
         {highlight && (
-          <p className="achievement-card__highlight">
-            {highlight}
-          </p>
+          <p className="achievement-card__highlight">{highlight}</p>
         )}
       </div>
     </article>

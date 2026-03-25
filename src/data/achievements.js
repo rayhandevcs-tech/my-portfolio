@@ -2,38 +2,85 @@ import achievementImg1 from "../assets/images/placeholder-image.png";
 import achievementImg2 from "../assets/images/placeholder-image-1.png";
 import achievementImg3 from "../assets/images/placeholder-image-2.png";
 
-export const achievements = [
+ const achievements = [
   {
     id: 1,
-    title: "Built My First Scalable React Portfolio",
-    year: "2026",
-    type: "Project Milestone",
+    title: "Building Bridges through Leadership Training (BBLT)",
+    organization: "Bangladesh Youth Leadership Center (BYLC)",
+    year: "2024",
+    type: "Leadership Program",
     image: achievementImg1,
-    description:
-      "This was one of the most important milestones in my frontend journey because it helped me move beyond building isolated pages and start thinking in terms of structure, scalability, and long-term maintainability. Instead of creating everything in a flat and repetitive way, I organized the project into separate folders for pages, layout, sections, data, and styles. That decision made the project feel much closer to a real-world application rather than just a practice project. While building it, I learned how reusable components reduce repetition, how a clean folder structure helps future updates, and how a data-driven mindset makes the UI easier to scale later. More importantly, this project changed the way I think about frontend development: not just as writing code that works, but as designing a system that can grow over time.",
+    summary:
+      "Completed BYLC’s Building Bridges through Leadership Training (BBLT), a leadership development program focused on communication, teamwork, problem-solving, and civic engagement.",
     highlight:
-      "This milestone taught me that a strong structure is not just about neatness — it directly affects how confidently a project can grow in the future.",
+      "This experience strengthened my leadership mindset, collaboration skills, and confidence in taking initiative and working with diverse teams.",
+    featured: true,
   },
   {
     id: 2,
-    title: "Completed Multiple Frontend Practice Projects",
+    title: "Aspire Leadership Program",
+    organization: "Aspire Institute",
     year: "2025",
-    type: "Learning Progress",
+    type: "Global Leadership Program",
     image: achievementImg2,
-    description:
-      "Throughout my learning journey, I built several smaller frontend projects such as cards, layouts, portfolio sections, simple apps, and UI experiments. Each of these projects played an important role in improving my practical understanding of React and frontend fundamentals. Instead of depending only on tutorials, I repeatedly applied what I learned through actual building. That helped me understand concepts like props, state, component separation, conditional rendering, and styling consistency in a more natural way. These projects may have been small individually, but together they created a strong base. They helped me build confidence, identify mistakes faster, and understand that progress in frontend development often comes from repeated practice and steady iteration rather than one big breakthrough.",
+    summary:
+      "Completed the Aspire Leadership Program, an international leadership development program designed to build communication, leadership, and problem-solving skills.",
     highlight:
-      "Small projects became my most effective learning tool because they turned theory into practice and confusion into clarity.",
+      "This program helped me develop a broader perspective on leadership, personal growth, and long-term goal setting.",
+    featured: true,
   },
   {
     id: 3,
-    title: "Developed a Consistent Self-Learning Routine",
+    title: "Qualified for Preliminary Round",
+    organization: "International Computer Science Competition (ICSC)",
     year: "2025",
-    type: "Personal Growth",
+    type: "Competition",
     image: achievementImg3,
-    description:
-      "One of my most valuable achievements has not been technical alone, but personal: building a more disciplined and consistent learning routine. At the beginning, I often depended too much on motivation, which made my learning process unstable. Over time, I started creating a system based on regular practice, note-taking, small milestones, and realistic daily effort. That shift changed the way I approached growth. I began to understand that meaningful progress does not require perfect days; it requires repeatable effort. This routine helped me stay connected to learning even when energy was low, and it made my progress feel more sustainable. It also improved the quality of my project work because I became more patient, more reflective, and more willing to improve gradually instead of rushing toward quick results.",
+    summary:
+      "Successfully qualified for the preliminary round of the International Computer Science Competition (ICSC), demonstrating problem-solving ability and foundational computer science knowledge.",
     highlight:
-      "This achievement reminded me that consistency is often more powerful than intensity, especially in long-term skill building.",
+      "This achievement encouraged me to take problem-solving and computer science learning more seriously and consistently.",
+    featured: true,
+  },
+  {
+    id: 4,
+    title: "Built My First Scalable React Portfolio",
+    organization: "Personal Project",
+    year: "2026",
+    type: "Frontend Development Milestone",
+    image: achievementImg1,
+    summary:
+      "Designed and developed my first scalable React portfolio using reusable components and structured architecture.",
+    highlight:
+      "This project marked my transition from small practice projects to structured and maintainable frontend development.",
+    featured: false,
+  },
+  {
+    id: 5,
+    title: "Completed Multiple Frontend Practice Projects",
+    organization: "Self Learning",
+    year: "2025",
+    type: "Learning Milestone",
+    image: achievementImg2,
+    summary:
+      "Completed several frontend practice projects including UI components, layouts, and forms.",
+    highlight:
+      "These small projects helped me turn theory into practical development skills.",
+    featured: false,
+  },
+  {
+    id: 6,
+    title: "Developed a Consistent Self-Learning Routine",
+    organization: "Personal Growth",
+    year: "2025",
+    type: "Discipline & Growth",
+    image: achievementImg3,
+    summary:
+      "Built a consistent learning habit by studying and practicing regularly with a long-term focus.",
+    highlight:
+      "This experience taught me that consistency is more powerful than short bursts of motivation.",
+    featured: false,
   },
 ];
+
+export default achievements;

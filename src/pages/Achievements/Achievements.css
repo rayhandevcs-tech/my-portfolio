@@ -1,0 +1,38 @@
+.achievements-page {  
+  padding-top: 0;  
+}
+
+.achievements-block + .achievements-block {  
+  margin-top: 72px;  
+}
+
+.section-heading {  
+  margin-bottom: 24px;  
+}
+
+.section-heading h2 {  
+  margin-bottom: 8px;  
+}
+
+.section-heading p {  
+  color: var(--text-muted);
+  max-width: 640px;  
+}
+
+.featured-achievements-grid {  
+  display: grid;  
+  grid-template-columns: repeat(3, minmax(0, 1fr));  
+  gap: 24px;  
+}
+
+@media (max-width: 992px) {  
+  .featured-achievements-grid {  
+    grid-template-columns: repeat(2, minmax(0, 1fr));  
+  }  
+}
+
+@media (max-width: 640px) {  
+  .featured-achievements-grid {  
+    grid-template-columns: 1fr;  
+  }  
+}
