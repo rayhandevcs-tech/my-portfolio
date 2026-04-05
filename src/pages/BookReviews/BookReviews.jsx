@@ -6,6 +6,7 @@ import BookReviewCard from "../../components/sections/books/BookReviewCard/BookR
 import FeaturedBook from "../../components/sections/books/FeaturedBook/FeaturedBook";
 import BookPagination from "../../components/sections/books/BookPagination/BookPagination";
 import { useBookReviews } from "../../hooks/useBookReviews";
+import "./BookReviews.css";
 
 const BOOKS_PER_PAGE = 4;
 
@@ -44,17 +45,86 @@ function BookReviews() {
 
   if (loading) {
     return (
-      <main className="section">
-        <p>Loading book reviews...</p>
-      </main>
+      <>
+        <Seo
+          title="Book Reviews | RayhanDev"
+          description="Book reviews, notes, and reflections on learning, productivity, mindset, and self-development."
+          keywords="book reviews, self development books, developer reading list, productivity books"
+          url="https://rayhancsdev.vercel.app/book-reviews"
+          type="website"
+        />
+
+        <main className="book-reviews-page">
+          <PageHero
+            title="Book Reviews"
+            subtitle="Books that shaped my thinking, learning, and personal growth."
+          />
+
+          <section className="book-reviews-page__content section">
+            <div className="container">
+              <div className="book-skeleton-featured" aria-hidden="true">
+                <div className="book-skeleton-featured__image" />
+                <div className="book-skeleton-featured__body">
+                  <div className="book-skeleton-line book-skeleton-line--sm" />
+                  <div className="book-skeleton-line book-skeleton-line--lg" />
+                  <div className="book-skeleton-line" />
+                  <div className="book-skeleton-line book-skeleton-line--short" />
+                </div>
+              </div>
+
+              <div className="book-skeleton-list">
+                {Array.from({ length: 4 }).map((_, index) => (
+                  <article
+                    key={index}
+                    className="book-skeleton-card"
+                    aria-hidden="true"
+                  >
+                    <div className="book-skeleton-card__image" />
+                    <div className="book-skeleton-card__body">
+                      <div className="book-skeleton-line book-skeleton-line--sm" />
+                      <div className="book-skeleton-line book-skeleton-line--lg" />
+                      <div className="book-skeleton-line" />
+                      <div className="book-skeleton-line book-skeleton-line--short" />
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+        </main>
+      </>
     );
   }
 
   if (error) {
     return (
-      <main className="section">
-        <p>{error}</p>
-      </main>
+      <>
+        <Seo
+          title="Book Reviews | RayhanDev"
+          description="Book reviews, notes, and reflections on learning, productivity, mindset, and self-development."
+          keywords="book reviews, self development books, developer reading list, productivity books"
+          url="https://rayhancsdev.vercel.app/book-reviews"
+          type="website"
+        />
+
+        <main className="book-reviews-page">
+          <PageHero
+            title="Book Reviews"
+            subtitle="Books that shaped my thinking, learning, and personal growth."
+          />
+
+          <section className="book-reviews-page__content section">
+            <div className="container">
+              <EmptyState
+                title="Unable to load book reviews"
+                message={
+                  error || "Something went wrong while loading book reviews."
+                }
+              />
+            </div>
+          </section>
+        </main>
+      </>
     );
   }
 
@@ -68,19 +138,16 @@ function BookReviews() {
         type="website"
       />
 
-      <main>
-
+      <main className="book-reviews-page">
         <PageHero
           title="Book Reviews"
           subtitle="Books that shaped my thinking, learning, and personal growth."
         />
 
-        <section className="section">
-
+        <section className="book-reviews-page__content section">
           <div className="container">
-            
             {featuredBook && (
-              <div style={{ marginBottom: "2rem" }}>
+              <div className="book-reviews-page__featured">
                 <FeaturedBook book={featuredBook} />
               </div>
             )}
@@ -92,7 +159,7 @@ function BookReviews() {
               />
             ) : (
               <>
-                <div style={{ display: "grid", gap: "1.5rem" }}>
+                <div className="book-reviews-list">
                   {paginatedBooks.map((book) => (
                     <BookReviewCard key={book._id || book.slug} book={book} />
                   ))}
@@ -108,11 +175,8 @@ function BookReviews() {
               </>
             )}
           </div>
-
         </section>
-
       </main>
-
     </>
   );
 }

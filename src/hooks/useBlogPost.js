@@ -11,6 +11,18 @@ export function clearBlogPostCache(slug) {
   }
 }
 
+export async function prefetchBlogPost(slug) {
+  if (!slug) return null;
+
+  if (postCache.has(slug)) {
+    return postCache.get(slug);
+  }
+
+  const data = await getPostBySlug(slug);
+  postCache.set(slug, data);
+  return data;
+}
+
 export function useBlogPost(slug) {
   const [post, setPost] = useState(() => {
     return slug && postCache.has(slug) ? postCache.get(slug) : null;

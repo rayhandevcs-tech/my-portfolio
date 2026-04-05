@@ -3,10 +3,16 @@ import { getToken } from "../../utils/auth";
 const API_URL = `${import.meta.env.VITE_API_BASE_URL}/api/books`;
 
 async function parseResponse(response, fallbackMessage) {
-  const data = await response.json();
+  let data = null;
+
+  try {
+    data = await response.json();
+  } catch {
+    data = null;
+  }
 
   if (!response.ok) {
-    throw new Error(data.message || fallbackMessage);
+    throw new Error(data?.message || fallbackMessage);
   }
 
   return data;
@@ -15,7 +21,7 @@ async function parseResponse(response, fallbackMessage) {
 export async function getAllBooks() {
   const response = await fetch(API_URL);
   const data = await parseResponse(response, "Failed to fetch books");
-  return data.data;
+  return data?.data || [];
 }
 
 export async function getAdminBooks() {
@@ -26,19 +32,19 @@ export async function getAdminBooks() {
   });
 
   const data = await parseResponse(response, "Failed to fetch admin books");
-  return data.data;
+  return data?.data || [];
 }
 
 export async function getBookBySlug(slug) {
   const response = await fetch(`${API_URL}/slug/${slug}`);
   const data = await parseResponse(response, "Failed to fetch book review");
-  return data.data;
+  return data?.data || null;
 }
 
 export async function getRelatedBooksBySlug(slug, limit = 2) {
   const response = await fetch(`${API_URL}/slug/${slug}/related?limit=${limit}`);
   const data = await parseResponse(response, "Failed to fetch related books");
-  return data.data;
+  return data?.data || [];
 }
 
 export async function getBookById(id) {
@@ -49,7 +55,7 @@ export async function getBookById(id) {
   });
 
   const data = await parseResponse(response, "Failed to fetch book review");
-  return data.data;
+  return data?.data || null;
 }
 
 export async function createBook(payload) {
@@ -63,7 +69,7 @@ export async function createBook(payload) {
   });
 
   const data = await parseResponse(response, "Failed to create book review");
-  return data.data;
+  return data?.data || null;
 }
 
 export async function updateBook(id, payload) {
@@ -77,7 +83,7 @@ export async function updateBook(id, payload) {
   });
 
   const data = await parseResponse(response, "Failed to update book review");
-  return data.data;
+  return data?.data || null;
 }
 
 export async function deleteBook(id) {
@@ -100,5 +106,5 @@ export async function toggleFeaturedBook(id) {
   });
 
   const data = await parseResponse(response, "Failed to toggle featured");
-  return data.data;
+  return data?.data || null;
 }

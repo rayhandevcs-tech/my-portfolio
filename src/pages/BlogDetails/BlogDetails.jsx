@@ -22,6 +22,11 @@ function BlogDetails() {
 
   const hasIncrementedRef = useRef(false);
 
+  // Prefetch markdown chunk so first render feels faster
+  useEffect(() => {
+    import("react-markdown");
+  }, []);
+
   useEffect(() => {
     if (!slug) return;
     hasIncrementedRef.current = false;

@@ -7,20 +7,115 @@
   margin-bottom: 2rem;
 }
 
-.blog-grid {
+.blog-grid,
+.blog-skeleton-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.5rem;
 }
 
+.blog-skeleton-card {
+  overflow: hidden;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  min-height: 420px;
+}
+
+.blog-skeleton-card__image,
+.blog-skeleton-card__meta,
+.blog-skeleton-card__title,
+.blog-skeleton-card__text,
+.blog-skeleton-card__tags span {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.06) 25%,
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(255, 255, 255, 0.06) 75%
+  );
+  background-size: 200% 100%;
+  animation: blogSkeletonPulse 1.4s ease-in-out infinite;
+}
+
+.blog-skeleton-card__image {
+  width: 100%;
+  height: 220px;
+}
+
+.blog-skeleton-card__body {
+  padding: 1.25rem;
+}
+
+.blog-skeleton-card__meta {
+  width: 45%;
+  height: 14px;
+  border-radius: 999px;
+  margin-bottom: 1rem;
+}
+
+.blog-skeleton-card__title {
+  width: 80%;
+  height: 26px;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.blog-skeleton-card__text {
+  width: 100%;
+  height: 14px;
+  border-radius: 999px;
+  margin-bottom: 0.75rem;
+}
+
+.blog-skeleton-card__text--short {
+  width: 68%;
+  margin-bottom: 1rem;
+}
+
+.blog-skeleton-card__tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.blog-skeleton-card__tags span {
+  width: 72px;
+  height: 28px;
+  border-radius: 999px;
+}
+
+@keyframes blogSkeletonPulse {
+  0% {
+    background-position: 200% 0;
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    background-position: -200% 0;
+    opacity: 0.55;
+  }
+}
+
 @media (max-width: 1024px) {
-  .blog-grid {
+  .blog-grid,
+  .blog-skeleton-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 680px) {
-  .blog-grid {
+  .blog-grid,
+  .blog-skeleton-grid {
     grid-template-columns: 1fr;
+  }
+
+  .blog-skeleton-card {
+    min-height: 380px;
+  }
+
+  .blog-skeleton-card__image {
+    height: 200px;
   }
 }

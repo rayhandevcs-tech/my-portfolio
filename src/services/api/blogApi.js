@@ -3,10 +3,16 @@ import { getToken } from "../../utils/auth";
 const API_URL = `${import.meta.env.VITE_API_BASE_URL}/api/posts`;
 
 async function parseResponse(response, fallbackMessage) {
-  const data = await response.json();
+  let data = null;
+
+  try {
+    data = await response.json();
+  } catch {
+    data = null;
+  }
 
   if (!response.ok) {
-    throw new Error(data.message || fallbackMessage);
+    throw new Error(data?.message || fallbackMessage);
   }
 
   return data;
@@ -15,7 +21,7 @@ async function parseResponse(response, fallbackMessage) {
 export async function getAllPosts() {
   const response = await fetch(API_URL);
   const data = await parseResponse(response, "Failed to fetch posts");
-  return data.data;
+  return data?.data || [];
 }
 
 export async function getAdminPosts() {
@@ -26,19 +32,19 @@ export async function getAdminPosts() {
   });
 
   const data = await parseResponse(response, "Failed to fetch admin posts");
-  return data.data;
+  return data?.data || [];
 }
 
 export async function getPostBySlug(slug) {
   const response = await fetch(`${API_URL}/slug/${slug}`);
   const data = await parseResponse(response, "Failed to fetch post");
-  return data.data;
+  return data?.data || null;
 }
 
 export async function getRelatedPostsBySlug(slug, limit = 3) {
   const response = await fetch(`${API_URL}/slug/${slug}/related?limit=${limit}`);
   const data = await parseResponse(response, "Failed to fetch related posts");
-  return data.data;
+  return data?.data || [];
 }
 
 export async function incrementPostViews(slug) {
@@ -47,7 +53,7 @@ export async function incrementPostViews(slug) {
   });
 
   const data = await parseResponse(response, "Failed to update views");
-  return data.data;
+  return data?.data || null;
 }
 
 export async function getPostById(id) {
@@ -58,7 +64,7 @@ export async function getPostById(id) {
   });
 
   const data = await parseResponse(response, "Failed to fetch post");
-  return data.data;
+  return data?.data || null;
 }
 
 export async function createPost(payload) {
@@ -72,7 +78,7 @@ export async function createPost(payload) {
   });
 
   const data = await parseResponse(response, "Failed to create post");
-  return data.data;
+  return data?.data || null;
 }
 
 export async function updatePost(id, payload) {
@@ -86,7 +92,7 @@ export async function updatePost(id, payload) {
   });
 
   const data = await parseResponse(response, "Failed to update post");
-  return data.data;
+  return data?.data || null;
 }
 
 export async function deletePost(id) {
@@ -109,5 +115,5 @@ export async function toggleFeaturedPost(id) {
   });
 
   const data = await parseResponse(response, "Failed to toggle featured");
-  return data.data;
+  return data?.data || null;
 }

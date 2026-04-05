@@ -36,8 +36,37 @@ function Blog() {
           url="https://rayhancsdev.vercel.app/blog"
           type="website"
         />
-        <main className="section">
-          <p>Loading posts...</p>
+
+        <main className="blog-page">
+          <PageHero
+            title="Blog"
+            subtitle="Thoughts, lessons, experiments, and notes from my full-stack learning journey."
+          />
+
+          <section className="blog-page__content section">
+            <div className="blog-skeleton-grid">
+              {Array.from({ length: 6 }).map((_, index) => (
+                <article
+                  key={index}
+                  className="blog-skeleton-card"
+                  aria-hidden="true"
+                >
+                  <div className="blog-skeleton-card__image" />
+                  <div className="blog-skeleton-card__body">
+                    <div className="blog-skeleton-card__meta" />
+                    <div className="blog-skeleton-card__title" />
+                    <div className="blog-skeleton-card__text" />
+                    <div className="blog-skeleton-card__text blog-skeleton-card__text--short" />
+                    <div className="blog-skeleton-card__tags">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
         </main>
       </>
     );
@@ -53,8 +82,19 @@ function Blog() {
           url="https://rayhancsdev.vercel.app/blog"
           type="website"
         />
-        <main className="section">
-          <p>{error}</p>
+
+        <main className="blog-page">
+          <PageHero
+            title="Blog"
+            subtitle="Thoughts, lessons, experiments, and notes from my full-stack learning journey."
+          />
+
+          <section className="blog-page__content section">
+            <EmptyState
+              title="Unable to load posts"
+              message={error || "Something went wrong while loading blog posts."}
+            />
+          </section>
         </main>
       </>
     );

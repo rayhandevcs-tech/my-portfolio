@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Tag from "../../../common/Tag/Tag";
+import { prefetchBlogPost } from "../../../../hooks/useBlogPost";
 import "./BlogCard.css";
 
 function BlogCard({ post }) {
@@ -17,6 +18,12 @@ function BlogCard({ post }) {
     views,
   } = post;
 
+  function handlePrefetch() {
+    if (slug) {
+      prefetchBlogPost(slug).catch(() => {});
+    }
+  }
+
   return (
     <article className="card blog-card">
       {coverImage && (
@@ -24,6 +31,8 @@ function BlogCard({ post }) {
           to={`/blog/${slug}`}
           className="blog-card__image"
           aria-label={`Read ${title}`}
+          onMouseEnter={handlePrefetch}
+          onFocus={handlePrefetch}
         >
           <img src={coverImage} alt={title} loading="lazy" />
         </Link>
@@ -32,16 +41,19 @@ function BlogCard({ post }) {
       <div className="blog-card__body">
         <div className="blog-card__meta">
           {category && <span className="blog-card__meta-item">{category}</span>}
+
           {publishedAt && (
             <span className="blog-card__meta-item blog-card__meta-item--muted">
               {publishedAt}
             </span>
           )}
+
           {readingTime && (
             <span className="blog-card__meta-item blog-card__meta-item--muted">
               {readingTime}
             </span>
           )}
+
           {typeof views === "number" && (
             <span className="blog-card__meta-item blog-card__meta-item--muted">
               {views} views
@@ -50,7 +62,13 @@ function BlogCard({ post }) {
         </div>
 
         <h3 className="blog-card__title">
-          <Link to={`/blog/${slug}`}>{title}</Link>
+          <Link
+            to={`/blog/${slug}`}
+            onMouseEnter={handlePrefetch}
+            onFocus={handlePrefetch}
+          >
+            {title}
+          </Link>
         </h3>
 
         {excerpt && <p className="blog-card__excerpt">{excerpt}</p>}
@@ -63,7 +81,12 @@ function BlogCard({ post }) {
           </div>
         )}
 
-        <Link to={`/blog/${slug}`} className="blog-card__link">
+        <Link
+          to={`/blog/${slug}`}
+          className="blog-card__link"
+          onMouseEnter={handlePrefetch}
+          onFocus={handlePrefetch}
+        >
           Read More <span aria-hidden="true">→</span>
         </Link>
       </div>
