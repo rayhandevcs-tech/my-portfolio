@@ -1,206 +1,294 @@
-import courseImg1 from "../assets/images/placeholder-image.png";
-import courseImg2 from "../assets/images/placeholder-image-1.png";
+import courseImg1 from "../assets/images/algo.png";
+import courseImg2 from "../assets/images/ds.jpg";
+import courseImg3 from "../assets/images/dbms.jpg";
+import courseImg4 from "../assets/images/oop.png";
+import courseImg5 from "../assets/images/ooad.png";
+import courseImg6 from "../assets/images/se.png";
+import courseImg7 from "../assets/images/TOC.png";
+import courseImg8 from "../assets/images/DM.png";
+
 
 export const coursework = [
-  {
-    id: 1,
-    title: "Algorithms",
-    category: "Core CS",
-    status: "Completed",
-    term: "Fall 2025",
-    image: courseImg1,
-    description:
-      "Learned how to design efficient solutions to computational problems through algorithmic thinking and complexity analysis.",
-    fullDescription:
-      "This course focused on core algorithm design techniques and the analysis of computational efficiency. I studied how to solve problems systematically, compare multiple approaches, and choose efficient solutions based on time and space complexity.",
-    learnings: [
-      "Time and space complexity",
-      "Divide and conquer",
-      "Dynamic programming",
-      "Graph algorithms",
-    ],
-    tools: ["C++", "Python"],
-    projects: ["Sorting Visualizer", "Pathfinding Visualizer"],
-    projectLinks: [
-      { name: "Sorting Visualizer", url: "#" },
-      { name: "Pathfinding Visualizer", url: "#" },
-    ],
-    resources: ["Introduction to Algorithms (CLRS)", "MIT OpenCourseWare"],
-  },
+{
+id: 1,
+title: "Algorithms",
+category: "Core CS",
+status: "Completed",
+term: "Spring 2026",
+image: courseImg1,
+description:
+  "Learned how to design efficient computational solutions using algorithmic thinking and complexity analysis.",
 
-  {
-    id: 2,
-    title: "Data Structures",
-    category: "Core CS",
-    status: "Completed",
-    term: "Fall 2025",
-    image: courseImg2,
-    description:
-      "Studied the core data structures used to organize and manage data efficiently.",
-    fullDescription:
-      "This course introduced the fundamental data structures that form the backbone of efficient software systems. I learned how different structures store data, how operations perform on them, and how choosing the right structure affects performance and memory usage.",
-    learnings: [
-      "Arrays and linked lists",
-      "Stacks and queues",
-      "Trees and hash tables",
-      "Graphs and traversal",
-    ],
-    tools: ["C++"],
-    projects: ["Linked List Implementation", "Binary Search Tree"],
-    projectLinks: [
-      { name: "Linked List Implementation", url: "#" },
-      { name: "Binary Search Tree", url: "#" },
-    ],
-    resources: ["GeeksforGeeks", "Visualgo"],
-  },
+fullDescription:
+  "This course focused on algorithm design techniques, problem-solving strategies, and computational efficiency analysis. I learned how to approach complex problems systematically and optimize solutions based on time and space complexity.",
 
-  {
-    id: 3,
-    title: "Database Management Systems",
-    category: "Data",
-    status: "Completed",
-    term: "Spring 2026",
-    image: courseImg1,
-    description:
-      "Explored how structured data is stored, queried, and managed using relational database systems.",
-    fullDescription:
-      "This course covered relational database design, normalization, and SQL query writing. I learned how to design structured schemas, manage data integrity, and understand transactions and concurrency in database systems.",
-    learnings: [
-      "SQL queries and joins",
-      "Normalization",
-      "ER modeling",
-      "Transactions and integrity",
-    ],
-    tools: ["SQL", "MySQL"],
-    projects: ["Student Management System"],
-    projectLinks: [
-      { name: "Student Management System", url: "#" },
-    ],
-    resources: ["Database System Concepts", "MySQL Documentation"],
-  },
+learnings: [
+  "Time and space complexity",
+  "Divide and conquer",
+  "Dynamic programming",
+  "Graph algorithms",
+],
 
-  {
-    id: 4,
-    title: "Object-Oriented Programming",
-    category: "Programming",
-    status: "Completed",
-    term: "Spring 2026",
-    image: courseImg2,
-    description:
-      "Built a strong foundation in software design through objects, abstraction, inheritance, and modular thinking.",
-    fullDescription:
-      "This course developed my understanding of software design using object-oriented principles. I practiced designing modular programs and applying abstraction, encapsulation, inheritance, and polymorphism.",
-    learnings: [
-      "Classes and objects",
-      "Inheritance and polymorphism",
-      "Abstraction and encapsulation",
-      "Modular code design",
-    ],
-    tools: ["Java", "C++"],
-    projects: ["Library Management System"],
-    projectLinks: [
-      { name: "Library Management System", url: "#" },
-    ],
-    resources: ["Head First Java", "OOP Lecture Notes"],
-  },
+tools: ["C++", "Problem Solving"],
 
-  {
-    id: 5,
-    title: "Operating Systems",
-    category: "Systems",
-    status: "Completed",
-    term: "Fall 2026",
-    image: courseImg1,
-    description:
-      "Studied how operating systems manage processes, memory, and system resources.",
-    fullDescription:
-      "This course covered how operating systems handle process scheduling, memory allocation, file systems, and concurrency. I learned how low-level system operations work and how resource management affects performance.",
-    learnings: [
-      "Process scheduling",
-      "Memory management",
-      "File systems",
-      "Concurrency and synchronization",
-    ],
-    tools: ["C"],
-    projects: ["Process Scheduling Simulation"],
-    projectLinks: [
-      { name: "Process Scheduling Simulation", url: "#" },
-    ],
-    resources: ["Operating System Concepts", "Linux Documentation"],
-  },
+projects: ["Sorting Visualizer", "Pathfinding Visualizer"],
 
-  {
-    id: 6,
-    title: "Computer Networks",
-    category: "Systems",
-    status: "Completed",
-    term: "Fall 2026",
-    image: courseImg2,
-    description:
-      "Studied how computers communicate over networks and how data is transmitted.",
-    fullDescription:
-      "This course introduced networking fundamentals including protocols, routing, switching, and network security basics. I learned how data moves across networks and how communication systems are structured.",
-    learnings: [
-      "OSI model",
-      "TCP/IP",
-      "Routing and switching",
-      "Network security basics",
-    ],
-    tools: ["Cisco Packet Tracer"],
-    projects: ["Network Topology Simulation"],
-    projectLinks: [
-      { name: "Network Topology Simulation", url: "#" },
-    ],
-    resources: ["Computer Networking – Kurose & Ross", "Cisco Docs"],
-  },
+projectLinks: [
+  { name: "Sorting Visualizer", url: "#" },
+  { name: "Pathfinding Visualizer", url: "#" },
+],
 
-  {
-    id: 7,
-    title: "Software Engineering",
-    category: "Software",
-    status: "Completed",
-    term: "Spring 2027",
-    image: courseImg1,
-    description:
-      "Focused on software development methodologies, system design, and testing.",
-    fullDescription:
-      "This course focused on the software development lifecycle, system design principles, version control, testing, and teamwork in software projects.",
-    learnings: [
-      "Software development lifecycle",
-      "System design",
-      "Testing and debugging",
-      "Team-based development",
-    ],
-    tools: ["Git", "GitHub"],
-    projects: ["Team Software Project"],
-    projectLinks: [
-      { name: "Team Software Project", url: "#" },
-    ],
-    resources: ["Clean Code", "Software Engineering Lecture Notes"],
-  },
+resources: [
+  "Introduction to Algorithms (CLRS)",
+  "MIT OpenCourseWare",
+],
 
-  {
-    id: 8,
-    title: "Discrete Mathematics",
-    category: "Math",
-    status: "Completed",
-    term: "Spring 2025",
-    image: courseImg2,
-    description:
-      "Built mathematical foundations for computer science including logic and graph theory.",
-    fullDescription:
-      "This course built the mathematical foundation required for computer science. I studied logic, proofs, combinatorics, sets, relations, and graph theory.",
-    learnings: [
-      "Logic and proofs",
-      "Sets and relations",
-      "Combinatorics",
-      "Graph theory",
-    ],
-    tools: ["Mathematics", "Problem Solving"],
-    projects: ["Graph Theory Problem Set"],
-    projectLinks: [
-      { name: "Graph Theory Problem Set", url: "#" },
-    ],
-    resources: ["Discrete Mathematics and Its Applications"],
-  },
+},
+
+{
+id: 2,
+title: "Data Structures",
+category: "Core CS",
+status: "Completed",
+term: "Spring 2026",
+image: courseImg2,
+description:
+  "Studied fundamental data structures used to organize, store, and process data efficiently.",
+
+fullDescription:
+  "This course introduced core data structures and their practical applications in software development. I learned how different structures impact performance, memory usage, and algorithmic efficiency.",
+
+learnings: [
+  "Arrays and linked lists",
+  "Stacks and queues",
+  "Trees and hash tables",
+  "Graph traversal",
+],
+
+tools: ["C++"],
+
+projects: [
+  "Linked List Implementation",
+  "Binary Search Tree",
+],
+
+projectLinks: [
+  { name: "Linked List Implementation", url: "#" },
+  { name: "Binary Search Tree", url: "#" },
+],
+
+resources: [
+  "GeeksforGeeks",
+  "Visualgo",
+],
+
+},
+
+{
+id: 3,
+title: "Database Management Systems",
+category: "Data",
+status: "Completed",
+term: "Fall 2025",
+image: courseImg3,
+description:
+  "Explored relational database systems, SQL querying, normalization, and structured data management.",
+
+fullDescription:
+  "This course covered relational database design, ER modeling, normalization, and SQL operations. I learned how to manage structured data efficiently while maintaining integrity and consistency.",
+
+learnings: [
+  "SQL queries and joins",
+  "Normalization",
+  "ER modeling",
+  "Database design principles",
+],
+
+tools: ["SQL", "MySQL"],
+
+projects: ["Student Management System"],
+
+projectLinks: [
+  { name: "Student Management System", url: "#" },
+],
+
+resources: [
+  "Database System Concepts",
+  "MySQL Documentation",
+],
+
+},
+
+{
+id: 4,
+title: "Object-Oriented Programming",
+category: "Programming",
+status: "Completed",
+term: "Spring 2025",
+image: courseImg4,
+description:
+  "Built a strong programming foundation using object-oriented design principles and modular thinking.",
+
+fullDescription:
+  "This course focused on object-oriented programming concepts including abstraction, inheritance, encapsulation, and polymorphism. I practiced designing reusable and maintainable software systems.",
+
+learnings: [
+  "Classes and objects",
+  "Inheritance and polymorphism",
+  "Abstraction and encapsulation",
+  "Modular code design",
+],
+
+tools: ["Java", "C++"],
+
+projects: ["Library Management System"],
+
+projectLinks: [
+  { name: "Library Management System", url: "#" },
+],
+
+resources: [
+  "Head First Java",
+  "OOP Lecture Notes",
+],
+},
+
+{
+id: 5,
+title: "Object-Oriented Analysis and Design",
+category: "Software",
+status: "Completed",
+term: "Spring 2026",
+image: courseImg5,
+description:
+  "Learned software analysis and system design techniques using object-oriented methodologies.",
+
+fullDescription:
+  "This course focused on analyzing software requirements and designing scalable systems using UML diagrams, object-oriented methodologies, and structured software modeling techniques.",
+
+learnings: [
+  "UML diagrams",
+  "System analysis",
+  "Software design principles",
+  "Requirement modeling",
+],
+
+tools: ["UML", "Software Modeling"],
+
+projects: ["System Design Case Study"],
+
+projectLinks: [
+  { name: "System Design Case Study", url: "#" },
+],
+
+resources: [
+  "Object-Oriented Analysis and Design",
+  "UML Documentation",
+],
+
+},
+
+{
+id: 6,
+title: "Software Engineering",
+category: "Software",
+status: "In Progress",
+term: "Summer 2026",
+image: courseImg6,
+description:
+  "Focused on software development methodologies, project structure, testing, and system design practices.",
+
+fullDescription:
+  "This course introduced software development lifecycle concepts, teamwork, testing methodologies, software architecture, and version control practices used in real-world software engineering.",
+
+learnings: [
+  "Software development lifecycle",
+  "System design",
+  "Testing and debugging",
+  "Team collaboration",
+],
+
+tools: ["Git", "GitHub"],
+
+projects: ["Team Software Project"],
+
+projectLinks: [
+  { name: "Team Software Project", url: "#" },
+],
+
+resources: [
+  "Clean Code",
+  "Software Engineering Lecture Notes",
+],
+
+},
+
+{
+id: 7,
+title: "Theory of Computation",
+category: "Core CS",
+status: "In Progress",
+term: "Summer 2026",
+image: courseImg7,
+description:
+  "Studied the mathematical foundations of computation, automata theory, and formal languages.",
+
+fullDescription:
+  "This course explored the theoretical foundations of computer science including finite automata, regular languages, context-free grammars, Turing machines, and computability concepts.",
+
+learnings: [
+  "Finite automata",
+  "Regular expressions",
+  "Context-free grammars",
+  "Turing machines",
+],
+
+tools: ["Mathematical Modeling"],
+
+projects: ["Finite Automata Simulation"],
+
+projectLinks: [
+  { name: "Finite Automata Simulation", url: "#" },
+],
+
+resources: [
+  "Introduction to Automata Theory",
+  "Theory of Computation Notes",
+],
+
+},
+
+{
+id: 8,
+title: "Discrete Mathematics",
+category: "Math",
+status: "Completed",
+term: "Spring 2024",
+image: courseImg8,
+description:
+  "Built mathematical foundations for computer science including logic, proofs, and graph theory.",
+
+fullDescription:
+  "This course developed the mathematical reasoning skills required for computer science. I studied logic, combinatorics, graph theory, sets, relations, and proof techniques.",
+
+learnings: [
+  "Logic and proofs",
+  "Sets and relations",
+  "Combinatorics",
+  "Graph theory",
+],
+
+tools: ["Mathematics", "Problem Solving"],
+
+projects: ["Graph Theory Problem Set"],
+
+projectLinks: [
+  { name: "Graph Theory Problem Set", url: "#" },
+],
+
+resources: [
+  "Discrete Mathematics and Its Applications",
+],
+
+},
 ];

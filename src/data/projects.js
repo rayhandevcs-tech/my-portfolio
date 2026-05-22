@@ -1,87 +1,114 @@
-import projectImg1 from "../assets/images/placeholder-image.png";
-import projectImg2 from "../assets/images/placeholder-image-1.png";
-import projectImg3 from "../assets/images/placeholder-image-2.png";
+import projectImg1 from "../assets/images/portfolio1.png";
+import projectImg2 from "../assets/images/ocms.png";
+import projectImg3 from "../assets/images/tms.png";
 
 export const projects = [
-  {
+    {
+      
     id: 1,
-    title: "Portfolio Website",
-    slug: "portfolio-website",
-    category: "Personal Project",
-    role: "Frontend Developer",
+    title: "Portfolio & CMS Blog Platform",
+    slug: "portfolio-cms-blog-platform",
+    category: "Full Stack Project",
+    role: "Full Stack Developer",
     duration: "2026 - Present",
-    status: "In Progress",
+    status: "Active Development",
     featured: true,
     image: projectImg1,
 
     description:
-      "A scalable personal portfolio built with React and Vite to showcase projects, writing, book reviews, achievements, and future research work.",
+    "A full-stack developer portfolio and CMS-powered blogging platform built to showcase projects, technical writing, book reviews, achievements, and future research-oriented work.",
 
     highlight:
-      "Focused on reusable components, scalable structure, and future backend integration.",
+    "Focused on scalable architecture, dynamic content management, responsive UI, and frontend performance optimization.",
 
     problem:
-      "I wanted a personal website that was more than a static portfolio. The goal was to create a solid foundation that could gradually grow into a full personal platform with multiple content sections and a cleaner architecture.",
+    "I wanted to build more than a static portfolio website. The goal was to create a scalable personal platform capable of managing dynamic blog content, organizing personal work, and supporting future expansion with a cleaner full-stack architecture.",
 
     solution:
-      "I structured the project using separate folders for pages, layout, common components, section components, data files, and styles. This made the project easier to maintain and prepared it for future scaling.",
+    "I designed the project using a modular architecture with reusable React components, protected admin routes, dynamic blog management, MongoDB-based content storage, and Cloudinary image uploads. Performance was improved using caching strategies, lazy loading, route-based code splitting, and optimized data fetching.",
 
     features: [
-      "Multi-page routing with React Router",
-      "Reusable section and common components",
-      "Data-driven architecture",
-      "Responsive layout",
-      "Expandable content system for blog, books, travel, and research",
+    "Dynamic blog management system",
+    "Secure admin authentication",
+    "Markdown-based blog rendering",
+    "Cloudinary image upload integration",
+    "Blog search and category filtering",
+    "Featured and related posts system",
+    "Prefetch caching for faster navigation",
+    "Reading progress indicator",
+    "SEO optimization with React Helmet",
+    "Responsive multi-page architecture",
+    "Reusable and scalable component structure",
     ],
 
-    tech: ["React", "Vite", "CSS", "React Router"],
+    tech: [
+    "React",
+    "Vite",
+    "React Router",
+    "Node.js",
+    "Express.js",
+    "MongoDB",
+    "Mongoose",
+    "Cloudinary",
+    "JWT Authentication",
+    "CSS",
+    ],
 
     github: "https://github.com/yourusername/portfolio-website",
     live: "https://your-live-link.com",
-  },
+    },
 
-  {
+    {
     id: 2,
-    title: "Weather App",
-    slug: "weather-app",
-    category: "Practice Project",
-    role: "Frontend Developer",
+    title: "Online Course Management System",
+    slug: "online-course-management-system",
+    category: "Academic Project",
+    role: "Backend & Desktop Application Developer",
     duration: "2025",
     status: "Completed",
-    featured: true,
+    featured: false,
     image: projectImg2,
 
     description:
-      "A weather application that fetches real-time weather data from an API and displays it in a clean, user-friendly interface.",
+    "A desktop-based academic course management system developed to manage courses, student enrollment, and administrative operations in a structured and organized environment.",
 
     highlight:
-      "Improved my understanding of API fetching, state management, and conditional rendering.",
+    "Focused on database-driven operations, CRUD functionality, and structured desktop application architecture.",
 
     problem:
-      "I wanted to practice building an app that works with real-time external data instead of only static UI components.",
+    "Managing course information, student enrollment, and administrative records manually can become inefficient and difficult to maintain. The project aimed to simplify these academic management tasks through a centralized desktop application.",
 
     solution:
-      "I created a weather interface that takes user input, fetches weather information from an API, and updates the UI dynamically based on the returned data.",
+    "I developed a structured course management system using C# and SQL Server with features for course handling, student management, authentication, and administrative operations. The application was organized using reusable forms, database integration, and modular functionality.",
 
     features: [
-      "Search-based weather lookup",
-      "Dynamic weather data rendering",
-      "API integration",
-      "Conditional loading and content states",
-      "Clean responsive layout",
+    "Course creation and management",
+    "Student enrollment system",
+    "Authentication and admin access",
+    "CRUD operations for academic records",
+    "Database-driven application structure",
+    "Student information management",
+    "Responsive desktop interface",
     ],
 
-    tech: ["React", "API", "CSS", "JavaScript"],
+    tech: [
+    "C#",
+    ".NET Framework",
+    "SQL Server",
+    "Windows Forms",
+    ],
 
-    github: "https://github.com/yourusername/weather-app",
-    live: "https://your-live-link.com",
-  },
+    github: "https://github.com/yourusername/course-management-system",
+    live: "",
 
-  {
+    },
+
+
+    {
     id: 3,
-    title: "Todo App",
-    slug: "todo-app",
-    category: "Practice Project",
+    title: "Task Management Interface",
+    slug: "task-management-interface",
+    category: "Frontend Practice Project",
     role: "Frontend Developer",
     duration: "2025",
     status: "Completed",
@@ -89,28 +116,33 @@ export const projects = [
     image: projectImg3,
 
     description:
-      "A practical task management app for adding, completing, filtering, and removing tasks in a clean interface.",
+    "A responsive task management application built with React to manage daily tasks using dynamic state updates, filtering functionality, and component-based UI structure.",
 
     highlight:
-      "Helped me practice component structure, local state management, and organized UI flow.",
+    "Focused on React state management, reusable component structure, and interactive user experience design.",
 
     problem:
-      "I wanted to build a project that would help me understand state updates, user interaction, and simple CRUD-style frontend logic.",
+    "I wanted to improve my understanding of frontend state handling, user interaction flow, and CRUD-style application logic through a practical and interactive project.",
 
     solution:
-      "I built a task manager where users can create and manage tasks easily, while I focused on clean state handling and a readable component structure.",
+    "I developed a clean task management interface where users can create, complete, filter, and remove tasks dynamically while maintaining organized component architecture and responsive design principles.",
 
     features: [
-      "Add and delete tasks",
-      "Mark tasks as completed",
-      "Simple filtering logic",
-      "Component-based structure",
-      "Minimal and clean interface",
+    "Add and remove tasks dynamically",
+    "Mark tasks as completed",
+    "Task filtering functionality",
+    "Reusable React component structure",
+    "Responsive user interface",
+    "Clean state management flow",
     ],
 
-    tech: ["React", "JavaScript", "CSS"],
+    tech: [
+    "React",
+    "JavaScript",
+    "CSS",
+    ],
 
-    github: "https://github.com/yourusername/todo-app",
+    github: "https://github.com/yourusername/task-management-interface",
     live: "https://your-live-link.com",
-  },
+    },
 ];

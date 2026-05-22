@@ -8,7 +8,9 @@ function AchievementTimelineItem({ achievement }) {
     achievement;
 
   return (
+
     <article className="achievement-timeline-item">
+
       <div className="achievement-timeline-item__marker">
         <span className="achievement-timeline-item__dot"></span>
       </div>
@@ -47,7 +49,9 @@ function AchievementTimelineItem({ achievement }) {
           )}
         </div>
       </div>
+
     </article>
+    
   );
 }
 

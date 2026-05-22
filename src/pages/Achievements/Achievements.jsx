@@ -9,8 +9,11 @@ function Achievements() {
   const { achievements } = useAchievements();
 
   const featuredAchievements = achievements.filter((item) => item.featured);
-  const mainFeatured = featuredAchievements[0]; // only first one
-  const timelineAchievements = achievements.filter((item) => !item.featured);
+  const mainFeatured = featuredAchievements[0];
+
+  const timelineAchievements = achievements.filter(
+    (item) => item.id !== mainFeatured?.id
+  );
 
   return (
     <>
@@ -21,20 +24,17 @@ function Achievements() {
       />
 
       <main className="section achievements-page">
-
         <div className="container">
+          {mainFeatured && (
+            <section className="achievements-block">
+              <div className="section-heading">
+                <h2>Featured Achievement</h2>
+                <p>Highlights that represent leadership, recognition, and growth.</p>
+              </div>
 
-          
-          <section className="achievements-block">
-
-            <div className="section-heading">
-              <h2>Featured Achievements</h2>
-              <p>Highlights that represent leadership, recognition, and growth.</p>
-            </div>
-
-            <FeaturedAchievement achievement={mainFeatured} />
-
-          </section>
+              <FeaturedAchievement achievement={mainFeatured} />
+            </section>
+          )}
 
           <section className="achievements-block">
             <div className="section-heading">
@@ -51,11 +51,9 @@ function Achievements() {
               ))}
             </div>
           </section>
-
         </div>
       </main>
     </>
   );
 }
-
 export default Achievements;

@@ -16,7 +16,9 @@ function ProjectsSection() {
   );
 
   return (
+
     <section className="section" id="projects">
+
       <div className="container">
         <SectionHeader
           eyebrow="Projects"
@@ -112,6 +114,7 @@ function ProjectsSection() {
           </div>
         )}
       </div>
+      
     </section>
   );
 }

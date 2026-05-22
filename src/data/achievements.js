@@ -1,13 +1,46 @@
-import achievementImg1 from "../assets/images/placeholder-image.png";
-import achievementImg2 from "../assets/images/placeholder-image-1.png";
-import achievementImg3 from "../assets/images/placeholder-image-2.png";
+import achievementImg1 from "../assets/images/BYLC.jpg";
+import achievementImg2 from "../assets/images/Aspire.jpg";
+import achievementImg3 from "../assets/images/icsc.jpg";
+import achievementImg4 from "../assets/images/Portfolio1.png";
+//import achievementImg5 from "../assets/images/anabil_uccash.jpg";
+import achievementImg6 from "../assets/images/LIA.jpg";
 
  const achievements = [
+  { id: 6,
+    title: "LIA Scale-up Funding Winner",
+    organization: "Bangladesh Youth Leadership Center (BYLC)",
+    year: "2025",
+    type: "Leadership & Community Impact",
+    image: achievementImg6,
+
+    summary:
+    "Received recognition and funding support for the 'Anabil Ucchash' community initiative focused on environmental awareness and social impact.",
+
+    highlight:
+    "This achievement strengthened my leadership, teamwork, and community engagement experience through a real social impact project.",
+
+    featured: false,
+  },
+
+{
+    id: 4,
+    title: "Built My First Scalable React Portfolio",
+    organization: "Personal Project",
+    year: "2026",
+    type: "Frontend Development Milestone",
+    image: achievementImg4,
+    summary:
+      "Designed and developed my first scalable React portfolio using reusable components and structured architecture.",
+    highlight:
+      "This project marked my transition from small practice projects to structured and maintainable frontend development.",
+    featured: false,
+  },
+
   {
     id: 1,
     title: "Building Bridges through Leadership Training (BBLT)",
     organization: "Bangladesh Youth Leadership Center (BYLC)",
-    year: "2024",
+    year: "2025",
     type: "Leadership Program",
     image: achievementImg1,
     summary:
@@ -42,45 +75,25 @@ import achievementImg3 from "../assets/images/placeholder-image-2.png";
       "This achievement encouraged me to take problem-solving and computer science learning more seriously and consistently.",
     featured: true,
   },
-  {
-    id: 4,
-    title: "Built My First Scalable React Portfolio",
-    organization: "Personal Project",
-    year: "2026",
-    type: "Frontend Development Milestone",
-    image: achievementImg1,
-    summary:
-      "Designed and developed my first scalable React portfolio using reusable components and structured architecture.",
-    highlight:
-      "This project marked my transition from small practice projects to structured and maintainable frontend development.",
-    featured: false,
-  },
-  {
-    id: 5,
-    title: "Completed Multiple Frontend Practice Projects",
-    organization: "Self Learning",
-    year: "2025",
-    type: "Learning Milestone",
-    image: achievementImg2,
-    summary:
-      "Completed several frontend practice projects including UI components, layouts, and forms.",
-    highlight:
-      "These small projects helped me turn theory into practical development skills.",
-    featured: false,
-  },
-  {
-    id: 6,
-    title: "Developed a Consistent Self-Learning Routine",
-    organization: "Personal Growth",
-    year: "2025",
-    type: "Discipline & Growth",
-    image: achievementImg3,
-    summary:
-      "Built a consistent learning habit by studying and practicing regularly with a long-term focus.",
-    highlight:
-      "This experience taught me that consistency is more powerful than short bursts of motivation.",
-    featured: false,
-  },
+  
+  // {
+  //   id: 5,
+  //   title: "Anabil Ucchash Awareness Seminar",
+  //   organization: "Anabil Ucchash",
+  //   year: "2025",
+  //   type: "Community Leadership",
+  //   image: achievementImg5,
+
+  //   summary:
+  //   "Participated in organizing a student awareness seminar focused on environmental responsibility and positive social impact.",
+
+  //   highlight:
+  //   "This experience improved my leadership, teamwork, and communication skills.",
+
+  //   featured: false,
+  //   },
+
+  
 ];
 
 export default achievements;
