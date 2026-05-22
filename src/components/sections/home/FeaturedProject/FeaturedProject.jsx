@@ -4,10 +4,13 @@ import Tag from "../../../common/Tag/Tag";
 import "./FeaturedProject.css";
 
 function FeaturedProject({ project }) {
+
   if (!project) return null;
 
   return (
+
     <article className="featured-project card">
+
       <div className="featured-project__grid">
         {project.image && (
           <div className="featured-project__image">
@@ -75,6 +78,7 @@ function FeaturedProject({ project }) {
           </div>
         </div>
       </div>
+      
     </article>
   );
 }

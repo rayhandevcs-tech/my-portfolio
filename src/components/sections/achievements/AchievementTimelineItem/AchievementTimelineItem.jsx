@@ -1,9 +1,11 @@
+import { optimizeCloudinaryImage } from "../../../utils/optimizeCloudinaryImage";
 import "./AchievementTimelineItem.css";
 
 function AchievementTimelineItem({ achievement }) {
   if (!achievement) return null;
 
-  const { image, title, organization, date, type, summary, highlight } = achievement;
+  const { image, title, organization, date, type, summary, highlight } =
+    achievement;
 
   return (
     <article className="achievement-timeline-item">
@@ -14,7 +16,11 @@ function AchievementTimelineItem({ achievement }) {
       <div className="achievement-timeline-item__card">
         {image && (
           <div className="achievement-timeline-item__image">
-            <img src={image} alt={title} />
+            <img
+              src={optimizeCloudinaryImage(image, 700)}
+              alt={title}
+              loading="lazy"
+            />
           </div>
         )}
 
@@ -35,7 +41,9 @@ function AchievementTimelineItem({ achievement }) {
           {summary && <p>{summary}</p>}
 
           {highlight && (
-            <p className="achievement-timeline-item__highlight">{highlight}</p>
+            <p className="achievement-timeline-item__highlight">
+              {highlight}
+            </p>
           )}
         </div>
       </div>

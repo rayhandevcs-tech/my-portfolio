@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { optimizeCloudinaryImage } from "../../../../utils/optimizeCloudinaryImage";
 import "./FeaturedBook.css";
 
 function FeaturedBook({ book }) {
@@ -35,7 +36,11 @@ function FeaturedBook({ book }) {
 
         {coverImage && (
           <div className="featured-book__image">
-            <img src={coverImage} alt={title} loading="lazy" />
+            <img
+              src={optimizeCloudinaryImage(coverImage, 800)}
+              alt={title}
+              loading="lazy"
+            />
           </div>
         )}
 

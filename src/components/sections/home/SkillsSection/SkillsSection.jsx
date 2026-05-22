@@ -1,6 +1,7 @@
 import "./SkillsSection.css";
 import SectionHeader from "../../../common/SectionHeader/SectionHeader";
 import { skills } from "../../../../data/skills";
+
 import {
   Code2,
   LayoutTemplate,

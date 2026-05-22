@@ -9,14 +9,21 @@ function PageHero({
   className = "",
   compact = false,
 }) {
+
+
   return (
+
     <section
+
       className={`section page-hero-block ${
         compact ? "page-hero-block--compact" : ""
       } ${className}`.trim()}
     >
+
       <div className={compact ? "page-hero-shell" : "container"}>
+
         <div
+
           className={centered ? "page-hero page-hero--centered" : "page-hero"}
         >
           {eyebrow && <p className="page-hero__eyebrow">{eyebrow}</p>}
@@ -30,9 +37,13 @@ function PageHero({
               {intro}
             </p>
           )}
+
         </div>
+
       </div>
+
     </section>
+    
   );
 }
 

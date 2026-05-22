@@ -4,7 +4,9 @@ const BOOK_CARD_FIELDS =
   "_id title slug author category rating coverImage excerpt featured status publishedAt createdAt updatedAt";
 
 export async function getAllBooks(req, res) {
+
   try {
+    
     const books = await Book.find({ status: "published" })
       .select(BOOK_CARD_FIELDS)
       .sort({ featured: -1, publishedAt: -1, createdAt: -1 })

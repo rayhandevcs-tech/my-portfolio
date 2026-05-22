@@ -5,6 +5,7 @@ import SectionHeader from "../../../common/SectionHeader/SectionHeader";
 import Tag from "../../../common/Tag/Tag";
 import FeaturedProject from "../FeaturedProject/FeaturedProject";
 import { useProjects } from "../../../../hooks/useProjects";
+import { optimizeCloudinaryImage } from "../../../../utils/optimizeCloudinaryImage";
 
 function ProjectsSection() {
   const { projects } = useProjects();
@@ -31,7 +32,11 @@ function ProjectsSection() {
               <article className="card project-card" key={project.id}>
                 {project.image && (
                   <div className="project-card__image">
-                    <img src={project.image} alt={project.title} />
+                    <img
+                      src={optimizeCloudinaryImage(project.image, 700)}
+                      alt={project.title}
+                      loading="lazy"
+                    />
                   </div>
                 )}
 

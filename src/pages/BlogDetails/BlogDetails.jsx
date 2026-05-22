@@ -1,9 +1,9 @@
-import { useEffect, useMemo, useRef, lazy, Suspense } from "react";
+import { useEffect, useMemo, lazy, Suspense } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useBlogPost } from "../../hooks/useBlogPost";
 import { useRelatedPosts } from "../../hooks/useRelatedPosts";
-import { incrementPostViews } from "../../services/api/blogApi";
 import { extractHeadings } from "../../utils/extractHeadings";
+import { optimizeCloudinaryImage } from "../../utils/optimizeCloudinaryImage";
 import Seo from "../../components/common/Seo/Seo";
 import PageHero from "../../components/common/PageHero/PageHero";
 import RelatedPosts from "../../components/sections/blog/RelatedPosts/RelatedPosts";
@@ -20,28 +20,15 @@ function BlogDetails() {
   const { post, loading, error, notFound } = useBlogPost(slug);
   const { relatedPosts, loading: relatedLoading } = useRelatedPosts(slug, 3);
 
-  const hasIncrementedRef = useRef(false);
-
-  // Prefetch markdown chunk so first render feels faster
   useEffect(() => {
     import("react-markdown");
   }, []);
 
-  useEffect(() => {
-    if (!slug) return;
-    hasIncrementedRef.current = false;
-  }, [slug]);
-
-  useEffect(() => {
-    if (!slug || hasIncrementedRef.current) return;
-
-    hasIncrementedRef.current = true;
-    incrementPostViews(slug).catch(() => {});
-  }, [slug]);
-
   const headings = useMemo(() => {
     return extractHeadings(post?.content || "");
   }, [post?.content]);
+
+  const optimizedCoverImage = optimizeCloudinaryImage(post?.coverImage, 1200);
 
   const publishedAt = post?.publishedAt;
 
@@ -122,7 +109,7 @@ function BlogDetails() {
             ? post.tags.join(", ")
             : `${post.category || "blog"}, developer blog`
         }
-        image={post.coverImage || "/images/og-default.jpg"}
+        image={optimizedCoverImage || "/images/og-default.jpg"}
         url={`https://rayhancsdev.vercel.app/blog/${post.slug}`}
         type="article"
       />
@@ -151,7 +138,7 @@ function BlogDetails() {
           {post.coverImage && (
             <div className="blog-details-cover">
               <img
-                src={post.coverImage}
+                src={optimizedCoverImage}
                 alt={post.title}
                 className="blog-details-cover__image"
                 loading="lazy"
@@ -165,13 +152,6 @@ function BlogDetails() {
             </p>
             <p>
               <strong>Published:</strong> {formattedPublishedDate}
-            </p>
-            <p>
-              <strong>Reading Time:</strong>{" "}
-              {post.readingTime || "Not available"}
-            </p>
-            <p>
-              <strong>Views:</strong> {post.views ?? 0}
             </p>
           </div>
 
@@ -189,6 +169,7 @@ function BlogDetails() {
                     );
 
                     const id = matched?.id || buildHeadingId(text);
+
                     return <h2 id={id}>{children}</h2>;
                   },
                   h3: ({ children }) => {
@@ -201,6 +182,7 @@ function BlogDetails() {
                     );
 
                     const id = matched?.id || buildHeadingId(text);
+
                     return <h3 id={id}>{children}</h3>;
                   },
                 }}

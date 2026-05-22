@@ -1,3 +1,4 @@
+import { optimizeCloudinaryImage } from "../../../utils/optimizeCloudinaryImage";
 import "./CourseworkCard.css";
 
 function CourseworkCard({
@@ -16,7 +17,11 @@ function CourseworkCard({
     <article className="coursework-card">
       {image && (
         <div className="coursework-card__image">
-          <img src={image} alt={title} />
+          <img
+            src={optimizeCloudinaryImage(image, 700)}
+            alt={title}
+            loading="lazy"
+          />
         </div>
       )}
 
@@ -50,10 +55,7 @@ function CourseworkCard({
             <h4>Tools</h4>
             <div>
               {tools.map((tool, index) => (
-                <span
-                  key={index}
-                  className="coursework-card__tool-badge"
-                >
+                <span key={index} className="coursework-card__tool-badge">
                   {tool}
                 </span>
               ))}
@@ -65,10 +67,7 @@ function CourseworkCard({
           <div className="coursework-card__projects">
             <h4>Related Projects</h4>
             {projects.slice(0, 2).map((project, index) => (
-              <p
-                key={index}
-                className="coursework-card__project-link"
-              >
+              <p key={index} className="coursework-card__project-link">
                 {project}
               </p>
             ))}

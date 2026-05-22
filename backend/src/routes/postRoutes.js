@@ -19,7 +19,7 @@ const router = express.Router();
 router.get("/", getAllPosts);
 router.get("/slug/:slug", getPostBySlug);
 router.get("/slug/:slug/related", getRelatedPostsBySlug);
-router.patch("/slug/:slug/view", incrementPostViews);
+// router.patch("/slug/:slug/view", incrementPostViews);
 
 router.get("/admin/all", protectAdmin, getAdminPosts);
 router.get("/stats/summary", protectAdmin, getPostStats);

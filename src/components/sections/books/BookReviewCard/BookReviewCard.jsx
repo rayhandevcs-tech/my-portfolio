@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { optimizeCloudinaryImage } from "../../../../utils/optimizeCloudinaryImage";
 import "./BookReviewCard.css";
 
 function BookReviewCard({ book }) {
@@ -21,24 +22,27 @@ function BookReviewCard({ book }) {
   };
 
   return (
-
     <article className="book-review-card card">
-
       {coverImage && (
         <Link
           to={`/book-reviews/${slug}`}
           className="book-review-card__image"
           aria-label={`Open review for ${title}`}
         >
-          <img src={coverImage} alt={title} loading="lazy" />
+          <img
+            src={optimizeCloudinaryImage(coverImage, 500)}
+            alt={title}
+            loading="lazy"
+          />
         </Link>
       )}
 
       <div className="book-review-card__content">
-
         <div className="book-review-card__meta">
-          
-          {category && <span className="book-review-card__meta-item">{category}</span>}
+          {category && (
+            <span className="book-review-card__meta-item">{category}</span>
+          )}
+
           {publishedAt && (
             <span className="book-review-card__meta-item book-review-card__meta-item--muted">
               {publishedAt}
@@ -59,8 +63,12 @@ function BookReviewCard({ book }) {
 
           {typeof rating === "number" && (
             <p className="book-review-card__rating">
-              <span className="book-review-card__stars">{renderStars(rating)}</span>
-              <span className="book-review-card__rating-value">{rating}/5</span>
+              <span className="book-review-card__stars">
+                {renderStars(rating)}
+              </span>
+              <span className="book-review-card__rating-value">
+                {rating}/5
+              </span>
             </p>
           )}
         </div>
@@ -71,9 +79,7 @@ function BookReviewCard({ book }) {
           Read Full Review <span aria-hidden="true">→</span>
         </Link>
       </div>
-
     </article>
-
   );
 }
 

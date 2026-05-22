@@ -36,13 +36,15 @@ export async function getAdminPosts() {
 }
 
 export async function getPostBySlug(slug) {
-  const response = await fetch(`${API_URL}/slug/${slug}`);
+  const response = await fetch(`${API_URL}/slug/${encodeURIComponent(slug)}`);
   const data = await parseResponse(response, "Failed to fetch post");
   return data?.data || null;
 }
 
 export async function getRelatedPostsBySlug(slug, limit = 3) {
-  const response = await fetch(`${API_URL}/slug/${slug}/related?limit=${limit}`);
+  const response = await fetch(
+    `${API_URL}/slug/${encodeURIComponent(slug)}/related?limit=${limit}`
+  );
   const data = await parseResponse(response, "Failed to fetch related posts");
   return data?.data || [];
 }

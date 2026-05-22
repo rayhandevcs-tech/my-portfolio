@@ -1,15 +1,21 @@
+import { optimizeCloudinaryImage } from "../../../utils/optimizeCloudinaryImage";
 import "./AchievementCard.css";
 
 function AchievementCard({ achievement }) {
   if (!achievement) return null;
 
-  const { image, title, organization, summary, year, type, highlight } = achievement;
+  const { image, title, organization, summary, year, type, highlight } =
+    achievement;
 
   return (
     <article className="card achievement-card">
       {image && (
         <div className="achievement-card__image">
-          <img src={image} alt={title} />
+          <img
+            src={optimizeCloudinaryImage(image, 600)}
+            alt={title}
+            loading="lazy"
+          />
         </div>
       )}
 

@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { optimizeCloudinaryImage } from "../../../utils/optimizeCloudinaryImage";
 import "./CourseDetailsModal.css";
 
 function CourseDetailsModal({ course, isOpen, onClose }) {
@@ -56,18 +57,27 @@ function CourseDetailsModal({ course, isOpen, onClose }) {
 
         {image && (
           <div className="course-modal__image">
-            <img src={image} alt={title} />
+            <img
+              src={optimizeCloudinaryImage(image, 1000)}
+              alt={title}
+              loading="lazy"
+            />
           </div>
         )}
 
         <div className="course-modal__content">
           <div className="course-modal__meta">
-            <span className="course-modal__badge course-modal__badge--category">
-              {category}
-            </span>
-            <span className="course-modal__badge course-modal__badge--status">
-              {status}
-            </span>
+            {category && (
+              <span className="course-modal__badge course-modal__badge--category">
+                {category}
+              </span>
+            )}
+
+            {status && (
+              <span className="course-modal__badge course-modal__badge--status">
+                {status}
+              </span>
+            )}
           </div>
 
           <h2 id="course-modal-title" className="course-modal__title">

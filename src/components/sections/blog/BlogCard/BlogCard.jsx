@@ -1,27 +1,24 @@
+import { useRef } from "react";
 import { Link } from "react-router-dom";
 import Tag from "../../../common/Tag/Tag";
 import { prefetchBlogPost } from "../../../../hooks/useBlogPost";
+import { optimizeCloudinaryImage } from "../../../../utils/optimizeCloudinaryImage";
 import "./BlogCard.css";
 
 function BlogCard({ post }) {
+  const prefetchedRef = useRef(false);
+
   if (!post) return null;
 
-  const {
-    coverImage,
-    title,
-    category,
-    publishedAt,
-    readingTime,
-    slug,
-    excerpt,
-    tags,
-    views,
-  } = post;
+  const { coverImage, title, category, publishedAt, slug, excerpt, tags } = post;
+
+  const optimizedCoverImage = optimizeCloudinaryImage(coverImage, 600);
 
   function handlePrefetch() {
-    if (slug) {
-      prefetchBlogPost(slug).catch(() => {});
-    }
+    if (!slug || prefetchedRef.current) return;
+
+    prefetchedRef.current = true;
+    prefetchBlogPost(slug).catch(() => {});
   }
 
   return (
@@ -34,7 +31,11 @@ function BlogCard({ post }) {
           onMouseEnter={handlePrefetch}
           onFocus={handlePrefetch}
         >
-          <img src={coverImage} alt={title} loading="lazy" />
+          <img
+            src={optimizedCoverImage}
+            alt={title}
+            loading="lazy"
+          />
         </Link>
       )}
 
@@ -45,18 +46,6 @@ function BlogCard({ post }) {
           {publishedAt && (
             <span className="blog-card__meta-item blog-card__meta-item--muted">
               {publishedAt}
-            </span>
-          )}
-
-          {readingTime && (
-            <span className="blog-card__meta-item blog-card__meta-item--muted">
-              {readingTime}
-            </span>
-          )}
-
-          {typeof views === "number" && (
-            <span className="blog-card__meta-item blog-card__meta-item--muted">
-              {views} views
             </span>
           )}
         </div>

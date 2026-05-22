@@ -5,6 +5,7 @@ import PageHero from "../../components/common/PageHero/PageHero";
 import ReadingProgress from "../../components/common/ReadingProgress/ReadingProgress";
 import { useBookReview } from "../../hooks/useBookReview";
 import { useRelatedBooks } from "../../hooks/useRelatedBooks";
+import { optimizeCloudinaryImage } from "../../utils/optimizeCloudinaryImage";
 import "./BookReviewDetails.css";
 
 const ReactMarkdown = lazy(() => import("react-markdown"));
@@ -69,7 +70,7 @@ function BookReviewDetails() {
         <button
           type="button"
           className="details-back-btn"
-          onClick={() => navigate("/books")}
+          onClick={() => navigate("/book-reviews")}
         >
           ← Back to Books
         </button>
@@ -85,7 +86,7 @@ function BookReviewDetails() {
         <button
           type="button"
           className="details-back-btn"
-          onClick={() => navigate("/books")}
+          onClick={() => navigate("/book-reviews")}
         >
           ← Back to Books
         </button>
@@ -100,8 +101,13 @@ function BookReviewDetails() {
       <Seo
         title={`${book.title} | Book Review | RayhanDev`}
         description={book.excerpt || "Read this book review on RayhanDev."}
-        keywords={`${book.category || "books"}, ${book.author || "author"}, book review`}
-        image={book.coverImage || "/images/og-default.jpg"}
+        keywords={`${book.category || "books"}, ${
+          book.author || "author"
+        }, book review`}
+        image={optimizeCloudinaryImage(
+          book.coverImage || "/images/og-default.jpg",
+          1200
+        )}
         url={`https://rayhancsdev.vercel.app/book-reviews/${book.slug}`}
         type="article"
       />
@@ -124,7 +130,7 @@ function BookReviewDetails() {
           {book.coverImage && (
             <div className="book-review-details-cover">
               <img
-                src={book.coverImage}
+                src={optimizeCloudinaryImage(book.coverImage, 1000)}
                 alt={book.title}
                 loading="lazy"
                 className="book-review-details-cover__image"
@@ -182,7 +188,7 @@ function BookReviewDetails() {
                         className="related-book-card__image-link"
                       >
                         <img
-                          src={item.coverImage}
+                          src={optimizeCloudinaryImage(item.coverImage, 400)}
                           alt={item.title}
                           className="related-book-card__image"
                           loading="lazy"

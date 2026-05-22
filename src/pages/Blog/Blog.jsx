@@ -10,7 +10,9 @@ import { useBlogPosts } from "../../hooks/useBlogPosts";
 import "./Blog.css";
 
 function Blog() {
+
   const {
+
     featuredPost,
     categories,
     loading,
@@ -24,6 +26,7 @@ function Blog() {
     totalPages,
     paginatedPosts,
     filteredPosts,
+    
   } = useBlogPosts();
 
   if (loading) {
@@ -101,7 +104,9 @@ function Blog() {
   }
 
   return (
+
     <>
+
       <Seo
         title="Blog | RayhanDev"
         description="Read blog posts about React, full-stack development, architecture, debugging, and project building."
@@ -111,48 +116,73 @@ function Blog() {
       />
 
       <main className="blog-page">
+
         <PageHero
           title="Blog"
           subtitle="Thoughts, lessons, experiments, and notes from my full-stack learning journey."
         />
 
         <section className="blog-page__content section">
+
           <BlogSearchBar value={searchTerm} onChange={setSearchTerm} />
 
           <BlogCategoryFilter
+
             categories={categories}
             activeCategory={activeCategory}
             onCategoryChange={setActiveCategory}
+
           />
 
           {featuredPost && currentPage === 1 && (
+
             <div className="blog-page__featured">
+
               <FeaturedPost post={featuredPost} />
+
             </div>
+
           )}
 
           {filteredPosts.length === 0 ? (
+
             <EmptyState
+
               title="No posts found"
               message="Try another keyword or category."
+
             />
+
           ) : (
+
             <>
+
               <div className="blog-grid">
+
                 {paginatedPosts.map((post) => (
+
                   <BlogCard key={post._id || post.slug} post={post} />
+
                 ))}
+
               </div>
 
               <BlogPagination
+
                 currentPage={currentPage}
                 totalPages={totalPages}
                 onPageChange={setCurrentPage}
+
               />
+
             </>
+
           )}
+
         </section>
+
       </main>
+
     </>
   );
 }
