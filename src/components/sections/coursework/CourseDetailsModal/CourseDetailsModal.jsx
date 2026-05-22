@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { optimizeCloudinaryImage } from "../../../utils/optimizeCloudinaryImage";
+import { optimizeCloudinaryImage } from "../../../../utils/optimizeCloudinaryImage";
 import "./CourseDetailsModal.css";
 
 function CourseDetailsModal({ course, isOpen, onClose }) {

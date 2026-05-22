@@ -1,4 +1,4 @@
-import { optimizeCloudinaryImage } from "../../../utils/optimizeCloudinaryImage";
+import { optimizeCloudinaryImage } from "../../../../utils/optimizeCloudinaryImage";
 import "./FeaturedAchievement.css";
 
 function FeaturedAchievement({ achievement }) {
