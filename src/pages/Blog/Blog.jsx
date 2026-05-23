@@ -118,9 +118,9 @@ function Blog() {
       <main className="blog-page">
 
         <PageHero
-          title="Blog"
-          subtitle="Thoughts, lessons, experiments, and notes from my full-stack learning journey."
-        />
+        title="Blog"
+        subtitle="Sharing my journey in frontend development, programming, problem-solving, and continuous learning through practical experiences and ideas."
+      />
 
         <section className="blog-page__content section">
 

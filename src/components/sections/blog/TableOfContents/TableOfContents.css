@@ -1,24 +1,25 @@
 .table-of-contents {
   margin: 0 0 2rem;
   padding: 1.2rem 1.3rem;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border-soft);
   border-radius: 1rem;
-  background: #fafafa;
+  background: var(--surface-glass);
+  backdrop-filter: blur(10px);
 }
 
 .table-of-contents__title {
   margin: 0 0 1rem;
+  color: var(--heading);
   font-size: 0.92rem;
   font-weight: 800;
-  color: #111827;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
 .table-of-contents__list {
-  list-style: none;
   margin: 0;
   padding: 0;
+  list-style: none;
 }
 
 .table-of-contents__item {
@@ -34,33 +35,34 @@
   display: block;
   margin: 0;
   padding: 0.2rem 0 0.2rem 0.75rem;
-  text-decoration: none;
-  color: #374151;
+  border-left: 2px solid transparent;
+  color: var(--text);
   font-size: 0.98rem;
   line-height: 1.45;
-  border-left: 2px solid transparent;
-  transition: color 0.18s ease, border-color 0.18s ease,
+  text-decoration: none;
+  transition:
+    color 0.18s ease,
+    border-color 0.18s ease,
     transform 0.18s ease;
 }
 
 .table-of-contents__item a:hover {
-  color: #6c4ef6;
+  color: var(--primary);
   transform: translateX(2px);
 }
 
 .table-of-contents__item.active a {
-  color: #6c4ef6;
-  font-weight: 600;
-  border-left-color: #6c4ef6;
+  color: var(--primary);
+  font-weight: 700;
+  border-left-color: var(--primary);
 }
 
 .table-of-contents__item a:focus-visible {
-  outline: 2px solid rgba(108, 78, 246, 0.22);
+  outline: 2px solid var(--primary-border);
   outline-offset: 4px;
   border-radius: 0.35rem;
 }
 
-/* subtle hierarchy without breaking alignment */
 .table-of-contents__item.level-3 a {
   padding-left: 1rem;
   font-size: 0.96rem;
@@ -71,9 +73,18 @@
   font-size: 0.95rem;
 }
 
+[data-theme="dark"] .table-of-contents__item a {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .table-of-contents__item a:hover,
+[data-theme="dark"] .table-of-contents__item.active a {
+  color: #a78bfa;
+}
+
 @media (max-width: 768px) {
   .table-of-contents {
-    padding: 1rem 1rem;
+    padding: 1rem;
   }
 
   .table-of-contents__item a {

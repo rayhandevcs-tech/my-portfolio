@@ -2,7 +2,7 @@ import achievementImg1 from "../assets/images/BYLC.jpg";
 import achievementImg2 from "../assets/images/Aspire.jpg";
 import achievementImg3 from "../assets/images/icsc.jpg";
 import achievementImg4 from "../assets/images/Portfolio1.png";
-//import achievementImg5 from "../assets/images/anabil_uccash.jpg";
+import achievementImg5 from "../assets/images/biin.jpeg";
 import achievementImg6 from "../assets/images/LIA.jpg";
 
  const achievements = [
@@ -21,6 +21,28 @@ import achievementImg6 from "../assets/images/LIA.jpg";
 
     featured: false,
   },
+
+  {
+    id: 7,
+
+    title: "BIIN Community Meetup 2026 – Volunteer Participation",
+
+    organization: "Bangladesh ICT and Innovation Network (BIIN)",
+
+    year: "2026",
+
+    type: "Community Engagement & ICT Innovation",
+
+    image: achievementImg5,
+
+    summary:
+      "Participated as a Volunteer and Active Member at the BIIN Community Meetup 2026 organized by Bangladesh ICT and Innovation Network (BIIN). Contributed to community engagement, communication, and ICT innovation activities while enhancing teamwork and professional networking experience.",
+
+    highlight:
+      "This experience improved my communication, collaboration, and professional networking skills while actively contributing to ICT community initiatives and innovation-focused activities.",
+
+    featured: false,
+},
 
 {
     id: 4,
@@ -64,13 +86,13 @@ import achievementImg6 from "../assets/images/LIA.jpg";
   },
   {
     id: 3,
-    title: "Qualified for Preliminary Round",
+    title: "Qualified for Final Round",
     organization: "International Computer Science Competition (ICSC)",
     year: "2025",
     type: "Competition",
     image: achievementImg3,
     summary:
-      "Successfully qualified for the preliminary round of the International Computer Science Competition (ICSC), demonstrating problem-solving ability and foundational computer science knowledge.",
+      "Successfully qualified for the Final round of the International Computer Science Competition (ICSC), demonstrating problem-solving ability and foundational computer science knowledge.",
     highlight:
       "This achievement encouraged me to take problem-solving and computer science learning more seriously and consistently.",
     featured: true,

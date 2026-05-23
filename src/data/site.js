@@ -4,26 +4,42 @@ export const siteConfig = {
   title: "Frontend Developer",
 
   hero: {
-    eyebrow: "Welcome to my portfolio",
+  eyebrow: "Welcome to my portfolio",
 
-    heading: "Hi, I'm",
-    name: "Rayhan",
+  heading: "Frontend Developer &",
+  highlight: "CS Student",
+  name: "Rayhan",
 
-    title: "Building clean and modern",
-    highlight: "web interfaces.",
+  role: "React • JavaScript • Modern CSS • Problem Solving",
 
-    description:
-      "I create responsive, user-friendly websites with React and modern CSS.",
+  description:
+    "I build clean, responsive, and user-friendly web interfaces while strengthening my programming foundation with C++, Java, C#, SQL, and modern frontend tools.",
 
-    primaryCta: {
-      label: "View Projects",
-      href: "#projects",
-    },
-    secondaryCta: {
-      label: "Read Blog",
-      to: "/blog",
-    },
+  primaryCta: {
+    label: "View Projects",
+    href: "#projects",
   },
+
+  secondaryCta: {
+    label: "Read Blog",
+    to: "/blog",
+  },
+
+  stats: [
+    {
+      value: "Frontend",
+      label: "Development Focus",
+    },
+    {
+      value: "CS",
+      label: "Academic Background",
+    },
+    {
+      value: "React",
+      label: "Current Stack",
+    },
+  ],
+},
 
   email: "rayhan@example.com",
   github: "https://github.com/yourusername",

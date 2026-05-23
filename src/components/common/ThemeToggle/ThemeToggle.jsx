@@ -6,7 +6,7 @@ function ThemeToggle() {
   });
 
   useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
+    document.documentElement.dataset.theme = theme;
     localStorage.setItem("theme", theme);
   }, [theme]);
 
@@ -19,7 +19,7 @@ function ThemeToggle() {
       type="button"
       className="theme-toggle"
       onClick={toggleTheme}
-      aria-label="Toggle theme"
+      aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
       title="Toggle theme"
     >
       {theme === "light" ? "🌙" : "☀️"}

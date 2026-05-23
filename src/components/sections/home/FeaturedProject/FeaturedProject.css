@@ -2,6 +2,8 @@
   margin-bottom: 32px;
   padding: 0;
   overflow: hidden;
+  background: var(--surface-glass);
+  border-color: var(--border-soft);
 }
 
 .featured-project__grid {
@@ -10,12 +12,17 @@
   align-items: stretch;
 }
 
+.featured-project__image {
+  overflow: hidden;
+  background: var(--surface-soft);
+}
+
 .featured-project__image img {
+  display: block;
   width: 100%;
   height: 100%;
   min-height: 340px;
   object-fit: cover;
-  display: block;
 }
 
 .featured-project__content {
@@ -24,26 +31,28 @@
 
 .featured-project__category {
   margin-bottom: 8px;
+  color: var(--primary);
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--primary);
 }
 
 .featured-project h3 {
   margin-bottom: 10px;
+  color: var(--heading);
   font-size: clamp(1.5rem, 2vw, 2rem);
 }
 
 .featured-project__meta {
   margin-bottom: 16px;
-  font-size: 14px;
   color: var(--text-muted);
+  font-size: 14px;
 }
 
 .featured-project__description {
   margin-bottom: 18px;
+  color: var(--text);
   line-height: 1.8;
 }
 

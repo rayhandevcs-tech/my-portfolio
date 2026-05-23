@@ -1,10 +1,16 @@
 .footer {
   margin-top: 88px;
   padding-top: 56px;
-  border-top: 1px solid rgba(15, 23, 42, 0.08);
+
+  border-top: 1px solid var(--border-soft);
+
   background:
-    radial-gradient(circle at top left, rgba(109, 40, 217, 0.05), transparent 30%),
-    linear-gradient(180deg, #eef2ff 0%, #e5e9f7 100%);
+    radial-gradient(
+      circle at top left,
+      rgba(109, 40, 217, 0.06),
+      transparent 30%
+    ),
+    var(--section-gradient);
 }
 
 .footer__grid {
@@ -19,23 +25,28 @@
 
 .footer__logo {
   margin: 0 0 14px;
+
+  color: var(--heading);
+
   font-size: 1.5rem;
   line-height: 1.1;
   letter-spacing: -0.03em;
-  color: #1f2937;
 }
 
 .footer__description {
   margin: 0;
-  color: #5b6474;
+
+  color: var(--text-muted);
   line-height: 1.85;
 }
 
 .footer__column h4 {
   margin: 0 0 16px;
+
+  color: var(--heading);
+
   font-size: 0.98rem;
   font-weight: 700;
-  color: #1f2937;
   letter-spacing: -0.01em;
 }
 
@@ -47,9 +58,14 @@
 
 .footer__links a {
   width: fit-content;
-  color: #374151;
+
+  color: var(--text);
+
   text-decoration: none;
-  transition: color 0.2s ease, transform 0.2s ease;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .footer__links a:hover {
@@ -64,24 +80,38 @@
 }
 
 .footer__bottom {
-  margin-top: 40px;
-  padding: 20px 0 28px;
-  border-top: 1px solid rgba(15, 23, 42, 0.08);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
   flex-wrap: wrap;
+
+  margin-top: 40px;
+  padding: 20px 0 28px;
+
+  border-top: 1px solid var(--border-soft);
 }
 
 .footer__bottom p {
   margin: 0;
+
+  color: var(--text-muted);
+
   font-size: 14px;
-  color: #6b7280;
 }
 
 .footer__bottom-note {
-  color: #7c3aed;
+  color: var(--primary);
+}
+
+[data-theme="dark"] .footer {
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(139, 92, 246, 0.12),
+      transparent 32%
+    ),
+    linear-gradient(180deg, #111827 0%, #0f172a 100%);
 }
 
 @media (max-width: 992px) {
@@ -124,6 +154,7 @@
   .footer__bottom {
     margin-top: 28px;
   }
+
   .footer__brand p {
     max-width: 32ch;
   }

@@ -3,36 +3,58 @@ export const skills = [
     id: 1,
     title: "Frontend Development",
     description:
-      "Building clean, responsive interfaces with strong attention to structure, usability, and consistency.",
+      "Building clean, responsive, and user-friendly interfaces with HTML, CSS, JavaScript, and modern frontend practices.",
   },
   {
     id: 2,
     title: "React & Components",
     description:
-      "Creating reusable components and scalable UI sections with clear logic and maintainable code.",
+      "Creating reusable React components, organized UI sections, and scalable interfaces with clean logic.",
   },
-  // {
-  //   id: 3,
-  //   title: "Responsive Design",
-  //   description:
-  //     "Designing layouts that adapt smoothly across desktop, tablet, and mobile screen sizes.",
-  // },
+  {
+    id: 3,
+    title: "Programming Fundamentals",
+    description:
+      "Strengthening problem-solving ability with C++, Java, C#, SQL, and core computer science concepts.",
+  },
   {
     id: 4,
-    title: "JavaScript Fundamentals",
+    title: "Git & GitHub Workflow",
     description:
-      "Writing interactive frontend behavior using modern JavaScript with readable and practical solutions.",
+      "Managing code versions, tracking progress, and maintaining a clean project workflow using Git and GitHub.",
   },
   {
     id: 5,
-    title: "Git & GitHub",
+    title: "Problem Solving",
     description:
-      "Managing project versions, tracking progress, and maintaining a better development workflow.",
+      "Approaching challenges with logical thinking, structured planning, and practical implementation.",
   },
-  // {
-  //   id: 6,
-  //   title: "UI Implementation",
-  //   description:
-  //     "Turning design ideas into polished interfaces with careful spacing, typography, and visual hierarchy.",
-  // },
+  {
+    id: 6,
+    title: "Team Collaboration",
+    description:
+      "Communicating clearly, working with teammates, and contributing leadership in academic and project environments.",
+  },
+];
+
+export const techSkills = [
+  "C++",
+  "Java",
+  "C#",
+  "SQL",
+  "HTML",
+  "CSS",
+  "JavaScript",
+  "React",
+  "Git",
+  "GitHub",
+];
+
+export const professionalSkills = [
+  "Leadership",
+  "Problem Solving",
+  "Communication",
+  "Teamwork",
+  "Adaptability",
+  "Consistency",
 ];

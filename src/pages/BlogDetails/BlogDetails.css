@@ -1,16 +1,12 @@
 .blog-details-page {
   padding-bottom: 5rem;
-  background: #fff;
+  background: var(--bg);
 }
 
 .blog-details-content {
   width: min(760px, 92%);
   margin: 0 auto;
 }
-
-/* =========================
-   BACK BUTTON
-========================= */
 
 .details-back-wrap {
   margin-bottom: 1rem;
@@ -20,56 +16,46 @@
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
+  padding: 0;
   border: none;
   background: transparent;
-  padding: 0;
+  color: var(--text-muted);
   font: inherit;
   font-weight: 600;
-  color: #4b5563;
   cursor: pointer;
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .details-back-btn:hover {
-  color: #6c4ef6;
+  color: var(--primary);
   transform: translateX(-2px);
 }
 
 .details-back-btn:focus-visible {
-  outline: 3px solid rgba(108, 78, 246, 0.22);
+  outline: 3px solid var(--primary-border);
   outline-offset: 6px;
   border-radius: 0.4rem;
 }
-
-/* =========================
-   TABLE OF CONTENTS
-========================= */
 
 .blog-details-toc {
   margin-bottom: 1.75rem;
 }
 
-/* =========================
-   COVER IMAGE
-========================= */
-
 .blog-details-cover {
   margin-bottom: 1.75rem;
-  border-radius: 1.1rem;
   overflow: hidden;
-  box-shadow: 0 14px 40px rgba(15, 23, 42, 0.08);
+  border-radius: 1.1rem;
+  box-shadow: var(--shadow);
 }
 
 .blog-details-cover__image {
+  display: block;
   width: 100%;
   max-height: 400px;
   object-fit: cover;
-  display: block;
 }
-
-/* =========================
-   META INFO
-========================= */
 
 .blog-details-meta {
   display: grid;
@@ -77,30 +63,27 @@
   gap: 0.9rem 1rem;
   margin-bottom: 2.4rem;
   padding: 1rem 1.15rem;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border-soft);
   border-radius: 1rem;
-  background: #fafafa;
+  background: var(--surface-glass);
+  backdrop-filter: blur(10px);
 }
 
 .blog-details-meta p {
   margin: 0;
-  color: #374151;
+  color: var(--text);
   font-size: 0.97rem;
   line-height: 1.6;
 }
 
 .blog-details-meta strong {
-  color: #111827;
+  color: var(--heading);
 }
 
-/* =========================
-   MARKDOWN CONTENT
-========================= */
-
 .markdown-content {
-  color: #1f2937;
+  color: var(--text);
   font-size: 1.05rem;
-  line-height: 1.9;
+  line-height: 1.95;
 }
 
 .markdown-content > *:first-child {
@@ -111,7 +94,7 @@
 .markdown-content h2,
 .markdown-content h3,
 .markdown-content h4 {
-  color: #0f172a;
+  color: var(--heading);
   font-weight: 800;
   line-height: 1.2;
   letter-spacing: -0.02em;
@@ -143,9 +126,14 @@
 
 .markdown-content p {
   margin: 0 0 1.2rem;
+  color: var(--text);
   font-size: 1.02rem;
-  line-height: 1.9;
-  color: #374151;
+  line-height: 1.95;
+}
+
+.markdown-content strong {
+  color: var(--heading);
+  font-weight: 800;
 }
 
 .markdown-content ul,
@@ -156,12 +144,14 @@
 
 .markdown-content li {
   margin-bottom: 0.55rem;
+  color: var(--text);
+  line-height: 1.85;
 }
 
 .markdown-content a {
-  color: #6c4ef6;
+  color: var(--primary);
+  font-weight: 600;
   text-decoration: none;
-  font-weight: 500;
 }
 
 .markdown-content a:hover {
@@ -169,39 +159,44 @@
 }
 
 .markdown-content hr {
-  border: none;
-  border-top: 1px solid #e5e7eb;
   margin: 2rem 0;
+  border: none;
+  border-top: 1px solid var(--border);
 }
 
 .markdown-content img {
   max-width: 100%;
   height: auto;
-  border-radius: 0.9rem;
   margin: 1.25rem 0;
+  border-radius: 0.9rem;
 }
 
 .markdown-content code {
-  padding: 0.18rem 0.4rem;
+  padding: 0.2rem 0.45rem;
+  border: 1px solid var(--border);
   border-radius: 0.45rem;
-  background: #f3f4f6;
-  color: #111827;
+  background: var(--surface-soft);
+  color: var(--heading);
   font-size: 0.95em;
   font-family: "Fira Code", "Consolas", "Monaco", monospace;
 }
 
 .markdown-content pre {
-  margin: 0 0 1.4rem;
+  margin: 0 0 1.5rem;
   padding: 1rem 1.1rem;
   overflow-x: auto;
-  border-radius: 0.95rem;
-  background: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 1rem;
+  background: #0b1120;
   color: #e5e7eb;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.03),
+    0 10px 30px rgba(0, 0, 0, 0.22);
 }
 
 .markdown-content pre code {
   padding: 0;
+  border: none;
   background: transparent;
   color: inherit;
   font-size: 0.95rem;
@@ -209,47 +204,45 @@
 
 .markdown-content blockquote {
   margin: 1.4rem 0;
-  padding: 0.95rem 1rem;
-  border-left: 4px solid #6c4ef6;
+  padding: 1rem 1.1rem;
+  border-left: 4px solid var(--primary);
   border-radius: 0 0.85rem 0.85rem 0;
-  background: #faf8ff;
-  color: #374151;
+  background: var(--primary-soft);
+  color: var(--text);
+  backdrop-filter: blur(8px);
 }
 
 .markdown-content table {
   width: 100%;
-  border-collapse: collapse;
   margin: 1.25rem 0;
   overflow: hidden;
+  border-collapse: collapse;
   border-radius: 0.85rem;
+  background: var(--surface);
 }
 
 .markdown-content th,
 .markdown-content td {
   padding: 0.85rem 0.9rem;
   text-align: left;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border);
 }
 
 .markdown-content th {
-  background: #f9fafb;
-  color: #111827;
+  background: var(--surface-soft);
+  color: var(--heading);
   font-weight: 700;
 }
 
-/* =========================
-   RELATED POSTS
-========================= */
+.markdown-content td {
+  color: var(--text);
+}
 
 .blog-details-related {
   margin-top: 4rem;
   padding-top: 2rem;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--border);
 }
-
-/* =========================
-   STATES
-========================= */
 
 .blog-details-state {
   width: min(760px, 92%);
@@ -260,17 +253,42 @@
 
 .blog-details-state h2 {
   margin-bottom: 0.75rem;
-  color: #111827;
+  color: var(--heading);
 }
 
 .blog-details-state p {
-  color: #6b7280;
   margin-bottom: 1rem;
+  color: var(--text-muted);
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+[data-theme="dark"] .markdown-content {
+  color: #d6d9e0;
+}
+
+[data-theme="dark"] .markdown-content p,
+[data-theme="dark"] .markdown-content li {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .markdown-content strong {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .markdown-content a {
+  color: #a78bfa;
+}
+
+[data-theme="dark"] .markdown-content a:hover {
+  color: #c4b5fd;
+}
+
+[data-theme="dark"] .markdown-content blockquote {
+  background: rgba(139, 92, 246, 0.12);
+}
+
+[data-theme="dark"] .blog-details-cover {
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
 
 @media (max-width: 768px) {
   .blog-details-page {

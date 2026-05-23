@@ -1,23 +1,23 @@
 import "./SkillsSection.css";
 import SectionHeader from "../../../common/SectionHeader/SectionHeader";
-import { skills } from "../../../../data/skills";
+import { skills, techSkills, professionalSkills } from "../../../../data/skills";
 
 import {
   Code2,
   LayoutTemplate,
-  MonitorSmartphone,
   Braces,
   GitBranch,
-  Palette,
+  Users,
+  Lightbulb,
 } from "lucide-react";
 
 const skillIcons = {
   1: Code2,
   2: LayoutTemplate,
-  3: MonitorSmartphone,
-  4: Braces,
-  5: GitBranch,
-  6: Palette,
+  3: Braces,
+  4: GitBranch,
+  5: Lightbulb,
+  6: Users,
 };
 
 function SkillsSection() {
@@ -26,8 +26,8 @@ function SkillsSection() {
       <div className="container">
         <SectionHeader
           eyebrow="Skills"
-          title="What I Do"
-          intro="I enjoy building clean, responsive interfaces and continuously improving my frontend development skills through practice and structured projects."
+          title="Technical strengths with a frontend focus"
+          intro="I combine frontend development, programming fundamentals, and communication skills to build clean, responsive, and practical web experiences."
         />
 
         <div className="card-grid skills-grid">
@@ -38,10 +38,8 @@ function SkillsSection() {
               <article className="card skill-card" key={skill.id}>
                 <span className="skill-card__accent" />
 
-                <div className="skill-card__icon-wrap">
-                  <div className="skill-card__icon">
-                    <Icon size={20} strokeWidth={2.3} />
-                  </div>
+                <div className="skill-card__icon">
+                  <Icon size={20} strokeWidth={2.3} />
                 </div>
 
                 <div className="skill-card__content">
@@ -51,6 +49,38 @@ function SkillsSection() {
               </article>
             );
           })}
+        </div>
+
+        <div className="skills-showcase">
+          <div className="skills-panel">
+            <div className="skills-panel__header">
+              <span>01</span>
+              <h3>Technical Skills</h3>
+            </div>
+
+            <div className="skills-tags">
+              {techSkills.map((skill) => (
+                <span className="skill-tag" key={skill}>
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="skills-panel skills-panel--dark">
+            <div className="skills-panel__header">
+              <span>02</span>
+              <h3>Professional Skills</h3>
+            </div>
+
+            <div className="skills-tags">
+              {professionalSkills.map((skill) => (
+                <span className="skill-tag skill-tag--light" key={skill}>
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
