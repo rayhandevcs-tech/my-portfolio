@@ -70,13 +70,21 @@
   box-shadow: var(--shadow-soft);
 }
 
-.book-review-details-cover__image {
+/* .book-review-details-cover__image {
   display: block;
   width: 100%;
   max-height: 420px;
-
-  object-fit: cover;
+background: var(--surface-soft); 
+  object-fit: contain;
+} */
+ .book-review-details-cover__image {
+  display: block;
+  width: 100%;
+  height: auto; 
+  object-fit: unset;
 }
+
+
 
 /* =========================
    META

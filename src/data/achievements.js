@@ -4,6 +4,7 @@ import achievementImg3 from "../assets/images/icsc.jpg";
 import achievementImg4 from "../assets/images/Portfolio1.png";
 import achievementImg5 from "../assets/images/biin.jpeg";
 import achievementImg6 from "../assets/images/LIA.jpg";
+import achievementImg7 from "../assets/images/shms.png";
 
  const achievements = [
   { id: 6,
@@ -45,6 +46,23 @@ import achievementImg6 from "../assets/images/LIA.jpg";
 },
 
 {
+  id: 4,
+  title: "Developed a Full Stack Student Hostel Platform",
+  organization: "Personal Project",
+  year: "2026",
+  type: "Full Stack Development Milestone",
+  image: achievementImg7,
+
+  summary:
+    "Designed and developed a modern student hostel and room rental platform with dynamic listings, map integration, and responsive user experience.",
+
+  highlight:
+    "This project helped me strengthen my full stack development skills by combining frontend architecture, backend APIs, authentication, database management, and real-world problem solving into a complete scalable application.",
+
+  featured: false,
+},
+
+{
     id: 4,
     title: "Built My First Scalable React Portfolio",
     organization: "Personal Project",
@@ -82,7 +100,7 @@ import achievementImg6 from "../assets/images/LIA.jpg";
       "Completed the Aspire Leadership Program, an international leadership development program designed to build communication, leadership, and problem-solving skills.",
     highlight:
       "This program helped me develop a broader perspective on leadership, personal growth, and long-term goal setting.",
-    featured: true,
+    featured: false,
   },
   {
     id: 3,
@@ -95,7 +113,7 @@ import achievementImg6 from "../assets/images/LIA.jpg";
       "Successfully qualified for the Final round of the International Computer Science Competition (ICSC), demonstrating problem-solving ability and foundational computer science knowledge.",
     highlight:
       "This achievement encouraged me to take problem-solving and computer science learning more seriously and consistently.",
-    featured: true,
+    featured: false,
   },
   
   // {
