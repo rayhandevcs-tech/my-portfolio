@@ -10,8 +10,22 @@ router.get("/", async (req, res) => {
     const limit = parseInt(req.query.limit) || 6;
     const skip = (page - 1) * limit;
     const isAdmin = req.query.admin === "true";
+    const category = req.query.category;
+    const search = req.query.search;
 
     const filter = isAdmin ? {} : { status: "published" };
+
+    if (category && category !== "all") {
+      filter.tags = { $in: [category.toLowerCase()] };
+    }
+
+    if (search) {
+      filter.$or = [
+        { title: { $regex: search, $options: "i" } },
+        { excerpt: { $regex: search, $options: "i" } },
+        { tags: { $in: [new RegExp(search, "i")] } },
+      ];
+    }
 
     const total = await Note.countDocuments(filter);
     const notes = await Note.find(filter)
