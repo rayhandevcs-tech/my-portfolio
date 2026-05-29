@@ -80,6 +80,7 @@ function Navbar() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={closeMenu}
+                className="nav-rayns-notes"
               >
                 {link.label}
               </a>
