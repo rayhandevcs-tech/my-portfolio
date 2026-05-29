@@ -12,13 +12,14 @@ const app = express();
 app.use(
   cors({
     origin: [
-      "http://localhost:3000",
-      "http://localhost:5173",
-      "http://localhost:5174",
-      "https://rayhancsdev.vercel.app",
-      "https://my-portfolio-git-main-rayhandevcs-techs-projects.vercel.app",
-      "https://my-portfolio-k0bgg9r5g-rayhandevcs-techs-projects.vercel.app",
-    ],
+    "http://localhost:3000",
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "https://rayhancsdev.vercel.app",
+    "https://rayns-notes.vercel.app",
+    "https://my-portfolio-git-main-rayhandevcs-techs-projects.vercel.app",
+    "https://my-portfolio-k0bgg9r5g-rayhandevcs-techs-projects.vercel.app",
+  ],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
