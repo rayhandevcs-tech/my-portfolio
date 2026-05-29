@@ -5,12 +5,14 @@ import postRoutes from "./routes/postRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
 import bookRoutes from "./routes/bookRoutes.js";
+import noteRoutes from "./routes/noteRoutes.js";
 
 const app = express();
 
 app.use(
   cors({
     origin: [
+      "http://localhost:3000",
       "http://localhost:5173",
       "http://localhost:5174",
       "https://rayhancsdev.vercel.app",
@@ -33,5 +35,6 @@ app.use("/api/contact", contactRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api/books", bookRoutes);
+app.use("/api/notes", noteRoutes);
 
 export default app;

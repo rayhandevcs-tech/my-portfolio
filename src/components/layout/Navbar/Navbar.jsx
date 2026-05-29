@@ -33,8 +33,11 @@ function Navbar() {
   }
 
   return (
+    
     <header className="navbar">
+
       <div className="container navbar__inner">
+
         <Link
           to="/"
           className="logo"
@@ -43,6 +46,7 @@ function Navbar() {
         >
           <span className="logo__text">Rayhan</span>
           <span className="logo__accent">Dev</span>
+
         </Link>
 
         <div className="navbar__actions">
@@ -59,45 +63,61 @@ function Navbar() {
             <span></span>
             <span></span>
             <span></span>
+
           </button>
+
         </div>
 
         <nav
           id="primary-navigation"
           className={`nav ${menuOpen ? "nav--open" : ""}`}
         >
-          {siteConfig.navLinks.map((link) => (
-            <NavLink
-              key={link.path}
-              to={link.path}
-              onClick={closeMenu}
-              onMouseEnter={() => handlePrefetch(link.path)}
-              onFocus={() => handlePrefetch(link.path)}
-            >
-              {link.label}
-            </NavLink>
-          ))}
-
-          {loggedIn && (
-            <>
-              <NavLink to="/admin/dashboard" onClick={closeMenu}>
-                Admin
-              </NavLink>
-
-              <button
-                type="button"
-                className="navbar__logout"
-                onClick={() => {
-                  handleLogout();
-                  closeMenu();
-                }}
+          {siteConfig.navLinks.map((link) =>
+            link.external ? (
+              <a
+                key={link.path}
+                href={link.path}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={closeMenu}
               >
-                Logout
-              </button>
-            </>
+                {link.label}
+              </a>
+            ) : (
+              <NavLink
+                key={link.path}
+                to={link.path}
+                onClick={closeMenu}
+                onMouseEnter={() => handlePrefetch(link.path)}
+                onFocus={() => handlePrefetch(link.path)}
+              >
+                {link.label}
+              </NavLink>
+            )
           )}
+
+            {loggedIn && (
+              <>
+                <NavLink to="/admin/dashboard" onClick={closeMenu}>
+                  Admin
+                </NavLink>
+
+                <button
+                  type="button"
+                  className="navbar__logout"
+                  onClick={() => {
+                    handleLogout();
+                    closeMenu();
+                  }}
+                >
+                  Logout
+                </button>
+              </>
+            )}
         </nav>
+
       </div>
+
     </header>
   );
 }

@@ -53,6 +53,7 @@ export const siteConfig = {
     { label: "Academics", path: "/coursework",},
     { label: "Achievements", path: "/achievements" },
     { label: "Contact", path: "/contact" },
+     { label: "Rayn's Notes ✨", path: "https://rayns-notes.vercel.app", external: true },
   ],
 
   footer: {
