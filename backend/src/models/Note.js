@@ -45,6 +45,10 @@ const noteSchema = new mongoose.Schema(
       love: { type: Number, default: 0 },
       fire: { type: Number, default: 0 },
     },
+    featured: {
+      type: Boolean,
+      default: false,
+    },
     publishedAt: {
       type: String,
       default: "",

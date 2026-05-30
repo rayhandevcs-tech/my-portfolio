@@ -46,6 +46,33 @@ router.get("/", async (req, res) => {
   }
 });
 
+// GET featured note
+router.get("/featured", async (req, res) => {
+  try {
+    const note = await Note.findOne({ status: "published", featured: true })
+      .select("title slug excerpt coverImage tags mood publishedAt readingTime");
+    res.json(note);
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// PUT toggle featured
+router.put("/:id/feature", async (req, res) => {
+  try {
+    const note = await Note.findById(req.params.id);
+    if (!note) return res.status(404).json({ message: "Note not found" });
+
+    await Note.updateMany({}, { featured: false });
+    note.featured = !note.featured;
+    await note.save();
+
+    res.json({ featured: note.featured });
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 
 // GET single note by ID (admin)
 router.get("/id/:id", async (req, res) => {
