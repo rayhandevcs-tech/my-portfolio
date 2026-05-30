@@ -63,13 +63,13 @@ router.get("/id/:id", async (req, res) => {
 // POST reaction
 router.post("/:slug/react", async (req, res) => {
   try {
-    const { type } = req.body;
+    const { type, undo } = req.body;
     if (!["like", "love", "fire"].includes(type)) {
       return res.status(400).json({ message: "Invalid reaction type" });
     }
     const note = await Note.findOneAndUpdate(
       { slug: req.params.slug },
-      { $inc: { [`reactions.${type}`]: 1 } },
+      { $inc: { [`reactions.${type}`]: undo ? -1 : 1 } },
       { new: true }
     );
     if (!note) return res.status(404).json({ message: "Note not found" });
