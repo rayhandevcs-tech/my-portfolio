@@ -1,25 +1,55 @@
-import "./ContactSection.css";
 import { Link } from "react-router-dom";
-import ContactIntro from "../../contact/ContactIntro/ContactIntro";
-import ContactInfoGrid from "../../contact/ContactInfoGrid/ContactInfoGrid";
+import { Mail, Github, Linkedin } from "lucide-react";
+import { siteConfig } from "../../../../data/site";
+import "./ContactSection.css";
+
+const iconMap = { Mail, Github, Linkedin };
 
 function ContactSection() {
-  return (
-    <section className="section contact-home" id="contact">
-      <div className="container">
-        <ContactIntro
-          eyebrow="Contact"
-          title="Let’s Connect"
-          description="I’m open to collaboration, learning opportunities, and thoughtful conversations around frontend development, projects, and growth."
-        />
+  const { contact } = siteConfig;
 
-        <ContactInfoGrid className="contact-home__grid" />
+  return (
+    <section className="contact-home" id="contact">
+      <div className="container">
+
+        <p className="contact-home__eyebrow">{contact.eyebrow}</p>
+        <h2 className="contact-home__title">{contact.title}</h2>
+        <p className="contact-home__description">{contact.description}</p>
+
+        <div className="contact-home__grid">
+          {contact.cards.map((item) => {
+            const Icon = iconMap[item.iconName];
+            const href =
+              item.hrefKey === "email"
+                ? `mailto:${siteConfig.email}`
+                : siteConfig[item.hrefKey];
+
+            return (
+              <div key={item.title} className="contact-info-card">
+                <div className="contact-info-card__icon">
+                  {Icon && <Icon size={18} strokeWidth={2} />}
+                </div>
+                <h3 className="contact-info-card__title">{item.title}</h3>
+                <p className="contact-info-card__desc">{item.desc}</p>
+                <a
+                  href={href}
+                  target={item.external ? "_blank" : undefined}
+                  rel={item.external ? "noreferrer" : undefined}
+                  className="contact-info-card__link"
+                >
+                  {item.label}
+                </a>
+              </div>
+            );
+          })}
+        </div>
 
         <div className="contact-home__actions">
-          <Link to="/contact" className="btn contact-home__cta">
-            Send a Message
+          <Link to={contact.cta.to} className="contact-home__cta btn btn--primary">
+            {contact.cta.label}
           </Link>
         </div>
+
       </div>
     </section>
   );

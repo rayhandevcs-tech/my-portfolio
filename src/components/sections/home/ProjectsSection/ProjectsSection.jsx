@@ -1,110 +1,140 @@
 import { Link } from "react-router-dom";
-
-import "./ProjectsSection.css";
-import SectionHeader from "../../../common/SectionHeader/SectionHeader";
-import Tag from "../../../common/Tag/Tag";
-import FeaturedProject from "../FeaturedProject/FeaturedProject";
 import { useProjects } from "../../../../hooks/useProjects";
 import { optimizeCloudinaryImage } from "../../../../utils/optimizeCloudinaryImage";
+import Tag from "../../../common/Tag/Tag";
+import "./ProjectsSection.css";
 
 function ProjectsSection() {
   const { projects } = useProjects();
 
-  const featuredProject = projects.find((project) => project.featured);
-  const otherProjects = projects.filter(
-    (project) => project.id !== featuredProject?.id
-  );
+  const featuredProject = projects.find((p) => p.featured);
+  const otherProjects = projects
+    .filter((p) => p.id !== featuredProject?.id)
+    .slice(0, 2);
 
   return (
-
-    <section className="section" id="projects">
-
+    <section className="projects-section" id="projects">
       <div className="container">
-        <SectionHeader
-          eyebrow="Projects"
-          title="Things I’ve Built"
-          intro="A selection of projects that reflect my learning journey, practical experimentation, and growing interest in building scalable web experiences."
-        />
 
-        <FeaturedProject project={featuredProject} />
+        {/* Header */}
+        <p className="projects-section__eyebrow">Projects</p>
+        <h2 className="projects-section__title">Things I've Built</h2>
+        <p className="projects-section__description">
+          A selection of projects that reflect my learning journey and growing interest in building scalable web experiences.
+        </p>
 
+        {/* Featured project */}
+        {featuredProject && (
+          <div className="featured-project">
+            {featuredProject.image && (
+              <div className="featured-project__image-wrap">
+                <img
+                  src={optimizeCloudinaryImage(featuredProject.image, 700)}
+                  alt={featuredProject.title}
+                  className="featured-project__image"
+                />
+              </div>
+            )}
+            <div className="featured-project__body">
+              <div className="featured-project__badges">
+                <span className="featured-project__badge featured-project__badge--featured">Featured</span>
+                {featuredProject.category && (
+                  <span className="featured-project__badge featured-project__badge--category">
+                    {featuredProject.category}
+                  </span>
+                )}
+              </div>
+
+              <h3 className="featured-project__heading">{featuredProject.title}</h3>
+
+              {(featuredProject.role || featuredProject.duration) && (
+                <p className="featured-project__meta">
+                  {featuredProject.role}
+                  {featuredProject.role && featuredProject.duration ? " • " : ""}
+                  {featuredProject.duration}
+                </p>
+              )}
+
+              <p className="featured-project__desc">{featuredProject.description}</p>
+
+              {featuredProject.highlight && (
+                <p className="featured-project__highlight">{featuredProject.highlight}</p>
+              )}
+
+              {featuredProject.tech?.length > 0 && (
+                <div className="tags-wrap featured-project__tags">
+                  {featuredProject.tech.map((t) => <Tag key={t}>{t}</Tag>)}
+                </div>
+              )}
+
+              <div className="featured-project__actions">
+                <Link
+                  to={`/projects/${featuredProject.slug}`}
+                  className="featured-project__btn featured-project__btn--primary"
+                >
+                  View Details
+                </Link>
+                {featuredProject.github && (
+                  <a href={featuredProject.github} target="_blank" rel="noreferrer"
+                    className="featured-project__btn featured-project__btn--outline">
+                    GitHub
+                  </a>
+                )}
+                {featuredProject.live && (
+                  <a href={featuredProject.live} target="_blank" rel="noreferrer"
+                    className="featured-project__btn featured-project__btn--outline">
+                    Live Demo
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Other projects */}
         {otherProjects.length > 0 && (
-          <div className="card-grid">
+          <div className="projects-section__grid">
             {otherProjects.map((project) => (
-              <article className="card project-card" key={project.id}>
+              <article key={project.id} className="project-card">
                 {project.image && (
-                  <div className="project-card__image">
+                  <div className="project-card__image-wrap">
                     <img
                       src={optimizeCloudinaryImage(project.image, 700)}
                       alt={project.title}
                       loading="lazy"
+                      className="project-card__image"
                     />
                   </div>
                 )}
-
                 <div className="project-card__body">
                   <div className="project-card__top">
-                    <div className="project-card__heading">
+                    <div>
                       {project.category && (
-                        <p className="project-card__category">
-                          {project.category}
-                        </p>
+                        <p className="project-card__category">{project.category}</p>
                       )}
-
-                      <h3>{project.title}</h3>
-
-                      {(project.role || project.duration) && (
-                        <p className="project-card__meta">
-                          {project.role}
-                          {project.role && project.duration ? " • " : ""}
-                          {project.duration}
-                        </p>
-                      )}
+                      <h3 className="project-card__title">{project.title}</h3>
                     </div>
-
-                    <div className="project-card__badges">
-                      {project.status && (
-                        <span className="project-badge project-badge--status">
-                          {project.status}
-                        </span>
-                      )}
-                    </div>
+                    {project.status && (
+                      <span className="project-card__status">{project.status}</span>
+                    )}
                   </div>
 
-                  <p className="project-card__description">
-                    {project.description}
-                  </p>
-
-                  {project.highlight && (
-                    <p className="project-card__highlight">
-                      {project.highlight}
-                    </p>
-                  )}
+                  <p className="project-card__desc">{project.description}</p>
 
                   {project.tech?.length > 0 && (
-                    <div className="tags-wrap">
-                      {project.tech.map((item) => (
-                        <Tag key={item}>{item}</Tag>
-                      ))}
+                    <div className="tags-wrap project-card__tags">
+                      {project.tech.slice(0, 4).map((t) => <Tag key={t}>{t}</Tag>)}
                     </div>
                   )}
 
                   <div className="project-card__links">
-                    <Link to={`/projects/${project.slug}`}>View Details</Link>
-
+                    <Link to={`/projects/${project.slug}`} className="project-card__link-primary">
+                      View Details →
+                    </Link>
                     {project.github && (
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
+                      <a href={project.github} target="_blank" rel="noreferrer"
+                        className="project-card__link-secondary">
                         GitHub
-                      </a>
-                    )}
-
-                    {project.live && (
-                      <a href={project.live} target="_blank" rel="noreferrer">
-                        Live Demo
                       </a>
                     )}
                   </div>
@@ -113,8 +143,15 @@ function ProjectsSection() {
             ))}
           </div>
         )}
+
+        {/* View all */}
+        <div className="projects-section__footer">
+          <Link to="/projects" className="projects-section__view-all">
+            View all projects →
+          </Link>
+        </div>
+
       </div>
-      
     </section>
   );
 }

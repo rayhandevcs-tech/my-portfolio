@@ -1,13 +1,11 @@
 .footer {
   margin-top: 88px;
   padding-top: 56px;
-
   border-top: 1px solid var(--border-soft);
-
   background:
     radial-gradient(
       circle at top left,
-      rgba(109, 40, 217, 0.06),
+      rgba(13, 148, 136, 0.06),
       transparent 30%
     ),
     var(--section-gradient);
@@ -25,9 +23,7 @@
 
 .footer__logo {
   margin: 0 0 14px;
-
   color: var(--heading);
-
   font-size: 1.5rem;
   line-height: 1.1;
   letter-spacing: -0.03em;
@@ -35,16 +31,13 @@
 
 .footer__description {
   margin: 0;
-
   color: var(--text-muted);
   line-height: 1.85;
 }
 
 .footer__column h4 {
   margin: 0 0 16px;
-
   color: var(--heading);
-
   font-size: 0.98rem;
   font-weight: 700;
   letter-spacing: -0.01em;
@@ -58,11 +51,8 @@
 
 .footer__links a {
   width: fit-content;
-
   color: var(--text);
-
   text-decoration: none;
-
   transition:
     color 0.2s ease,
     transform 0.2s ease;
@@ -85,18 +75,14 @@
   justify-content: space-between;
   gap: 16px;
   flex-wrap: wrap;
-
   margin-top: 40px;
   padding: 20px 0 28px;
-
   border-top: 1px solid var(--border-soft);
 }
 
 .footer__bottom p {
   margin: 0;
-
   color: var(--text-muted);
-
   font-size: 14px;
 }
 
@@ -108,7 +94,7 @@
   background:
     radial-gradient(
       circle at top left,
-      rgba(139, 92, 246, 0.12),
+      rgba(45, 212, 191, 0.10),
       transparent 32%
     ),
     linear-gradient(180deg, #111827 0%, #0f172a 100%);

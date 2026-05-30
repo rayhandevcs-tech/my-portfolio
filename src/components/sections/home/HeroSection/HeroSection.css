@@ -1,234 +1,211 @@
-.hero {
-  background:
-    radial-gradient(circle at 12% 18%, var(--primary-soft), transparent 30%),
-    radial-gradient(circle at 85% 12%, var(--primary-soft), transparent 26%),
-    var(--section-gradient);
+/* ── Section wrapper ─────────────────────────────────────── */
+.hero-section {
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
 }
 
-.hero.section {
-  padding-top: 72px;
-  padding-bottom: 88px;
+.hero-section__container {
+  padding-top: 64px;
+  padding-bottom: 64px;
 }
 
-.hero__grid {
+/* ── Top grid ────────────────────────────────────────────── */
+.hero-section__top {
   display: grid;
-  grid-template-columns: 1.08fr 0.92fr;
+  grid-template-columns: 1fr auto;
+  gap: 48px;
   align-items: center;
-  gap: 76px;
 }
 
-.hero__content {
-  max-width: 660px;
-}
-
-.hero__heading {
-  max-width: 13ch;
-  margin-bottom: 14px;
-  font-size: clamp(2.6rem, 5vw, 4.7rem);
-  line-height: 1.02;
-  font-weight: 850;
-  letter-spacing: -0.055em;
-  color: var(--heading);
-}
-
-.hero__heading span {
-  color: var(--primary);
-}
-
-.hero__role {
-  margin-bottom: 16px;
-  color: var(--text);
-  font-size: 1.05rem;
+/* ── Eyebrow ─────────────────────────────────────────────── */
+.hero-section__eyebrow {
+  font-size: 11px;
   font-weight: 700;
-}
-
-.hero__text {
-  max-width: 58ch;
-  color: var(--text-muted);
-}
-
-.hero__actions {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-  margin-top: 30px;
-}
-
-.hero__btn-outline {
-  background: transparent;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--primary);
-  border: 1px solid var(--primary);
+  margin-bottom: 12px;
 }
 
-.hero__btn-outline:hover {
-  background: var(--primary);
-  color: #ffffff;
-}
-
-.hero__stats {
-  display: grid;
-  grid-template-columns: repeat(3, max-content);
-  gap: 18px;
-  margin-top: 34px;
-}
-
-.hero__stat {
-  padding: 14px 18px;
-  border: 1px solid var(--primary-border);
-  border-radius: 18px;
-  background: var(--surface-glass);
-  box-shadow: var(--shadow-soft);
-}
-
-.hero__stat strong {
-  display: block;
+/* ── Heading ─────────────────────────────────────────────── */
+.hero-section__heading {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
   color: var(--heading);
-  font-size: 1rem;
-  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 6px;
 }
 
-.hero__stat span {
-  display: block;
-  margin-top: 4px;
+.hero-section__heading-highlight {
+  color: var(--primary);
+}
+
+/* ── Role ────────────────────────────────────────────────── */
+.hero-section__role {
+  font-size: 13px;
   color: var(--text-muted);
-  font-size: 0.82rem;
+  font-weight: 500;
+  margin-bottom: 18px;
 }
 
-.hero__image-wrap {
+/* ── Description ─────────────────────────────────────────── */
+.hero-section__description {
+  color: var(--text-muted);
+  line-height: 1.75;
+  max-width: 480px;
+  margin-bottom: 22px;
+  border-left: 2px solid var(--primary);
+  padding-left: 14px;
+  font-size: 14px;
+}
+
+/* ── Chips ───────────────────────────────────────────────── */
+.hero-section__chips {
   display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.hero-section__chip {
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--bg-soft);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+/* ── CTA buttons ─────────────────────────────────────────── */
+.hero-section__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.hero-section__cta-primary,
+.hero-section__cta-secondary {
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.hero__image {
+.hero-section__cta-primary {
+  background: var(--primary) !important;
+  color: #fff !important;
+  border: 1px solid var(--primary) !important;
+  box-shadow: 0 4px 16px rgba(13, 148, 136, 0.40) !important;
+}
+
+.hero-section__cta-secondary {
+  background: transparent !important;
+  color: var(--heading) !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08) !important;
+}
+
+.hero-section__cta-primary:hover,
+.hero-section__cta-secondary:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+/* ── Social links ────────────────────────────────────────── */
+.hero-section__socials {
+  display: flex;
+  gap: 20px;
+}
+
+.hero-section__social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.hero-section__social-link:hover {
+  color: var(--primary);
+}
+
+/* ── Photo ───────────────────────────────────────────────── */
+.hero-section__photo-wrapper {
   position: relative;
+  flex-shrink: 0;
+  padding: 4px;
+  border-radius: 17px;
+  background: linear-gradient(135deg, #0d9488, #0891b2, #2dd4bf);
 }
 
-.hero__image::before {
+.hero-section__photo-wrapper::before {
   content: "";
   position: absolute;
-  inset: -18px;
-  border-radius: calc(var(--radius) + 18px);
+  inset: -16px;
+  border-radius: 30px;
   background: var(--primary-gradient);
-  z-index: 0;
+  z-index: -1;
 }
 
-.hero__image::after {
-  content: "React • JS • CSS";
-  position: absolute;
-  right: -34px;
-  bottom: 26px;
-  z-index: 2;
-  padding: 10px 14px;
-  border: 1px solid var(--primary-border);
-  border-radius: 999px;
-  background: var(--surface-glass);
-  color: var(--primary);
-  font-size: 0.78rem;
-  font-weight: 800;
-  box-shadow: var(--shadow-soft);
-  backdrop-filter: blur(12px);
+.hero-section__photo-frame {
+  width: 180px;
+  height: 210px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: none;
+  background: var(--bg-soft);
 }
 
-.hero__img {
-  position: relative;
-  z-index: 1;
+.hero-section__photo {
   width: 100%;
-  max-width: 350px;
-  aspect-ratio: 4 / 4.8;
+  height: 100%;
   object-fit: cover;
-  border-radius: var(--radius);
+}
+
+/* ── Badge ───────────────────────────────────────────────── */
+.hero-section__photo-badge {
+  position: absolute;
+  bottom: -10px;
+  right: -10px;
+  background: var(--surface);
   border: 1px solid var(--border);
-  box-shadow: var(--shadow);
+  border-radius: 10px;
+  padding: 6px 10px;
+  font-size: 11px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  box-shadow: var(--shadow-soft);
 }
 
-@media (max-width: 992px) {
-  .hero.section {
-    padding-top: 44px;
-    padding-bottom: 60px;
-  }
-
-  .hero__grid {
-    grid-template-columns: 1fr;
-    gap: 34px;
-  }
-
-  .hero__content {
-    order: 2;
-    max-width: 100%;
-  }
-
-  .hero__image-wrap {
-    order: 1;
-  }
-
-  .hero__img {
-    max-width: 270px;
-  }
-
-  .hero__image::after {
-    right: -18px;
-  }
+.hero-section__photo-badge-highlight {
+  color: var(--primary);
+  font-weight: 600;
 }
 
-@media (max-width: 640px) {
-  .hero.section {
-    padding-top: 32px;
-    padding-bottom: 46px;
-  }
-
-  .hero__grid {
-    gap: 24px;
-    text-align: center;
-  }
-
-  .hero__content {
-    width: 100%;
-    max-width: none;
-    margin-inline: 0;
-  }
-
-  .hero__heading {
-    width: 100%;
-    max-width: none;
-    font-size: clamp(2.1rem, 9vw, 2.6rem);
-  }
-
-  .hero__role,
-  .hero__text {
-    width: 100%;
-    max-width: none;
-    margin-inline: auto;
-  }
-
-  .hero__text {
-    font-size: 0.98rem;
-    line-height: 1.7;
-  }
-
-  .hero__actions {
-    flex-direction: column;
-    gap: 12px;
-    margin-top: 24px;
-  }
-
-  .hero__actions .btn,
-  .hero__actions a {
-    width: 100%;
-  }
-
-  .hero__stats {
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .hero-section__top {
     grid-template-columns: 1fr;
-    gap: 10px;
-    margin-top: 24px;
+    gap: 32px;
   }
 
-  .hero__img {
-    max-width: 230px;
+  .hero-section__photo-wrapper {
+    order: -1;
+    width: fit-content;
+    margin: 0 auto;
   }
 
-  .hero__image::after {
-    right: 50%;
-    bottom: -18px;
-    transform: translateX(50%);
+  .hero-section__photo-frame {
+    width: 140px;
+    height: 165px;
   }
 }

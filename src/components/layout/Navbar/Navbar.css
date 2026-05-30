@@ -2,19 +2,14 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-
   background: color-mix(in srgb, var(--bg) 88%, transparent);
-
   border-bottom: 1px solid var(--border);
-
   backdrop-filter: blur(14px);
 }
 
 .navbar__inner {
   position: relative;
-
   min-height: 72px;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -25,13 +20,9 @@
   display: inline-flex;
   align-items: center;
   gap: 0.02rem;
-
   padding: 0.35rem 0.45rem;
-
   border-radius: 0.75rem;
-
   text-decoration: none;
-
   transition:
     background-color 0.2s ease,
     transform 0.2s ease;
@@ -71,28 +62,20 @@
 
 .nav a {
   position: relative;
-
   color: var(--text);
-
   font-weight: 500;
-
   transition: color 0.2s ease;
 }
 
 .nav a::after {
   content: "";
-
   position: absolute;
   left: 0;
   bottom: -8px;
-
   width: 0;
   height: 2px;
-
   border-radius: 999px;
-
   background: var(--primary);
-
   transition: width 0.22s ease;
 }
 
@@ -112,22 +95,28 @@
   gap: 12px;
 }
 
+/* Desktop: nav এর ভেতরে দেখাবে */
+.navbar__theme-desktop {
+  display: flex;
+  align-items: center;
+}
+
+/* Mobile: navbar__actions এ দেখাবে, desktop এ লুকাবে */
+.navbar__theme-mobile {
+  display: none;
+}
+
 .theme-toggle {
+  display: flex;
   width: 46px;
   height: 46px;
-
+  align-items: center;
+  justify-content: center;
   border: 1px solid var(--border);
-
   background: var(--surface);
-
   color: var(--heading);
-
   border-radius: 14px;
-
   cursor: pointer;
-
-  font-size: 18px;
-
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease,
@@ -137,33 +126,23 @@
 
 .theme-toggle:hover {
   transform: translateY(-1px);
-
   border-color: rgba(109, 40, 217, 0.2);
-
   box-shadow: var(--shadow-soft);
 }
 
 .nav-toggle {
   display: none;
-
   width: 46px;
   height: 46px;
-
   padding: 0;
-
   align-items: center;
   justify-content: center;
   flex-direction: column;
   gap: 5px;
-
   border: 1px solid var(--border);
-
   background: var(--surface);
-
   border-radius: 14px;
-
   cursor: pointer;
-
   transition:
     box-shadow 0.2s ease,
     border-color 0.2s ease;
@@ -177,11 +156,8 @@
 .nav-toggle span {
   width: 22px;
   height: 2px;
-
   background: var(--heading);
-
   border-radius: 999px;
-
   transition: all 0.25s ease;
 }
 
@@ -199,19 +175,12 @@
 
 .navbar__logout {
   padding: 0.45rem 0.8rem;
-
   border: 1px solid var(--border);
-
   background: transparent;
-
   color: var(--text);
-
   border-radius: 0.6rem;
-
   cursor: pointer;
-
   font: inherit;
-
   transition:
     background 0.2s ease,
     color 0.2s ease,
@@ -222,6 +191,7 @@
   background: var(--bg-soft);
   border-color: rgba(109, 40, 217, 0.18);
 }
+
 .nav-rayns-notes {
   position: relative;
   padding: 0.35rem 0.75rem;
@@ -230,16 +200,13 @@
   background: transparent;
   color: var(--text);
   text-decoration: none;
-  
   border: 2px solid transparent;
   background-clip: padding-box;
-  
   background-image: linear-gradient(var(--bg), var(--bg)),
     linear-gradient(90deg, #ff0080, #ff8c00, #40e0d0, #7b2ff7, #ff0080);
   background-origin: border-box;
   background-clip: padding-box, border-box;
   background-size: 100%, 300% 100%;
-  
   animation: rgbBorder 3s linear infinite;
   transition: opacity 0.2s ease;
 }
@@ -262,27 +229,29 @@
     display: inline-flex;
   }
 
+  .navbar__theme-desktop {
+    display: none;
+  }
+
+  .navbar__theme-mobile {
+    display: flex;
+    align-items: center;
+  }
+
   .nav {
     position: absolute;
     top: calc(100% + 12px);
     left: 0;
     right: 0;
-
     display: none;
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
-
     padding: 18px;
-
     border: 1px solid var(--border);
-
     border-radius: 20px;
-
     background: color-mix(in srgb, var(--surface) 92%, transparent);
-
     box-shadow: var(--shadow);
-
     backdrop-filter: blur(14px);
   }
 

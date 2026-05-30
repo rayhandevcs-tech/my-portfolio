@@ -23,34 +23,24 @@ function Navbar() {
   }
 
   function handlePrefetch(path) {
-    if (path === "/blog") {
-      prefetchBlogPosts().catch(() => {});
-    }
-
-    if (path === "/book-reviews") {
-      prefetchBookReviews().catch(() => {});
-    }
+    if (path === "/blog") prefetchBlogPosts().catch(() => {});
+    if (path === "/book-reviews") prefetchBookReviews().catch(() => {});
   }
 
   return (
-    
     <header className="navbar">
-
       <div className="container navbar__inner">
 
-        <Link
-          to="/"
-          className="logo"
-          onClick={closeMenu}
-          aria-label="Go to homepage"
-        >
+        <Link to="/" className="logo" onClick={closeMenu} aria-label="Go to homepage">
           <span className="logo__text">Rayhan</span>
           <span className="logo__accent">Dev</span>
-
         </Link>
 
         <div className="navbar__actions">
-          <ThemeToggle />
+          {/* Desktop এ ThemeToggle nav এর ভেতরে, mobile এ এখানে */}
+          <div className="navbar__theme-mobile">
+            <ThemeToggle />
+          </div>
 
           <button
             className={`nav-toggle ${menuOpen ? "active" : ""}`}
@@ -63,9 +53,7 @@ function Navbar() {
             <span></span>
             <span></span>
             <span></span>
-
           </button>
-
         </div>
 
         <nav
@@ -97,28 +85,28 @@ function Navbar() {
             )
           )}
 
-            {loggedIn && (
-              <>
-                <NavLink to="/admin/dashboard" onClick={closeMenu}>
-                  Admin
-                </NavLink>
+          {loggedIn && (
+            <>
+              <NavLink to="/admin/dashboard" onClick={closeMenu}>
+                Admin
+              </NavLink>
+              <button
+                type="button"
+                className="navbar__logout"
+                onClick={() => { handleLogout(); closeMenu(); }}
+              >
+                Logout
+              </button>
+            </>
+          )}
 
-                <button
-                  type="button"
-                  className="navbar__logout"
-                  onClick={() => {
-                    handleLogout();
-                    closeMenu();
-                  }}
-                >
-                  Logout
-                </button>
-              </>
-            )}
+          {/* Desktop এ Rayn's Notes এর পাশে */}
+          <div className="navbar__theme-desktop">
+            <ThemeToggle />
+          </div>
         </nav>
 
       </div>
-
     </header>
   );
 }
