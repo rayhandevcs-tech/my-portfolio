@@ -40,6 +40,11 @@ const noteSchema = new mongoose.Schema(
       enum: ["draft", "published"],
       default: "draft",
     },
+    reactions: {
+      like: { type: Number, default: 0 },
+      love: { type: Number, default: 0 },
+      fire: { type: Number, default: 0 },
+    },
     publishedAt: {
       type: String,
       default: "",

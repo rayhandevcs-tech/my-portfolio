@@ -5,6 +5,7 @@ const router = express.Router();
 
 // GET all published notes (with pagination)
 router.get("/", async (req, res) => {
+
   try {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 6;
@@ -59,7 +60,24 @@ router.get("/id/:id", async (req, res) => {
   }
 });
 
-
+// POST reaction
+router.post("/:slug/react", async (req, res) => {
+  try {
+    const { type } = req.body;
+    if (!["like", "love", "fire"].includes(type)) {
+      return res.status(400).json({ message: "Invalid reaction type" });
+    }
+    const note = await Note.findOneAndUpdate(
+      { slug: req.params.slug },
+      { $inc: { [`reactions.${type}`]: 1 } },
+      { new: true }
+    );
+    if (!note) return res.status(404).json({ message: "Note not found" });
+    res.json(note.reactions);
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
+  }
+});
 
 
 // GET single note by slug
