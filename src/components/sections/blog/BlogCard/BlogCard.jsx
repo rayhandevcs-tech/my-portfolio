@@ -16,13 +16,12 @@ function BlogCard({ post }) {
 
   function handlePrefetch() {
     if (!slug || prefetchedRef.current) return;
-
     prefetchedRef.current = true;
     prefetchBlogPost(slug).catch(() => {});
   }
 
   return (
-    <article className="card blog-card">
+    <article className="blog-card">
       {coverImage && (
         <Link
           to={`/blog/${slug}`}
@@ -31,23 +30,14 @@ function BlogCard({ post }) {
           onMouseEnter={handlePrefetch}
           onFocus={handlePrefetch}
         >
-          <img
-            src={optimizedCoverImage}
-            alt={title}
-            loading="lazy"
-          />
+          <img src={optimizedCoverImage} alt={title} loading="lazy" />
         </Link>
       )}
 
       <div className="blog-card__body">
-        <div className="blog-card__meta">
-          {category && <span className="blog-card__meta-item">{category}</span>}
-
-          {publishedAt && (
-            <span className="blog-card__meta-item blog-card__meta-item--muted">
-              {publishedAt}
-            </span>
-          )}
+        <div className="blog-card__top">
+          {category && <span className="blog-card__category">{category}</span>}
+          {publishedAt && <span className="blog-card__date">{publishedAt}</span>}
         </div>
 
         <h3 className="blog-card__title">
@@ -62,22 +52,23 @@ function BlogCard({ post }) {
 
         {excerpt && <p className="blog-card__excerpt">{excerpt}</p>}
 
-        {tags?.length > 0 && (
-          <div className="tags-wrap">
-            {tags.map((tag) => (
-              <Tag key={tag}>{tag}</Tag>
-            ))}
-          </div>
-        )}
-
-        <Link
-          to={`/blog/${slug}`}
-          className="blog-card__link"
-          onMouseEnter={handlePrefetch}
-          onFocus={handlePrefetch}
-        >
-          Read More <span aria-hidden="true">→</span>
-        </Link>
+        <div className="blog-card__footer">
+          {tags?.length > 0 && (
+            <div className="blog-card__tags">
+              {tags.map((tag) => (
+                <span key={tag} className="blog-card__tag">{tag}</span>
+              ))}
+            </div>
+          )}
+          <Link
+            to={`/blog/${slug}`}
+            className="blog-card__read"
+            onMouseEnter={handlePrefetch}
+            onFocus={handlePrefetch}
+          >
+            Read more →
+          </Link>
+        </div>
       </div>
     </article>
   );

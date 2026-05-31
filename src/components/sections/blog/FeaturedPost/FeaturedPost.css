@@ -1,13 +1,9 @@
 .blog-featured {
-  padding: 1.5rem;
-
+  padding: 1.75rem;
   border: 1px solid var(--border-soft);
   border-radius: 1.2rem;
-
   background: var(--surface-glass);
-
   box-shadow: var(--shadow-soft);
-
   backdrop-filter: blur(10px);
 }
 
@@ -21,56 +17,49 @@
 .blog-featured__content {
   display: flex;
   flex-direction: column;
-  gap: 0.9rem;
+  gap: 0.85rem;
 }
 
 .eyebrow {
   color: var(--primary);
-
-  font-size: 0.85rem;
+  font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.09em;
 }
 
 .blog-featured__content h2 {
   margin: 0;
-
   color: var(--heading);
-
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
   line-height: 1.2;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.025em;
 }
 
 .blog-featured__meta {
   color: var(--text-muted);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
 }
 
 .blog-featured__excerpt {
   color: var(--text);
-  line-height: 1.85;
+  font-size: 0.97rem;
+  line-height: 1.8;
 }
 
 .blog-featured__image {
   width: 100%;
-  max-height: 420px;
-
   overflow: hidden;
-
-  border-radius: 1rem;
-
+  border-radius: 0.9rem;
   background: var(--surface-soft);
+  aspect-ratio: 16 / 10;
 }
 
 .blog-featured__image img {
   display: block;
   width: 100%;
   height: 100%;
-  max-height: 420px;
   object-fit: cover;
-
   transition: transform 0.4s ease;
 }
 
@@ -82,12 +71,40 @@
   background: rgba(17, 24, 39, 0.78);
 }
 
+/* ── Tablet ─────────────────────────────────────────────── */
 @media (max-width: 900px) {
   .blog-featured__grid {
     grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  /* image উপরে, content নিচে */
+  .blog-featured__image {
+    order: -1;
+    aspect-ratio: 16 / 9;
   }
 
   .blog-featured__content h2 {
-    font-size: 1.7rem;
+    font-size: 1.5rem;
+  }
+}
+
+/* ── Mobile ─────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .blog-featured {
+    padding: 1.25rem;
+  }
+
+  .blog-featured__image {
+    aspect-ratio: 16 / 9;
+    border-radius: 0.75rem;
+  }
+
+  .blog-featured__content h2 {
+    font-size: 1.3rem;
+  }
+
+  .blog-featured__excerpt {
+    font-size: 0.93rem;
   }
 }

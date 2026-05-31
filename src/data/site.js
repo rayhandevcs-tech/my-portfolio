@@ -59,7 +59,7 @@ export const siteConfig = {
   },
 
   email: "rayhan.dev.cs@gmail.com",
-  github: "https://github.com/",
+  github: "https://github.com/rayhandevcs-tech",
   linkedin:
     "https://www.linkedin.com/in/rayhan-cs-dev/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3Be2AZGx8ZRAC20iWtp%2FXdJg%3D%3D",
 

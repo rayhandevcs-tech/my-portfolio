@@ -18,11 +18,14 @@ function Contact() {
             <div className="contact-left">
               <ContactIntro
                 eyebrow="Contact"
-                title="Let’s make something great together"
-                description="Feel free to reach out for collaboration, project discussion, freelance opportunities, or a meaningful conversation. I’d love to hear from you."
+                title="Let's make something great together"
+                description="Feel free to reach out for collaboration, project discussion, freelance opportunities, or a meaningful conversation."
               />
-
-              <ContactInfoGrid className="contact-info-grid" />
+              <ContactInfoGrid className="contact-link-list" />
+              <div className="contact-avail">
+                <span className="contact-avail__dot" />
+                Available for new projects
+              </div>
             </div>
 
             <div className="contact-right">

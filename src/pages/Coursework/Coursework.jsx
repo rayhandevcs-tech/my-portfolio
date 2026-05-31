@@ -53,11 +53,17 @@ function Coursework() {
   };
 
   return (
+    
     <>
+
       <section className="section coursework-hero">
+
         <div className="container">
+
           <div className="coursework-shell">
+
             <div className="coursework-hero__content">
+
               <p className="coursework-hero__eyebrow">Academics</p>
               <h1 className="coursework-hero__title">Relevant Coursework</h1>
               <p className="coursework-hero__intro">
@@ -65,16 +71,25 @@ function Coursework() {
                 studied, including algorithms, systems, software development, and
                 mathematical foundations.
               </p>
+
             </div>
+
           </div>
+
         </div>
+
       </section>
 
       <main className="section coursework-page">
+
         <div className="container">
+
           <div className="coursework-shell">
+
             <div className="academics-toolbar">
+
               <div className="academics-search academics-search--with-clear">
+
                 <input
                   type="text"
                   placeholder="Search courses, tools, or topics..."
@@ -94,7 +109,9 @@ function Coursework() {
                 )}
               </div>
 
+
               <div className="course-filter">
+
                 {categories.map((cat) => (
                   <button
                     key={cat}
@@ -104,32 +121,45 @@ function Coursework() {
                   >
                     {cat}
                   </button>
+
                 ))}
               </div>
 
+
               <div className="academics-results">
+
                 <p>{filteredCourses.length} courses found</p>
               </div>
+
             </div>
+
           </div>
 
-          <div className="coursework-grid">
-            {filteredCourses.length > 0 ? (
-              filteredCourses.map((item) => (
-                <CourseworkCard
-                  key={item.id}
-                  {...item}
-                  onViewDetails={() => handleOpenModal(item)}
-                />
-              ))
-            ) : (
-              <div className="academics-empty">
-                <h3>No courses found</h3>
-                <p>Try adjusting your search or filter.</p>
-              </div>
-            )}
+          <div className="coursework-shell">
+
+            <div className="coursework-grid">
+
+              {filteredCourses.length > 0 ? (
+                filteredCourses.map((item) => (
+                  <CourseworkCard
+                    key={item.id}
+                    {...item}
+                    onViewDetails={() => handleOpenModal(item)}
+                  />
+                ))
+              ) : (
+                <div className="academics-empty">
+                  <h3>No courses found</h3>
+                  <p>Try adjusting your search or filter.</p>
+                </div>
+
+              )}
+            </div>
+
           </div>
+
         </div>
+        
       </main>
 
       <CourseDetailsModal

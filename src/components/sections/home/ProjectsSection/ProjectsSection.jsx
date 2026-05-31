@@ -7,10 +7,7 @@ import "./ProjectsSection.css";
 function ProjectsSection() {
   const { projects } = useProjects();
 
-  const featuredProject = projects.find((p) => p.featured);
-  const otherProjects = projects
-    .filter((p) => p.id !== featuredProject?.id)
-    .slice(0, 2);
+  const displayProjects = projects.slice(0, 3);
 
   return (
     <section className="projects-section" id="projects">
@@ -23,78 +20,10 @@ function ProjectsSection() {
           A selection of projects that reflect my learning journey and growing interest in building scalable web experiences.
         </p>
 
-        {/* Featured project */}
-        {featuredProject && (
-          <div className="featured-project">
-            {featuredProject.image && (
-              <div className="featured-project__image-wrap">
-                <img
-                  src={optimizeCloudinaryImage(featuredProject.image, 700)}
-                  alt={featuredProject.title}
-                  className="featured-project__image"
-                />
-              </div>
-            )}
-            <div className="featured-project__body">
-              <div className="featured-project__badges">
-                <span className="featured-project__badge featured-project__badge--featured">Featured</span>
-                {featuredProject.category && (
-                  <span className="featured-project__badge featured-project__badge--category">
-                    {featuredProject.category}
-                  </span>
-                )}
-              </div>
-
-              <h3 className="featured-project__heading">{featuredProject.title}</h3>
-
-              {(featuredProject.role || featuredProject.duration) && (
-                <p className="featured-project__meta">
-                  {featuredProject.role}
-                  {featuredProject.role && featuredProject.duration ? " • " : ""}
-                  {featuredProject.duration}
-                </p>
-              )}
-
-              <p className="featured-project__desc">{featuredProject.description}</p>
-
-              {featuredProject.highlight && (
-                <p className="featured-project__highlight">{featuredProject.highlight}</p>
-              )}
-
-              {featuredProject.tech?.length > 0 && (
-                <div className="tags-wrap featured-project__tags">
-                  {featuredProject.tech.map((t) => <Tag key={t}>{t}</Tag>)}
-                </div>
-              )}
-
-              <div className="featured-project__actions">
-                <Link
-                  to={`/projects/${featuredProject.slug}`}
-                  className="featured-project__btn featured-project__btn--primary"
-                >
-                  View Details
-                </Link>
-                {featuredProject.github && (
-                  <a href={featuredProject.github} target="_blank" rel="noreferrer"
-                    className="featured-project__btn featured-project__btn--outline">
-                    GitHub
-                  </a>
-                )}
-                {featuredProject.live && (
-                  <a href={featuredProject.live} target="_blank" rel="noreferrer"
-                    className="featured-project__btn featured-project__btn--outline">
-                    Live Demo
-                  </a>
-                )}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Other projects */}
-        {otherProjects.length > 0 && (
+        {/* Projects grid */}
+        {displayProjects.length > 0 && (
           <div className="projects-section__grid">
-            {otherProjects.map((project) => (
+            {displayProjects.map((project) => (
               <article key={project.id} className="project-card">
                 {project.image && (
                   <div className="project-card__image-wrap">
@@ -113,6 +42,13 @@ function ProjectsSection() {
                         <p className="project-card__category">{project.category}</p>
                       )}
                       <h3 className="project-card__title">{project.title}</h3>
+                      {(project.role || project.duration) && (
+                        <p className="project-card__meta">
+                          {project.role}
+                          {project.role && project.duration ? " • " : ""}
+                          {project.duration}
+                        </p>
+                      )}
                     </div>
                     {project.status && (
                       <span className="project-card__status">{project.status}</span>
@@ -135,6 +71,12 @@ function ProjectsSection() {
                       <a href={project.github} target="_blank" rel="noreferrer"
                         className="project-card__link-secondary">
                         GitHub
+                      </a>
+                    )}
+                    {project.live && (
+                      <a href={project.live} target="_blank" rel="noreferrer"
+                        className="project-card__link-secondary">
+                        Live Demo
                       </a>
                     )}
                   </div>

@@ -145,6 +145,7 @@ function BookReviews() {
         />
 
         <section className="book-reviews-page__content section">
+          
           <div className="container">
             {featuredBook && (
               <div className="book-reviews-page__featured">

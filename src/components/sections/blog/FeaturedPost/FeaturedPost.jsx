@@ -15,7 +15,6 @@ function FeaturedPost({ post }) {
 
   function handlePrefetch() {
     if (!slug || prefetchedRef.current) return;
-
     prefetchedRef.current = true;
     prefetchBlogPost(slug).catch(() => {});
   }
@@ -23,16 +22,20 @@ function FeaturedPost({ post }) {
   return (
     <section className="blog-featured card">
       <div className="blog-featured__grid">
+
+        {/* ── Content ── */}
         <div className="blog-featured__content">
           <p className="eyebrow">Featured Post</p>
 
           <h2>{title}</h2>
 
           <p className="blog-featured__meta">
-            {category} {publishedAt && "•"} {publishedAt}
+            {category}{publishedAt && ` • ${publishedAt}`}
           </p>
 
-          <p className="blog-featured__excerpt">{excerpt}</p>
+          {excerpt && (
+            <p className="blog-featured__excerpt">{excerpt}</p>
+          )}
 
           <Link
             to={`/blog/${slug}`}
@@ -44,6 +47,7 @@ function FeaturedPost({ post }) {
           </Link>
         </div>
 
+        {/* ── Cover image ── */}
         {coverImage && (
           <div className="blog-featured__image">
             <img
@@ -53,6 +57,7 @@ function FeaturedPost({ post }) {
             />
           </div>
         )}
+
       </div>
     </section>
   );

@@ -1,13 +1,7 @@
 import { useState } from "react";
 import { submitContactMessage } from "../../../../services/api/contactApi";
 
-const initialForm = {
-  name: "",
-  email: "",
-  phone: "",
-  subject: "",
-  message: "",
-};
+const initialForm = { name: "", email: "", phone: "", subject: "", message: "" };
 
 function ContactForm() {
   const [formData, setFormData] = useState(initialForm);
@@ -17,11 +11,7 @@ function ContactForm() {
 
   function handleChange(e) {
     const { name, value } = e.target;
-
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   }
 
   function validateForm() {
@@ -29,33 +19,20 @@ function ContactForm() {
     if (!formData.email.trim()) return "Email is required.";
     if (!formData.subject.trim()) return "Subject is required.";
     if (!formData.message.trim()) return "Message is required.";
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) return "Please enter a valid email.";
-
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) return "Please enter a valid email.";
     return "";
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
-
     setSuccessMessage("");
     setErrorMessage("");
-
     const validationError = validateForm();
-    if (validationError) {
-      setErrorMessage(validationError);
-      return;
-    }
-
+    if (validationError) { setErrorMessage(validationError); return; }
     try {
       setLoading(true);
-
       const response = await submitContactMessage(formData);
-
-      setSuccessMessage(
-        response.message || "Your message has been sent successfully."
-      );
+      setSuccessMessage(response.message || "Your message has been sent successfully.");
       setFormData(initialForm);
     } catch (error) {
       setErrorMessage(error.message || "Failed to send message.");
@@ -68,86 +45,41 @@ function ContactForm() {
     <section className="contact-form-card">
       <div className="contact-form-card__header">
         <p className="contact-form-card__eyebrow">Send Message</p>
-        <h2 className="contact-form-card__title">Let’s talk about your idea</h2>
+        <h2 className="contact-form-card__title">Let's talk about your idea</h2>
         <p className="contact-form-card__subtitle">
-          Fill out the form below and I’ll get back to you as soon as possible.
+          Fill out the form below and I'll get back to you within 24 hours.
         </p>
       </div>
 
       <form onSubmit={handleSubmit} className="contact-form">
-        <div className="contact-form__group">
-          <label htmlFor="name">
-            Name <span>*</span>
-          </label>
-          <input
-            id="name"
-            name="name"
-            type="text"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Your full name"
-          />
+        <div className="contact-form__row">
+          <div className="contact-form__group">
+            <label htmlFor="name">Name <span>*</span></label>
+            <input id="name" name="name" type="text" value={formData.name} onChange={handleChange} placeholder="Your full name" />
+          </div>
+          <div className="contact-form__group">
+            <label htmlFor="email">Email <span>*</span></label>
+            <input id="email" name="email" type="email" value={formData.email} onChange={handleChange} placeholder="your@email.com" />
+          </div>
+        </div>
+
+        <div className="contact-form__row">
+          <div className="contact-form__group">
+            <label htmlFor="phone">Phone Number</label>
+            <input id="phone" name="phone" type="tel" value={formData.phone} onChange={handleChange} placeholder="+8801XXXXXXXXX" />
+          </div>
+          <div className="contact-form__group">
+            <label htmlFor="subject">Subject <span>*</span></label>
+            <input id="subject" name="subject" type="text" value={formData.subject} onChange={handleChange} placeholder="What is this about?" />
+          </div>
         </div>
 
         <div className="contact-form__group">
-          <label htmlFor="email">
-            Email <span>*</span>
-          </label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="your@email.com"
-          />
+          <label htmlFor="message">Message <span>*</span></label>
+          <textarea id="message" name="message" rows="5" value={formData.message} onChange={handleChange} placeholder="Write your message..." />
         </div>
 
-        <div className="contact-form__group">
-          <label htmlFor="phone">Phone Number</label>
-          <input
-            id="phone"
-            name="phone"
-            type="tel"
-            value={formData.phone}
-            onChange={handleChange}
-            placeholder="+8801XXXXXXXXX"
-          />
-        </div>
-
-        <div className="contact-form__group">
-          <label htmlFor="subject">
-            Subject <span>*</span>
-          </label>
-          <input
-            id="subject"
-            name="subject"
-            type="text"
-            value={formData.subject}
-            onChange={handleChange}
-            placeholder="What is this about?"
-          />
-        </div>
-
-        <div className="contact-form__group">
-          <label htmlFor="message">
-            Message <span>*</span>
-          </label>
-          <textarea
-            id="message"
-            name="message"
-            rows="6"
-            value={formData.message}
-            onChange={handleChange}
-            placeholder="Write your message..."
-          />
-        </div>
-
-        <button
-          type="submit"
-          className="contact-submit-btn"
-          disabled={loading}
-        >
+        <button type="submit" className="contact-submit-btn" disabled={loading}>
           {loading ? "Sending..." : "Send Message"}
         </button>
 
