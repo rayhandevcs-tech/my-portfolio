@@ -59,7 +59,7 @@ export const projects = [
         "REST API",
     ],
 
-    github: "https://github.com/",
+    github: "https://github.com/rayhandevcs-tech/student-hostel-system",
     live: "https://student-hostel-system.vercel.app/",
     },
    { 
@@ -112,7 +112,7 @@ export const projects = [
     "CSS",
     ],
 
-    github: "https://github.com/",
+    github: "https://github.com/rayhandevcs-tech/my-portfolio",
     live: "https://rayhancsdev.vercel.app/",
     },
 
