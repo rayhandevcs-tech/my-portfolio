@@ -191,6 +191,32 @@
   font-weight: 600;
 }
 
+.hero-section__cta-resume {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  background: transparent !important;
+  color: var(--primary) !important;
+  border: 1px dashed var(--primary) !important;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.hero-section__cta-resume:hover {
+  background: var(--primary) !important;
+  color: #fff !important;
+  transform: translateY(-1px);
+}
+
+
+
+
 /* ── Responsive ──────────────────────────────────────────── */
 @media (max-width: 768px) {
   .hero-section__top {

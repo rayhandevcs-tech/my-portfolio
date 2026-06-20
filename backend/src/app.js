@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import compression from "compression";
 import rateLimit from "express-rate-limit";
 import contactRoutes from "./routes/contactRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
@@ -33,6 +34,8 @@ const generalLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
 });
+
+app.use(compression());
 
 app.use(
   cors({

@@ -13,10 +13,9 @@ const BookReviewDetails = lazy(() =>
   import("../pages/BookReviewDetails/BookReviewDetails")
 );
 const Achievements = lazy(() => import("../pages/Achievements/Achievements"));
-// const Academia = lazy(() => import("../pages/Academia/Academia"));
 const Coursework = lazy(() => import("../pages/Coursework/Coursework"));
-
 const Contact = lazy(() => import("../pages/Contact/Contact"));
+const Projects = lazy(() => import("../pages/Projects/Projects"));
 const ProjectDetails = lazy(() =>
   import("../pages/ProjectDetails/ProjectDetails")
 );
@@ -39,8 +38,6 @@ const AdminBookNew = lazy(() => import("../pages/AdminBookNew/AdminBookNew"));
 const AdminBookEdit = lazy(() =>
   import("../pages/AdminBookEdit/AdminBookEdit")
 );
-
-
 
 function PageLoader() {
   return <div style={{ padding: "40px" }}>Loading...</div>;
@@ -100,8 +97,6 @@ export const router = createBrowserRouter([
           </LazyPage>
         ),
       },
-
-
       {
         path: "coursework",
         element: (
@@ -110,18 +105,6 @@ export const router = createBrowserRouter([
           </LazyPage>
         ),
       },
-
-
-      // {
-      //   path: "academia",
-      //   element: (
-      //     <LazyPage>
-      //       <Academia />
-      //     </LazyPage>
-      //   ),
-      // },
-
-
       {
         path: "achievements",
         element: (
@@ -130,13 +113,19 @@ export const router = createBrowserRouter([
           </LazyPage>
         ),
       },
-
-
       {
         path: "contact",
         element: (
           <LazyPage>
             <Contact />
+          </LazyPage>
+        ),
+      },
+      {
+        path: "projects",
+        element: (
+          <LazyPage>
+            <Projects />
           </LazyPage>
         ),
       },

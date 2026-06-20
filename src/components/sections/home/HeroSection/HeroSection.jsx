@@ -31,7 +31,6 @@ function HeroSection() {
 
             <p className="hero-section__description">{hero.description}</p>
 
-            {/* Chips */}
             {hero.chips?.length > 0 && (
               <div className="hero-section__chips">
                 {hero.chips.map((chip) => (
@@ -40,17 +39,24 @@ function HeroSection() {
               </div>
             )}
 
-            {/* CTA buttons */}
             <div className="hero-section__ctas">
-              <a href={hero.primaryCta.href} className="hero-section__cta-primary">
+              <Link to={hero.primaryCta.to} className="hero-section__cta-primary">
                 {hero.primaryCta.label}
-              </a>
+              </Link>
               <Link to={hero.secondaryCta.to} className="hero-section__cta-secondary">
                 {hero.secondaryCta.label}
               </Link>
+              {hero.resumeCta && (
+                <a
+                  href={hero.resumeCta.href}
+                  download
+                  className="hero-section__cta-resume"
+                >
+                  {hero.resumeCta.label}
+                </a>
+              )}
             </div>
 
-            {/* Social links */}
             {hero.socials?.length > 0 && (
               <div className="hero-section__socials">
                 {hero.socials.map((s) => {
@@ -72,7 +78,6 @@ function HeroSection() {
             )}
           </div>
 
-          {/* Photo */}
           <div
             className="hero-section__photo-wrapper"
             style={{

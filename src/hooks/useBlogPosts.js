@@ -3,211 +3,158 @@ import { getAllPosts } from "../services/api/blogApi";
 import { normalizeSearch } from "../utils/normalizeSearch";
 
 const POSTS_PER_PAGE = 6;
-const allPostsCacheKey = "all-posts-cache";
-const allPostsCache = new Map();
+const CACHE_KEY = "all-posts-cache";
+const STORAGE_KEY = "blog-posts-cache-v1";
+const STORAGE_TTL = 1000 * 60 * 10;
+const FETCH_TIMEOUT = 8000;
 
-const BLOG_STORAGE_KEY = "blog-posts-cache-v1";
-const BLOG_STORAGE_TTL = 1000 * 60 * 10; // 10 minutes
+const memoryCache = new Map();
 
-function getStoredPosts() {
+function getStored() {
   try {
-    const raw = localStorage.getItem(BLOG_STORAGE_KEY);
+    const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return null;
-
     const parsed = JSON.parse(raw);
-
-    if (!parsed?.data || !parsed?.timestamp) {
-      return null;
-    }
-
-    const isExpired = Date.now() - parsed.timestamp > BLOG_STORAGE_TTL;
-
-    if (isExpired) {
-      localStorage.removeItem(BLOG_STORAGE_KEY);
-      return null;
-    }
-
-    return parsed.data;
+    if (!parsed?.data || !parsed?.timestamp) return null;
+    return { data: parsed.data, expired: Date.now() - parsed.timestamp > STORAGE_TTL };
   } catch {
     return null;
   }
 }
 
-function setStoredPosts(data) {
+function setStored(data) {
   try {
-    localStorage.setItem(
-      BLOG_STORAGE_KEY,
-      JSON.stringify({
-        data,
-        timestamp: Date.now(),
-      })
-    );
-  } catch {
-    // ignore storage errors
-  }
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ data, timestamp: Date.now() }));
+  } catch {}
 }
 
 export function clearBlogPostsCache() {
-  allPostsCache.clear();
-
-  try {
-    localStorage.removeItem(BLOG_STORAGE_KEY);
-  } catch {
-    // ignore storage errors
-  }
+  memoryCache.clear();
+  try { localStorage.removeItem(STORAGE_KEY); } catch {}
 }
 
 export async function prefetchBlogPosts() {
-  if (allPostsCache.has(allPostsCacheKey)) {
-    return allPostsCache.get(allPostsCacheKey) || [];
+  if (memoryCache.has(CACHE_KEY)) return memoryCache.get(CACHE_KEY) || [];
+  const stored = getStored();
+  if (stored && !stored.expired) {
+    memoryCache.set(CACHE_KEY, stored.data);
+    return stored.data;
   }
-
-  const storedPosts =
-    typeof window !== "undefined" ? getStoredPosts() : null;
-
-  if (storedPosts) {
-    allPostsCache.set(allPostsCacheKey, storedPosts);
-    return storedPosts;
-  }
-
   const data = await getAllPosts();
-  const safeData = data || [];
+  const safe = data || [];
+  memoryCache.set(CACHE_KEY, safe);
+  setStored(safe);
+  return safe;
+}
 
-  allPostsCache.set(allPostsCacheKey, safeData);
-
-  if (typeof window !== "undefined") {
-    setStoredPosts(safeData);
+async function fetchWithTimeout(ms) {
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), ms);
+  try {
+    const data = await getAllPosts(controller.signal);
+    clearTimeout(id);
+    return data || [];
+  } catch (err) {
+    clearTimeout(id);
+    throw err;
   }
-
-  return safeData;
 }
 
 export function useBlogPosts() {
-  const storedPosts =
-    typeof window !== "undefined" ? getStoredPosts() : null;
+  const stored = getStored();
+  const memoryCached = memoryCache.get(CACHE_KEY);
 
-  const cachedPosts =
-    allPostsCache.get(allPostsCacheKey) || storedPosts || [];
+  const initialPosts = memoryCached || stored?.data || [];
+  const hasStale = initialPosts.length > 0;
+  const needsFresh = !memoryCached && (!stored || stored.expired);
 
-  const [posts, setPosts] = useState(cachedPosts);
-  const [loading, setLoading] = useState(
-    !allPostsCache.has(allPostsCacheKey) && !storedPosts
-  );
+  const [posts, setPosts] = useState(initialPosts);
+  const [loading, setLoading] = useState(!hasStale);
+  const [revalidating, setRevalidating] = useState(hasStale && needsFresh);
   const [error, setError] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    if (allPostsCache.has(allPostsCacheKey)) {
-      setPosts(allPostsCache.get(allPostsCacheKey) || []);
+    if (memoryCached) {
+      setPosts(memoryCached);
       setLoading(false);
-      setError("");
-      return;
-    }
-
-    const stored = getStoredPosts();
-
-    if (stored) {
-      allPostsCache.set(allPostsCacheKey, stored);
-      setPosts(stored);
-      setLoading(false);
-      setError("");
+      setRevalidating(false);
       return;
     }
 
     let isMounted = true;
 
-    async function loadPosts() {
+    async function load() {
       try {
-        setLoading(true);
+        if (!hasStale) setLoading(true);
+        else setRevalidating(true);
         setError("");
 
-        const data = await getAllPosts();
-        const safeData = data || [];
-
+        const data = await fetchWithTimeout(FETCH_TIMEOUT);
         if (!isMounted) return;
 
-        allPostsCache.set(allPostsCacheKey, safeData);
-        setStoredPosts(safeData);
-        setPosts(safeData);
+        memoryCache.set(CACHE_KEY, data);
+        setStored(data);
+        setPosts(data);
       } catch (err) {
         if (!isMounted) return;
-        setError(err.message || "Failed to fetch posts");
+        if (!hasStale) {
+          setError(
+            err.name === "AbortError"
+              ? "Server is taking too long. Please try again."
+              : err.message || "Failed to fetch posts"
+          );
+        }
       } finally {
         if (isMounted) {
           setLoading(false);
+          setRevalidating(false);
         }
       }
     }
 
-    loadPosts();
-
-    return () => {
-      isMounted = false;
-    };
+    load();
+    return () => { isMounted = false; };
   }, []);
 
   const categories = useMemo(() => {
-    const uniqueCategories = [
-      ...new Set(posts.map((post) => post.category).filter(Boolean)),
-    ];
-
-    return ["All", ...uniqueCategories];
+    const unique = [...new Set(posts.map((p) => p.category).filter(Boolean))];
+    return ["All", ...unique];
   }, [posts]);
 
   const filteredPosts = useMemo(() => {
     const query = normalizeSearch(searchTerm);
-
     return posts.filter((post) => {
-      const matchesCategory =
-        activeCategory === "All" || post.category === activeCategory;
-
-      if (!query) return matchesCategory;
-
-      const searchableText = [
-        post.title,
-        post.excerpt,
-        post.category,
-        ...(Array.isArray(post.tags) ? post.tags : []),
-      ]
-        .filter(Boolean)
-        .join(" ")
-        .toLowerCase();
-
-      return matchesCategory && searchableText.includes(query);
+      const matchesCat = activeCategory === "All" || post.category === activeCategory;
+      if (!query) return matchesCat;
+      const text = [post.title, post.excerpt, post.category, ...(post.tags || [])]
+        .filter(Boolean).join(" ").toLowerCase();
+      return matchesCat && text.includes(query);
     });
   }, [posts, activeCategory, searchTerm]);
 
-  const featuredPost = useMemo(() => {
-    return filteredPosts.find((post) => post.featured) || null;
-  }, [filteredPosts]);
-
-  const nonFeaturedPosts = useMemo(() => {
-    return featuredPost
-      ? filteredPosts.filter((post) => post._id !== featuredPost._id)
-      : filteredPosts;
-  }, [filteredPosts, featuredPost]);
-
-  const totalPages = Math.max(
-    1,
-    Math.ceil(nonFeaturedPosts.length / POSTS_PER_PAGE)
+  const featuredPost = useMemo(
+    () => filteredPosts.find((p) => p.featured) || null,
+    [filteredPosts]
   );
 
+  const nonFeaturedPosts = useMemo(
+    () => featuredPost ? filteredPosts.filter((p) => p._id !== featuredPost._id) : filteredPosts,
+    [filteredPosts, featuredPost]
+  );
+
+  const totalPages = Math.max(1, Math.ceil(nonFeaturedPosts.length / POSTS_PER_PAGE));
+
   const paginatedPosts = useMemo(() => {
-    const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
-    const endIndex = startIndex + POSTS_PER_PAGE;
-    return nonFeaturedPosts.slice(startIndex, endIndex);
+    const start = (currentPage - 1) * POSTS_PER_PAGE;
+    return nonFeaturedPosts.slice(start, start + POSTS_PER_PAGE);
   }, [nonFeaturedPosts, currentPage]);
 
+  useEffect(() => { setCurrentPage(1); }, [searchTerm, activeCategory]);
   useEffect(() => {
-    setCurrentPage(1);
-  }, [searchTerm, activeCategory]);
-
-  useEffect(() => {
-    if (currentPage > totalPages) {
-      setCurrentPage(totalPages);
-    }
+    if (currentPage > totalPages) setCurrentPage(totalPages);
   }, [currentPage, totalPages]);
 
   return {
@@ -216,6 +163,7 @@ export function useBlogPosts() {
     featuredPost,
     categories,
     loading,
+    revalidating,
     error,
     searchTerm,
     setSearchTerm,

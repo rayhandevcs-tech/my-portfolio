@@ -1,163 +1,135 @@
 import { useEffect, useMemo, useState } from "react";
 import { getAllBooks } from "../services/api/bookApi";
 
-const allBooksCacheKey = "all-books-cache";
-const allBooksCache = new Map();
+const CACHE_KEY = "all-books-cache";
+const STORAGE_KEY = "book-reviews-cache-v1";
+const STORAGE_TTL = 1000 * 60 * 10;
+const FETCH_TIMEOUT = 8000;
 
-const BOOKS_STORAGE_KEY = "book-reviews-cache-v1";
-const BOOKS_STORAGE_TTL = 1000 * 60 * 10; // 10 minutes
+const memoryCache = new Map();
 
-function getStoredBooks() {
+function getStored() {
   try {
-    const raw = localStorage.getItem(BOOKS_STORAGE_KEY);
+    const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return null;
-
     const parsed = JSON.parse(raw);
-
-    if (!parsed?.data || !parsed?.timestamp) {
-      return null;
-    }
-
-    const isExpired = Date.now() - parsed.timestamp > BOOKS_STORAGE_TTL;
-
-    if (isExpired) {
-      localStorage.removeItem(BOOKS_STORAGE_KEY);
-      return null;
-    }
-
-    return parsed.data;
+    if (!parsed?.data || !parsed?.timestamp) return null;
+    return { data: parsed.data, expired: Date.now() - parsed.timestamp > STORAGE_TTL };
   } catch {
     return null;
   }
 }
 
-function setStoredBooks(data) {
+function setStored(data) {
   try {
-    localStorage.setItem(
-      BOOKS_STORAGE_KEY,
-      JSON.stringify({
-        data,
-        timestamp: Date.now(),
-      })
-    );
-  } catch {
-    // ignore storage errors
-  }
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ data, timestamp: Date.now() }));
+  } catch {}
 }
 
 export function clearBookReviewsCache() {
-  allBooksCache.clear();
-
-  try {
-    localStorage.removeItem(BOOKS_STORAGE_KEY);
-  } catch {
-    // ignore storage errors
-  }
+  memoryCache.clear();
+  try { localStorage.removeItem(STORAGE_KEY); } catch {}
 }
 
 export async function prefetchBookReviews() {
-  if (allBooksCache.has(allBooksCacheKey)) {
-    return allBooksCache.get(allBooksCacheKey) || [];
+  if (memoryCache.has(CACHE_KEY)) return memoryCache.get(CACHE_KEY) || [];
+  const stored = getStored();
+  if (stored && !stored.expired) {
+    memoryCache.set(CACHE_KEY, stored.data);
+    return stored.data;
   }
-
-  const storedBooks =
-    typeof window !== "undefined" ? getStoredBooks() : null;
-
-  if (storedBooks) {
-    allBooksCache.set(allBooksCacheKey, storedBooks);
-    return storedBooks;
-  }
-
   const data = await getAllBooks();
-  const safeData = data || [];
+  const safe = data || [];
+  memoryCache.set(CACHE_KEY, safe);
+  setStored(safe);
+  return safe;
+}
 
-  allBooksCache.set(allBooksCacheKey, safeData);
-
-  if (typeof window !== "undefined") {
-    setStoredBooks(safeData);
+async function fetchWithTimeout(ms) {
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), ms);
+  try {
+    const data = await getAllBooks(controller.signal);
+    clearTimeout(id);
+    return data || [];
+  } catch (err) {
+    clearTimeout(id);
+    throw err;
   }
-
-  return safeData;
 }
 
 export function useBookReviews() {
-  const storedBooks =
-    typeof window !== "undefined" ? getStoredBooks() : null;
+  const stored = getStored();
+  const memoryCached = memoryCache.get(CACHE_KEY);
 
-  const cachedBooks =
-    allBooksCache.get(allBooksCacheKey) || storedBooks || [];
+  const initialBooks = memoryCached || stored?.data || [];
+  const hasStale = initialBooks.length > 0;
+  const needsFresh = !memoryCached && (!stored || stored.expired);
 
-  const [books, setBooks] = useState(cachedBooks);
-  const [loading, setLoading] = useState(
-    !allBooksCache.has(allBooksCacheKey) && !storedBooks
-  );
+  const [books, setBooks] = useState(initialBooks);
+  const [loading, setLoading] = useState(!hasStale);
+  const [revalidating, setRevalidating] = useState(hasStale && needsFresh);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (allBooksCache.has(allBooksCacheKey)) {
-      setBooks(allBooksCache.get(allBooksCacheKey) || []);
+    if (memoryCached) {
+      setBooks(memoryCached);
       setLoading(false);
-      setError("");
-      return;
-    }
-
-    const stored = getStoredBooks();
-
-    if (stored) {
-      allBooksCache.set(allBooksCacheKey, stored);
-      setBooks(stored);
-      setLoading(false);
-      setError("");
+      setRevalidating(false);
       return;
     }
 
     let isMounted = true;
 
-    async function loadBooks() {
+    async function load() {
       try {
-        setLoading(true);
+        if (!hasStale) setLoading(true);
+        else setRevalidating(true);
         setError("");
 
-        const data = await getAllBooks();
-        const safeData = data || [];
-
+        const data = await fetchWithTimeout(FETCH_TIMEOUT);
         if (!isMounted) return;
 
-        allBooksCache.set(allBooksCacheKey, safeData);
-        setStoredBooks(safeData);
-        setBooks(safeData);
+        memoryCache.set(CACHE_KEY, data);
+        setStored(data);
+        setBooks(data);
       } catch (err) {
         if (!isMounted) return;
-        setError(err.message || "Failed to fetch book reviews");
+        if (!hasStale) {
+          setError(
+            err.name === "AbortError"
+              ? "Server is taking too long. Please try again."
+              : err.message || "Failed to fetch book reviews"
+          );
+        }
       } finally {
         if (isMounted) {
           setLoading(false);
+          setRevalidating(false);
         }
       }
     }
 
-    loadBooks();
-
-    return () => {
-      isMounted = false;
-    };
+    load();
+    return () => { isMounted = false; };
   }, []);
 
-  const featuredBook = useMemo(() => {
-    return books.find((book) => book.featured) || null;
-  }, [books]);
+  const featuredBook = useMemo(
+    () => books.find((b) => b.featured) || null,
+    [books]
+  );
 
-  const regularBooks = useMemo(() => {
-    return featuredBook
-      ? books.filter((book) => book._id !== featuredBook._id)
-      : books;
-  }, [books, featuredBook]);
+  const regularBooks = useMemo(
+    () => featuredBook ? books.filter((b) => b._id !== featuredBook._id) : books,
+    [books, featuredBook]
+  );
 
   return {
     books,
     regularBooks,
     featuredBook,
     loading,
+    revalidating,
     error,
   };
 }

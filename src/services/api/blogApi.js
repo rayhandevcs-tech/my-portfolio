@@ -18,8 +18,8 @@ async function parseResponse(response, fallbackMessage) {
   return data;
 }
 
-export async function getAllPosts() {
-  const response = await fetch(API_URL);
+export async function getAllPosts(signal) {
+  const response = await fetch(API_URL, { signal });
   const data = await parseResponse(response, "Failed to fetch posts");
   return data?.data || [];
 }

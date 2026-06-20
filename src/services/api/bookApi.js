@@ -18,8 +18,8 @@ async function parseResponse(response, fallbackMessage) {
   return data;
 }
 
-export async function getAllBooks() {
-  const response = await fetch(API_URL);
+export async function getAllBooks(signal) {
+  const response = await fetch(API_URL, { signal });
   const data = await parseResponse(response, "Failed to fetch books");
   return data?.data || [];
 }

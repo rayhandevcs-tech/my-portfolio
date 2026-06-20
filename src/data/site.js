@@ -12,8 +12,9 @@ export const siteConfig = {
     description:
       "I'm a Computer Science student focused on building clean, responsive web interfaces. Alongside frontend work, I'm strengthening my foundation in C++, Java, SQL, and React — while staying curious about leadership, books, and community.",
     chips: ["React", "JavaScript", "C++", "Node.js", "MongoDB", "Problem Solving"],
-    primaryCta: { label: "View Projects", href: "#projects" },
+    primaryCta: { label: "View Projects", to: "/projects" },
     secondaryCta: { label: "Read Blog", to: "/blog" },
+    resumeCta: { label: "Download CV", href: "/resume.pdf" },
     socials: [
       { label: "Email", href: "mailto:rayhan.dev.cs@gmail.com" },
       { label: "GitHub", href: "https://github.com/rayhandevcs-tech" },
@@ -65,6 +66,7 @@ export const siteConfig = {
 
   navLinks: [
     { label: "Home", path: "/" },
+    { label: "Projects", path: "/projects" },
     { label: "Blog", path: "/blog" },
     { label: "BookReview", path: "/book-reviews" },
     { label: "Academics", path: "/coursework" },
