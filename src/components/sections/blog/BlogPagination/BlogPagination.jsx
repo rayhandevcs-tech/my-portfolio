@@ -1,6 +1,9 @@
+import { useTranslation } from "../../../../hooks/useTranslation";
 import "./BlogPagination.css";
 
 function BlogPagination({ currentPage, totalPages, onPageChange }) {
+  const t = useTranslation("blog");
+
   if (totalPages <= 1) return null;
 
   return (
@@ -10,11 +13,11 @@ function BlogPagination({ currentPage, totalPages, onPageChange }) {
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
       >
-        Prev
+        {t.prev}
       </button>
 
       <span>
-        Page {currentPage} of {totalPages}
+        {t.page} {currentPage} {t.of} {totalPages}
       </span>
 
       <button
@@ -22,7 +25,7 @@ function BlogPagination({ currentPage, totalPages, onPageChange }) {
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
       >
-        Next
+        {t.next}
       </button>
     </div>
   );

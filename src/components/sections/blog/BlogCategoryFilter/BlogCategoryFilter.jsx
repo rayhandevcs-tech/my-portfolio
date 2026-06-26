@@ -1,6 +1,9 @@
+import { useTranslation } from "../../../../hooks/useTranslation";
 import "./BlogCategoryFilter.css";
 
 function BlogCategoryFilter({ categories, activeCategory, onCategoryChange }) {
+  const t = useTranslation("blog");
+
   return (
     <div className="blog-category-filter">
       {categories.map((category) => (
@@ -10,7 +13,7 @@ function BlogCategoryFilter({ categories, activeCategory, onCategoryChange }) {
           className={activeCategory === category ? "active" : ""}
           onClick={() => onCategoryChange(category)}
         >
-          {category}
+          {category === "All" ? t.all : category}
         </button>
       ))}
     </div>

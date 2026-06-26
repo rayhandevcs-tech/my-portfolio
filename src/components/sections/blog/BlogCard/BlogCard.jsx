@@ -3,10 +3,12 @@ import { Link } from "react-router-dom";
 import Tag from "../../../common/Tag/Tag";
 import { prefetchBlogPost } from "../../../../hooks/useBlogPost";
 import { optimizeCloudinaryImage } from "../../../../utils/optimizeCloudinaryImage";
+import { useTranslation } from "../../../../hooks/useTranslation";
 import "./BlogCard.css";
 
 function BlogCard({ post }) {
   const prefetchedRef = useRef(false);
+  const t = useTranslation("blog");
 
   if (!post) return null;
 
@@ -66,7 +68,7 @@ function BlogCard({ post }) {
             onMouseEnter={handlePrefetch}
             onFocus={handlePrefetch}
           >
-            Read more →
+            {t.readMore}
           </Link>
         </div>
       </div>

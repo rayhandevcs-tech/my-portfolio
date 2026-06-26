@@ -1,6 +1,9 @@
+import { useTranslation } from "../../../../hooks/useTranslation";
 import "./BookPagination.css";
 
 function BookPagination({ currentPage, totalPages, onPageChange }) {
+  const t = useTranslation("bookReviews");
+
   if (totalPages <= 1) return null;
 
   const pages = Array.from({ length: totalPages }, (_, index) => index + 1);
@@ -13,7 +16,7 @@ function BookPagination({ currentPage, totalPages, onPageChange }) {
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
       >
-        ← Prev
+        {t.prev}
       </button>
 
       <div className="book-pagination__pages">
@@ -37,7 +40,7 @@ function BookPagination({ currentPage, totalPages, onPageChange }) {
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
       >
-        Next →
+        {t.next}
       </button>
     </nav>
   );

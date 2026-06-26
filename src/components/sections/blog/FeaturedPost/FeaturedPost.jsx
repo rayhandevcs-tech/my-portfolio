@@ -2,10 +2,12 @@ import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { prefetchBlogPost } from "../../../../hooks/useBlogPost";
 import { optimizeCloudinaryImage } from "../../../../utils/optimizeCloudinaryImage";
+import { useTranslation } from "../../../../hooks/useTranslation";
 import "./FeaturedPost.css";
 
 function FeaturedPost({ post }) {
   const prefetchedRef = useRef(false);
+  const t = useTranslation("blog");
 
   if (!post) return null;
 
@@ -25,7 +27,7 @@ function FeaturedPost({ post }) {
 
         {/* ── Content ── */}
         <div className="blog-featured__content">
-          <p className="eyebrow">Featured Post</p>
+          <p className="eyebrow">{t.featuredLabel}</p>
 
           <h2>{title}</h2>
 
@@ -43,7 +45,7 @@ function FeaturedPost({ post }) {
             onMouseEnter={handlePrefetch}
             onFocus={handlePrefetch}
           >
-            Read Featured Post
+            {t.readFeatured}
           </Link>
         </div>
 

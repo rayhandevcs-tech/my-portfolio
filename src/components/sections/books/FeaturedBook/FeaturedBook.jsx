@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import { optimizeCloudinaryImage } from "../../../../utils/optimizeCloudinaryImage";
+import { useTranslation } from "../../../../hooks/useTranslation";
 import "./FeaturedBook.css";
 
 function FeaturedBook({ book }) {
+  const t = useTranslation("bookReviews");
+
   if (!book) return null;
 
   const {
@@ -20,7 +23,7 @@ function FeaturedBook({ book }) {
     <section className="featured-book card">
       <div className="featured-book__grid">
         <div className="featured-book__content">
-          <p className="featured-book__eyebrow">Featured Book</p>
+          <p className="featured-book__eyebrow">{t.featuredLabel}</p>
 
           <h2>{title}</h2>
 
@@ -46,7 +49,7 @@ function FeaturedBook({ book }) {
 
         <div className="featured-book__actions">
           <Link to={`/book-reviews/${slug}`} className="featured-book__btn">
-            Read Full Review
+            {t.readReview}
           </Link>
         </div>
       </div>

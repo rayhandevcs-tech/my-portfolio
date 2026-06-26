@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import { optimizeCloudinaryImage } from "../../../../utils/optimizeCloudinaryImage";
+import { useTranslation } from "../../../../hooks/useTranslation";
 import "./BookReviewCard.css";
 
 function BookReviewCard({ book }) {
+  const t = useTranslation("bookReviews");
+
   if (!book) return null;
 
   const { title, author, category, rating, coverImage, excerpt, publishedAt, slug } = book;
@@ -41,7 +44,7 @@ function BookReviewCard({ book }) {
 
         {author && (
           <p className="book-review-card__author">
-            <strong>Author:</strong> {author}
+            <strong>{t.author}:</strong> {author}
           </p>
         )}
 
@@ -56,7 +59,7 @@ function BookReviewCard({ book }) {
 
         <div className="book-review-card__footer">
           <Link to={`/book-reviews/${slug}`} className="book-review-card__read">
-            Read Full Review →
+            {t.readReviewArrow}
           </Link>
         </div>
       </div>
