@@ -6,6 +6,7 @@ import ThemeToggle from "../../common/ThemeToggle/ThemeToggle";
 import { clearAuth, isAuthenticated } from "../../../utils/auth";
 import { prefetchBlogPosts } from "../../../hooks/useBlogPosts";
 import { prefetchBookReviews } from "../../../hooks/useBookReviews";
+import { useLang } from "../../../context/LanguageContext";
 
 import "./Navbar.css";
 
@@ -13,6 +14,7 @@ function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
   const loggedIn = isAuthenticated();
+  const { lang, toggleLang } = useLang();
 
   const closeMenu = () => setMenuOpen(false);
   const toggleMenu = () => setMenuOpen((prev) => !prev);
@@ -39,6 +41,15 @@ function Navbar() {
         <div className="navbar__actions">
           {/* Desktop এ ThemeToggle nav এর ভেতরে, mobile এ এখানে */}
           <div className="navbar__theme-mobile">
+            <button
+              type="button"
+              className="lang-toggle"
+              onClick={toggleLang}
+              aria-label={`Switch to ${lang === "en" ? "Bangla" : "English"}`}
+              title="Toggle language"
+            >
+              {lang === "en" ? "বাংলা" : "EN"}
+            </button>
             <ThemeToggle />
           </div>
 
@@ -102,6 +113,15 @@ function Navbar() {
 
           {/* Desktop এ Rayn's Notes এর পাশে */}
           <div className="navbar__theme-desktop">
+            <button
+              type="button"
+              className="lang-toggle"
+              onClick={toggleLang}
+              aria-label={`Switch to ${lang === "en" ? "Bangla" : "English"}`}
+              title="Toggle language"
+            >
+              {lang === "en" ? "বাংলা" : "EN"}
+            </button>
             <ThemeToggle />
           </div>
         </nav>

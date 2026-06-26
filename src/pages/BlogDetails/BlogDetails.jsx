@@ -4,6 +4,7 @@ import { useBlogPost } from "../../hooks/useBlogPost";
 import { useRelatedPosts } from "../../hooks/useRelatedPosts";
 import { optimizeCloudinaryImage } from "../../utils/optimizeCloudinaryImage";
 import Seo from "../../components/common/Seo/Seo";
+import { SITE_URL } from "../../data/site";
 import RelatedPosts from "../../components/sections/blog/RelatedPosts/RelatedPosts";
 import ReadingProgress from "../../components/common/ReadingProgress/ReadingProgress";
 import "./BlogDetails.css";
@@ -98,7 +99,7 @@ function BlogDetails() {
             : `${post.category || "blog"}, developer blog`
         }
         image={optimizedCoverImage || "/images/og-default.jpg"}
-        url={`https://rayhancsdev.vercel.app/blog/${post.slug}`}
+        url={`${SITE_URL}/blog/${post.slug}`}
         type="article"
       />
 

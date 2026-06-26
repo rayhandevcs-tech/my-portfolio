@@ -7,9 +7,12 @@ import BlogSearchBar from "../../components/sections/blog/BlogSearchBar/BlogSear
 import FeaturedPost from "../../components/sections/blog/FeaturedPost/FeaturedPost";
 import BlogPagination from "../../components/sections/blog/BlogPagination/BlogPagination";
 import { useBlogPosts } from "../../hooks/useBlogPosts";
+import { useTranslation } from "../../hooks/useTranslation";
+import { SITE_URL } from "../../data/site";
 import "./Blog.css";
 
 function Blog() {
+  const t = useTranslation("blog");
 
   const {
 
@@ -36,15 +39,12 @@ function Blog() {
           title="Blog | RayhanDev"
           description="Read blog posts about React, full-stack development, architecture, debugging, and project building."
           keywords="blog, react blog, full stack blog, developer notes, javascript, mongodb"
-          url="https://rayhancsdev.vercel.app/blog"
+          url={`${SITE_URL}/blog`}
           type="website"
         />
 
         <main className="blog-page">
-          <PageHero
-            title="Blog"
-            subtitle="Thoughts, lessons, experiments, and notes from my full-stack learning journey."
-          />
+          <PageHero title={t.title} subtitle={t.subtitle} />
 
           <section className="blog-page__content section">
             <div className="blog-skeleton-grid">
@@ -82,20 +82,17 @@ function Blog() {
           title="Blog | RayhanDev"
           description="Read blog posts about React, full-stack development, architecture, debugging, and project building."
           keywords="blog, react blog, full stack blog, developer notes, javascript, mongodb"
-          url="https://rayhancsdev.vercel.app/blog"
+          url={`${SITE_URL}/blog`}
           type="website"
         />
 
         <main className="blog-page">
-          <PageHero
-            title="Blog"
-            subtitle="Thoughts, lessons, experiments, and notes from my full-stack learning journey."
-          />
+          <PageHero title={t.title} subtitle={t.subtitle} />
 
           <section className="blog-page__content section">
             <EmptyState
-              title="Unable to load posts"
-              message={error || "Something went wrong while loading blog posts."}
+              title={t.unableToLoad}
+              message={error || t.loadingError}
             />
           </section>
         </main>
@@ -111,16 +108,13 @@ function Blog() {
         title="Blog | RayhanDev"
         description="Read blog posts about React, full-stack development, architecture, debugging, and project building."
         keywords="blog, react blog, full stack blog, developer notes, javascript, mongodb"
-        url="https://rayhancsdev.vercel.app/blog"
+        url={`${SITE_URL}/blog`}
         type="website"
       />
 
       <main className="blog-page">
 
-        <PageHero
-        title="Blog"
-        subtitle="Sharing my journey in frontend development, programming, problem-solving, and continuous learning through practical experiences and ideas."
-      />
+        <PageHero title={t.title} subtitle={t.subtitle} />
 
         <section className="blog-page__content section">
 
@@ -147,10 +141,8 @@ function Blog() {
           {filteredPosts.length === 0 ? (
 
             <EmptyState
-
-              title="No posts found"
-              message="Try another keyword or category."
-
+              title={t.noResults}
+              message={t.noResultsMsg}
             />
 
           ) : (

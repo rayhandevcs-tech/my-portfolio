@@ -3,6 +3,7 @@ import { useNavigate, useParams, Link } from "react-router-dom";
 import Seo from "../../components/common/Seo/Seo";
 import ReadingProgress from "../../components/common/ReadingProgress/ReadingProgress";
 import { useBookReview } from "../../hooks/useBookReview";
+import { SITE_URL } from "../../data/site";
 import { useRelatedBooks } from "../../hooks/useRelatedBooks";
 import { optimizeCloudinaryImage } from "../../utils/optimizeCloudinaryImage";
 import "./BookReviewDetails.css";
@@ -79,7 +80,7 @@ function BookReviewDetails() {
         description={book.excerpt || "Read this book review on RayhanDev."}
         keywords={`${book.category || "books"}, ${book.author || "author"}, book review`}
         image={optimizeCloudinaryImage(book.coverImage || "/images/og-default.jpg", 1200)}
-        url={`https://rayhancsdev.vercel.app/book-reviews/${book.slug}`}
+        url={`${SITE_URL}/book-reviews/${book.slug}`}
         type="article"
       />
 

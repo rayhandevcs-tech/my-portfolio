@@ -3,6 +3,7 @@ import { useProjects } from "../../hooks/useProjects";
 import { optimizeCloudinaryImage } from "../../utils/optimizeCloudinaryImage";
 import Tag from "../../components/common/Tag/Tag";
 import Seo from "../../components/common/Seo/Seo";
+import { SITE_URL } from "../../data/site";
 import PageHero from "../../components/common/PageHero/PageHero";
 import "./Projects.css";
 
@@ -17,7 +18,7 @@ function Projects() {
       <Seo
         title="Projects | RayhanDev"
         description="A collection of projects built by Rayhan — full-stack web apps, academic projects, and more."
-        url="https://rayhancsdev.vercel.app/projects"
+        url={`${SITE_URL}/projects`}
       />
 
       <main className="projects-page">

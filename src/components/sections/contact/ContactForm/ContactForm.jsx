@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { submitContactMessage } from "../../../../services/api/contactApi";
 
-const initialForm = { name: "", email: "", phone: "", subject: "", message: "" };
+const initialForm = { name: "", email: "", phone: "", subject: "", message: "", website: "" };
 
 function ContactForm() {
   const [formData, setFormData] = useState(initialForm);
@@ -15,6 +15,7 @@ function ContactForm() {
   }
 
   function validateForm() {
+    if (formData.website) return "spam";
     if (!formData.name.trim()) return "Name is required.";
     if (!formData.email.trim()) return "Email is required.";
     if (!formData.subject.trim()) return "Subject is required.";
@@ -28,10 +29,12 @@ function ContactForm() {
     setSuccessMessage("");
     setErrorMessage("");
     const validationError = validateForm();
+    if (validationError === "spam") return;
     if (validationError) { setErrorMessage(validationError); return; }
     try {
       setLoading(true);
-      const response = await submitContactMessage(formData);
+      const { website: _hp, ...payload } = formData;
+      const response = await submitContactMessage(payload);
       setSuccessMessage(response.message || "Your message has been sent successfully.");
       setFormData(initialForm);
     } catch (error) {
@@ -51,7 +54,21 @@ function ContactForm() {
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="contact-form">
+      <form onSubmit={handleSubmit} className="contact-form" noValidate>
+        {/* Honeypot: hidden from humans, bots fill it */}
+        <div aria-hidden="true" style={{ position: "absolute", left: "-9999px", opacity: 0, pointerEvents: "none" }}>
+          <label htmlFor="website">Website</label>
+          <input
+            id="website"
+            name="website"
+            type="text"
+            value={formData.website}
+            onChange={handleChange}
+            tabIndex={-1}
+            autoComplete="off"
+          />
+        </div>
+
         <div className="contact-form__row">
           <div className="contact-form__group">
             <label htmlFor="name">Name <span>*</span></label>

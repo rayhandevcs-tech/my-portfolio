@@ -2,6 +2,7 @@ import projectImg1 from "../assets/images/Portfolio1.png";
 import projectImg2 from "../assets/images/ocms.png";
 import projectImg3 from "../assets/images/tms.png";
 import projectImg4 from "../assets/images/shms.png";
+import { SITE_URL } from "./site";
 
 export const projects = [
 {
@@ -113,7 +114,7 @@ export const projects = [
     ],
 
     github: "https://github.com/rayhandevcs-tech/my-portfolio",
-    live: "https://rayhancsdev.vercel.app/",
+    live: SITE_URL,
     },
 
     {

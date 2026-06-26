@@ -6,11 +6,15 @@ import BookReviewCard from "../../components/sections/books/BookReviewCard/BookR
 import FeaturedBook from "../../components/sections/books/FeaturedBook/FeaturedBook";
 import BookPagination from "../../components/sections/books/BookPagination/BookPagination";
 import { useBookReviews } from "../../hooks/useBookReviews";
+import { useTranslation } from "../../hooks/useTranslation";
+import { SITE_URL } from "../../data/site";
 import "./BookReviews.css";
 
 const BOOKS_PER_PAGE = 4;
 
 function BookReviews() {
+  const t = useTranslation("bookReviews");
+
   const {
     regularBooks = [],
     featuredBook = null,
@@ -50,15 +54,12 @@ function BookReviews() {
           title="Book Reviews | RayhanDev"
           description="Book reviews, notes, and reflections on learning, productivity, mindset, and self-development."
           keywords="book reviews, self development books, developer reading list, productivity books"
-          url="https://rayhancsdev.vercel.app/book-reviews"
+          url={`${SITE_URL}/book-reviews`}
           type="website"
         />
 
         <main className="book-reviews-page">
-          <PageHero
-            title="Book Reviews"
-            subtitle="Books that shaped my thinking, learning, and personal growth."
-          />
+          <PageHero title={t.title} subtitle={t.subtitle} />
 
           <section className="book-reviews-page__content section">
             <div className="container">
@@ -103,23 +104,18 @@ function BookReviews() {
           title="Book Reviews | RayhanDev"
           description="Book reviews, notes, and reflections on learning, productivity, mindset, and self-development."
           keywords="book reviews, self development books, developer reading list, productivity books"
-          url="https://rayhancsdev.vercel.app/book-reviews"
+          url={`${SITE_URL}/book-reviews`}
           type="website"
         />
 
         <main className="book-reviews-page">
-          <PageHero
-            title="Book Reviews"
-            subtitle="Books that shaped my thinking, learning, and personal growth."
-          />
+          <PageHero title={t.title} subtitle={t.subtitle} />
 
           <section className="book-reviews-page__content section">
             <div className="container">
               <EmptyState
-                title="Unable to load book reviews"
-                message={
-                  error || "Something went wrong while loading book reviews."
-                }
+                title={t.unableToLoad}
+                message={error || t.loadingError}
               />
             </div>
           </section>
@@ -134,15 +130,12 @@ function BookReviews() {
         title="Book Reviews | RayhanDev"
         description="Book reviews, notes, and reflections on learning, productivity, mindset, and self-development."
         keywords="book reviews, self development books, developer reading list, productivity books"
-        url="https://rayhancsdev.vercel.app/book-reviews"
+        url={`${SITE_URL}/book-reviews`}
         type="website"
       />
 
       <main className="book-reviews-page">
-        <PageHero
-          title="Book Reviews"
-          subtitle="Books that shaped my thinking, learning, and personal growth."
-        />
+        <PageHero title={t.title} subtitle={t.subtitle} />
 
         <section className="book-reviews-page__content section">
           
@@ -155,8 +148,8 @@ function BookReviews() {
 
             {!featuredBook && regularBooks.length === 0 ? (
               <EmptyState
-                title="No book reviews yet"
-                message="Book reviews will appear here once they are published."
+                title={t.noReviews}
+                message={t.noReviewsMsg}
               />
             ) : (
               <>

@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
+import PageLoader from "../components/common/PageLoader/PageLoader";
 
 import ProtectedRoute from "../components/auth/ProtectedRoute/ProtectedRoute";
 import AdminLayout from "../components/admin/AdminLayout/AdminLayout";
@@ -19,6 +20,8 @@ const Projects = lazy(() => import("../pages/Projects/Projects"));
 const ProjectDetails = lazy(() =>
   import("../pages/ProjectDetails/ProjectDetails")
 );
+const Academia = lazy(() => import("../pages/Academia/Academia"));
+const Travel = lazy(() => import("../pages/Travel/Travel"));
 const NotFound = lazy(() => import("../pages/NotFound/NotFound"));
 
 const AdminLogin = lazy(() => import("../pages/AdminLogin/AdminLogin"));
@@ -38,10 +41,6 @@ const AdminBookNew = lazy(() => import("../pages/AdminBookNew/AdminBookNew"));
 const AdminBookEdit = lazy(() =>
   import("../pages/AdminBookEdit/AdminBookEdit")
 );
-
-function PageLoader() {
-  return <div style={{ padding: "40px" }}>Loading...</div>;
-}
 
 function LazyPage({ children }) {
   return <Suspense fallback={<PageLoader />}>{children}</Suspense>;
@@ -134,6 +133,22 @@ export const router = createBrowserRouter([
         element: (
           <LazyPage>
             <ProjectDetails />
+          </LazyPage>
+        ),
+      },
+      {
+        path: "research",
+        element: (
+          <LazyPage>
+            <Academia />
+          </LazyPage>
+        ),
+      },
+      {
+        path: "travel",
+        element: (
+          <LazyPage>
+            <Travel />
           </LazyPage>
         ),
       },

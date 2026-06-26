@@ -1,10 +1,20 @@
+import { useEffect } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { clearAuth, getAdminUser } from "../../../utils/auth";
+import { clearAuth, getAdminUser, isAuthenticated } from "../../../utils/auth";
 import "./AdminLayout.css";
 
 function AdminLayout() {
   const navigate = useNavigate();
   const admin = getAdminUser();
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      if (!isAuthenticated()) {
+        navigate("/admin/login", { replace: true });
+      }
+    }, 60_000);
+    return () => clearInterval(id);
+  }, [navigate]);
 
   function handleLogout() {
     clearAuth();

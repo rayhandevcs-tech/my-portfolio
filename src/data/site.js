@@ -1,3 +1,6 @@
+export const SITE_URL =
+  import.meta.env.VITE_SITE_URL || "https://rayhancsdev.vercel.app";
+
 export const siteConfig = {
   name: "Rayhan",
   brand: "RayhanDev",
