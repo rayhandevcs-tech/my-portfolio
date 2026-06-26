@@ -118,7 +118,7 @@ function Blog() {
 
         <section className="blog-page__content section">
 
-          <BlogSearchBar value={searchTerm} onChange={setSearchTerm} />
+          <BlogSearchBar value={searchTerm} onChange={setSearchTerm} placeholder={t.searchPlaceholder} />
 
           <BlogCategoryFilter
 

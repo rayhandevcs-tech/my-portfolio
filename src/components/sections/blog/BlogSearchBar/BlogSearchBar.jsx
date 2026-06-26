@@ -1,20 +1,15 @@
 import "./BlogSearchBar.css";
 
-function BlogSearchBar({ value, onChange }) {
-
+function BlogSearchBar({ value, onChange, placeholder = "Search posts by title, category, or tag..." }) {
   return (
-
     <div className="blog-search-bar">
-
       <input
         type="text"
-        placeholder="Search posts by title, category, or tag..."
+        placeholder={placeholder}
         value={value}
         onChange={(event) => onChange(event.target.value)}
       />
-      
     </div>
-
   );
 }
 
