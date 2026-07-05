@@ -6,6 +6,7 @@ import { useBookReview } from "../../hooks/useBookReview";
 import { SITE_URL } from "../../data/site";
 import { useRelatedBooks } from "../../hooks/useRelatedBooks";
 import { optimizeCloudinaryImage } from "../../utils/optimizeCloudinaryImage";
+import { useTranslation } from "../../hooks/useTranslation";
 import "./BookReviewDetails.css";
 
 const ReactMarkdown = lazy(() => import("react-markdown"));
@@ -13,6 +14,7 @@ const ReactMarkdown = lazy(() => import("react-markdown"));
 function BookReviewDetails() {
   const { slug } = useParams();
   const navigate = useNavigate();
+  const t = useTranslation("bookReviewDetails");
 
   const { book, loading: bookLoading, error, notFound } = useBookReview(slug);
   const { relatedBooks, loading: relatedLoading } = useRelatedBooks(slug, 2);
@@ -39,8 +41,8 @@ function BookReviewDetails() {
     return (
       <main className="book-state">
         <div className="state-icon">⏳</div>
-        <h2>Loading review...</h2>
-        <p>Please wait while the review is being loaded.</p>
+        <h2>{t.loadingTitle}</h2>
+        <p>{t.loadingMsg}</p>
       </main>
     );
   }
@@ -49,10 +51,10 @@ function BookReviewDetails() {
     return (
       <main className="book-state">
         <div className="state-icon">⚠️</div>
-        <h2>Something went wrong</h2>
+        <h2>{t.errorTitle}</h2>
         <p>{error}</p>
         <button type="button" className="back-btn" onClick={() => navigate("/book-reviews")}>
-          ← Back to Books
+          {t.backToBooks}
         </button>
       </main>
     );
@@ -62,10 +64,10 @@ function BookReviewDetails() {
     return (
       <main className="book-state">
         <div className="state-icon">🔍</div>
-        <h2>Review not found</h2>
-        <p>The review you are looking for does not exist or may have moved.</p>
+        <h2>{t.notFoundTitle}</h2>
+        <p>{t.notFoundMsg}</p>
         <button type="button" className="back-btn" onClick={() => navigate("/book-reviews")}>
-          ← Back to Books
+          {t.backToBooks}
         </button>
       </main>
     );
@@ -90,7 +92,7 @@ function BookReviewDetails() {
           {/* ── Back button ── */}
           <div className="book-back-wrap">
             <button type="button" className="back-btn" onClick={() => navigate(-1)} aria-label="Go back">
-              ← Back to Blog
+              {t.backToBooks}
             </button>
           </div>
 
@@ -118,18 +120,18 @@ function BookReviewDetails() {
 
               <div className="book-meta">
                 <div className="book-meta__item">
-                  <span className="book-meta__label">Author</span>
-                  <span className="book-meta__value">{book.author || "Unknown"}</span>
+                  <span className="book-meta__label">{t.author}</span>
+                  <span className="book-meta__value">{book.author || t.unknown}</span>
                 </div>
                 <div className="book-meta__item">
-                  <span className="book-meta__label">Rating</span>
+                  <span className="book-meta__label">{t.rating}</span>
                   <span className="book-meta__value">
                     <span className="book-stars">{renderRatingStars(book.rating)}</span>
                     <span className="book-rating-val">{book.rating || 0}/5</span>
                   </span>
                 </div>
                 <div className="book-meta__item">
-                  <span className="book-meta__label">Published</span>
+                  <span className="book-meta__label">{t.published}</span>
                   <span className="book-meta__value">{formattedPublishedDate}</span>
                 </div>
               </div>
@@ -139,7 +141,7 @@ function BookReviewDetails() {
 
           {/* ── Review content ── */}
           <article className="markdown-content book-article">
-            <Suspense fallback={<p className="content-loading">Loading review...</p>}>
+            <Suspense fallback={<p className="content-loading">{t.loadingTitle}</p>}>
               <ReactMarkdown>{book.review}</ReactMarkdown>
             </Suspense>
           </article>
@@ -147,7 +149,7 @@ function BookReviewDetails() {
           {/* ── Related books ── */}
           {!relatedLoading && relatedList.length > 0 && (
             <section className="related-books">
-              <p className="related-books__label">More Reviews</p>
+              <p className="related-books__label">{t.moreReviews}</p>
               <div className="related-books__grid">
                 {relatedList.map((item) => (
                   <article key={item._id || item.slug} className="related-book-card">
@@ -166,10 +168,10 @@ function BookReviewDetails() {
                         <Link to={`/book-reviews/${item.slug}`}>{item.title}</Link>
                       </h3>
                       <p className="related-book-card__excerpt">
-                        {item.excerpt || "Read this review to learn more about the book."}
+                        {item.excerpt || t.defaultExcerpt}
                       </p>
                       <Link to={`/book-reviews/${item.slug}`} className="related-book-card__cta">
-                        Read Review →
+                        {t.readReview}
                       </Link>
                     </div>
                   </article>

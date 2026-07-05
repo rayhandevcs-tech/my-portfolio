@@ -7,6 +7,7 @@ import Seo from "../../components/common/Seo/Seo";
 import { SITE_URL } from "../../data/site";
 import RelatedPosts from "../../components/sections/blog/RelatedPosts/RelatedPosts";
 import ReadingProgress from "../../components/common/ReadingProgress/ReadingProgress";
+import { useTranslation } from "../../hooks/useTranslation";
 import "./BlogDetails.css";
 
 const ReactMarkdown = lazy(() => import("react-markdown"));
@@ -14,6 +15,7 @@ const ReactMarkdown = lazy(() => import("react-markdown"));
 function BlogDetails() {
   const { slug } = useParams();
   const navigate = useNavigate();
+  const t = useTranslation("blogDetails");
 
   const { post, loading, error, notFound } = useBlogPost(slug);
   const { relatedPosts, loading: relatedLoading } = useRelatedPosts(slug, 3);
@@ -46,8 +48,8 @@ function BlogDetails() {
     return (
       <main className="blog-details-state">
         <div className="state-icon">⏳</div>
-        <h2>Loading post...</h2>
-        <p>Please wait while the article is being loaded.</p>
+        <h2>{t.loadingTitle}</h2>
+        <p>{t.loadingMsg}</p>
       </main>
     );
   }
@@ -56,14 +58,14 @@ function BlogDetails() {
     return (
       <main className="blog-details-state">
         <div className="state-icon">⚠️</div>
-        <h2>Something went wrong</h2>
+        <h2>{t.errorTitle}</h2>
         <p>{error}</p>
         <button
           type="button"
           className="details-back-btn"
           onClick={() => navigate("/blog")}
         >
-          ← Back to Blog
+          {t.backToBlog}
         </button>
       </main>
     );
@@ -73,14 +75,14 @@ function BlogDetails() {
     return (
       <main className="blog-details-state">
         <div className="state-icon">🔍</div>
-        <h2>Post not found</h2>
-        <p>The article you are looking for does not exist or may have moved.</p>
+        <h2>{t.notFoundTitle}</h2>
+        <p>{t.notFoundMsg}</p>
         <button
           type="button"
           className="details-back-btn"
           onClick={() => navigate("/blog")}
         >
-          ← Back to Blog
+          {t.backToBlog}
         </button>
       </main>
     );
@@ -114,7 +116,7 @@ function BlogDetails() {
               onClick={() => navigate(-1)}
               aria-label="Go back"
             >
-              ← Back to Blog
+              {t.backToBlog}
             </button>
           </div>
 
@@ -159,7 +161,7 @@ function BlogDetails() {
 
           {/* Markdown article */}
           <article className="markdown-content">
-            <Suspense fallback={<p className="content-loading">Loading content...</p>}>
+            <Suspense fallback={<p className="content-loading">{t.loadingContent}</p>}>
               <ReactMarkdown
                 components={{
                   h2: ({ children }) => {
@@ -184,11 +186,11 @@ function BlogDetails() {
           {/* Related posts */}
           <div className="blog-details-related">
             {relatedLoading ? (
-              <p className="content-loading">Loading related posts...</p>
+              <p className="content-loading">{t.loadingRelated}</p>
             ) : (
               <>
                 {relatedPosts?.length > 0 && (
-                  <p className="related-label">Related Posts</p>
+                  <p className="related-label">{t.relatedPosts}</p>
                 )}
                 <RelatedPosts posts={relatedPosts} />
               </>
