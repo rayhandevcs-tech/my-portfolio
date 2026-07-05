@@ -99,11 +99,13 @@
 .navbar__theme-desktop {
   display: flex;
   align-items: center;
+  gap: 10px;
 }
 
 /* Mobile: navbar__actions এ দেখাবে, desktop এ লুকাবে */
 .navbar__theme-mobile {
   display: none;
+  gap: 10px;
 }
 
 .theme-toggle {
