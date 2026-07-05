@@ -15,6 +15,7 @@ const BookReviewDetails = lazy(() =>
 );
 const Achievements = lazy(() => import("../pages/Achievements/Achievements"));
 const Coursework = lazy(() => import("../pages/Coursework/Coursework"));
+const About = lazy(() => import("../pages/About/About"));
 const Contact = lazy(() => import("../pages/Contact/Contact"));
 const Projects = lazy(() => import("../pages/Projects/Projects"));
 const ProjectDetails = lazy(() =>
@@ -113,10 +114,10 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "contact",
+        path: "about",
         element: (
           <LazyPage>
-            <Contact />
+            <About />
           </LazyPage>
         ),
       },
@@ -125,6 +126,14 @@ export const router = createBrowserRouter([
         element: (
           <LazyPage>
             <Projects />
+          </LazyPage>
+        ),
+      },
+      {
+        path: "contact",
+        element: (
+          <LazyPage>
+            <Contact />
           </LazyPage>
         ),
       },
