@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import helmet from "helmet";
 import compression from "compression";
 import rateLimit from "express-rate-limit";
 import contactRoutes from "./routes/contactRoutes.js";
@@ -35,6 +36,7 @@ const generalLimiter = rateLimit({
   legacyHeaders: false,
 });
 
+app.use(helmet());
 app.use(compression());
 
 app.use(
