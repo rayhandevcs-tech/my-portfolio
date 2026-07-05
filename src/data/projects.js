@@ -61,7 +61,7 @@ export const projects = [
     ],
 
     github: "https://github.com/rayhandevcs-tech/student-hostel-system",
-    live: "https://student-hostel-system.vercel.app/",
+    live: "https://aiub-students-home.vercel.app/",
     },
    { 
     id: 1,

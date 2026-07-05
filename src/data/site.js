@@ -17,7 +17,7 @@ export const siteConfig = {
     chips: ["React", "JavaScript", "C++", "Node.js", "MongoDB", "Problem Solving"],
     primaryCta: { label: "View Projects", to: "/projects" },
     secondaryCta: { label: "Read Blog", to: "/blog" },
-    resumeCta: { label: "Download CV", href: "/resume.pdf" },
+    resumeCta: { label: "Download CV", href: "/MD.Rayhan_Resume.pdf" },
     socials: [
       { label: "Email", href: "mailto:rayhan.dev.cs@gmail.com" },
       { label: "GitHub", href: "https://github.com/rayhandevcs-tech" },
@@ -69,6 +69,7 @@ export const siteConfig = {
 
   navLinks: [
     { label: "Home", path: "/" },
+    { label: "About", path: "/about" },
     { label: "Projects", path: "/projects" },
     { label: "Blog", path: "/blog" },
     { label: "BookReview", path: "/book-reviews" },
